@@ -30,7 +30,7 @@ export const PlayerScore = styled.div<{color: string}>`
   corner-shape: squircle;
 `
 
-export const CurrentTurn = styled.div<{player: number}>`
+export const CurrentTurn = styled.div`
   font-size: 3em;
   text-align: center;
   & div{

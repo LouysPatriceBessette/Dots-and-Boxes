@@ -50,7 +50,7 @@ export default function Home() {
           </PlayerScore>
         </Player>
 
-        <CurrentTurn player={1}>
+        <CurrentTurn>
           Current Turn
           <div>
             { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }

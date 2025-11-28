@@ -51,7 +51,7 @@ export const Square = ({
   }
 
   return (
-    <SquareStyled isFenced={isFenced} wasFencedBy={wasFencedBy}/>
+    <SquareStyled $wasFencedBy={wasFencedBy}/>
   );
 }
 
@@ -117,7 +117,6 @@ export const Dot = ({
     }
 
     if(canConnectWith.includes(identifier)) {
-      console.log(`Gotcha! ${identifier}`)
 
       // Left
       if(origin - 1 === identifier) {
@@ -154,9 +153,9 @@ export const Dot = ({
   return (
     <DotStyled
       onClick={dotClickHandler}
-      isOrigin={origin === identifier}
-      isFriend={canConnectWith.includes(identifier)}
-      origin={origin}
+      $isOrigin={origin === identifier}
+      $isFriend={canConnectWith.includes(identifier)}
+      $origin={origin}
     />
   );
 }
@@ -165,7 +164,7 @@ export const Vline = ({identifier, usedFences}: {identifier: number, usedFences:
   const isUsed = usedFences.includes(`V-${identifier}`)
   
   return (
-    <VlineStyled isUsed={isUsed} />
+    <VlineStyled $isUsed={isUsed} />
   );
 }
 
@@ -173,6 +172,6 @@ export const Hline = ({identifier, usedFences}: {identifier: number, usedFences:
   const isUsed = usedFences.includes(`H-${identifier}`)
   
   return (
-    <HlineStyled isUsed={isUsed} />
+    <HlineStyled $isUsed={isUsed} />
   );
 }
