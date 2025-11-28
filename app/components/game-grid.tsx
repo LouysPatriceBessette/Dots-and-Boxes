@@ -26,10 +26,6 @@ export const GameGrid = ({
   
   const [usedFences, setUsedFences] = useState<string[]>([])
 
-  useEffect(() => {
-    console.log(canConnectWith)
-  }, [canConnectWith])
-
   const dot = (key: number, id: number) => <Dot
     key={key}
     identifier={id}
@@ -128,7 +124,7 @@ export const GameGrid = ({
   }
 
   return (
-    <Grid size={gridSize - 1}>
+    <Grid $size={gridSize - 1}>
       {fillGrid(gridSize)}
     </Grid>
   );
