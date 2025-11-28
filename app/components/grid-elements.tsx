@@ -30,7 +30,6 @@ export const Square = ({
     usedFences.includes(`H-${identifier + rowSize}`)
   )
   
-
   const wasFencedByP1 = fencedByP1.includes(identifier)
   const wasFencedByP2 = fencedByP2.includes(identifier)
 

@@ -46,3 +46,11 @@ export const GameGridContainer = styled.div`
   width: 100%;
 `
 
+export const GameOver = styled.div`
+  color: red;
+  font-size: 4em;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`

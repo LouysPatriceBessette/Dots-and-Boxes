@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 import { GameGrid } from "./components/game-grid";
@@ -9,15 +9,34 @@ import {
   Player,
   PlayerScore,
   CurrentTurn,
-  GameGridContainer
+  GameGridContainer,
+  GameOver,
 } from "./components/page-elements.styled";
 
 export default function Home() {
+
+  // This will com from a user selection
+  const size = 3
+  const finalCount = Math.pow(size -1, 2)
 
   const [currentPlayer, setCurrentPlayer] = useState(1);
 
   const [fencedByP1, setFencedByP1] = useState<number[]>([])
   const [fencedByP2, setFencedByP2] = useState<number[]>([])
+  const [gameover, setGameover] = useState(false)
+
+  if(fencedByP1.length + fencedByP2.length === finalCount) {
+    setTimeout(() => setGameover(true), 50)
+  }
+
+  useEffect(() => {
+    if(currentPlayer === 1) {
+      setCurrentPlayer(2)
+    } else{
+      setCurrentPlayer(1)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fencedByP1, fencedByP2])
 
   return (
     <PageContainer>
@@ -35,7 +54,7 @@ export default function Home() {
             { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
           </div>
         </CurrentTurn>
-        
+
         <Player>
           Player 2
           <PlayerScore color='blue'>
@@ -46,7 +65,7 @@ export default function Home() {
 
       <GameGridContainer >
         <GameGrid
-          size={8}
+          size={size}
           currentPlayer={currentPlayer}
           setCurrentPlayer={setCurrentPlayer}
           fencedByP1={fencedByP1}
@@ -55,6 +74,8 @@ export default function Home() {
           setFencedByP2={setFencedByP2}
         />
       </GameGridContainer>
+
+      {gameover && <GameOver>Game Over</GameOver>}
     </PageContainer>
   );
 }
