@@ -14,13 +14,13 @@ export const SquareStyled = styled.div<{isFenced: boolean, wasFencedBy: number}>
   background-color: ${props => props.wasFencedBy === 1 ? "green" : props.wasFencedBy === 2 ? "blue" : "white"};
 `;
 
-export const DotStyled = styled.div<{isFriend: boolean, isOrigin: boolean}>`
+export const DotStyled = styled.div<{isFriend: boolean, isOrigin: boolean, origin: number}>`
   display: inline-block;
   width: 10px;
   height: 10px;
-  background-color: ${(props) => props.isOrigin ? "red" : props.isFriend ? "green" : "lightgrey"};
+  background-color: ${(props) => props.origin === -1 ? 'black' :props.isOrigin ? "orange" : props.isFriend ? "green" : "lightgrey"};
   border-radius: 50%;
-  cursor: ${(props) => props.isOrigin || props.isFriend ? "pointer" : "default"};
+  cursor: ${(props) => props.origin === -1 || (props.isOrigin || props.isFriend) ? "pointer" : "default"};
 `;
 
 export const VlineStyled = styled.div<{isUsed: boolean}>`

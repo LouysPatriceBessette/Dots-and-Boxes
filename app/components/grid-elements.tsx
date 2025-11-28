@@ -52,9 +52,7 @@ export const Square = ({
   }
 
   return (
-    <div onMouseOver={() =>console.log(identifier)}>
-      <SquareStyled isFenced={isFenced} wasFencedBy={wasFencedBy}/>
-    </div>
+    <SquareStyled isFenced={isFenced} wasFencedBy={wasFencedBy}/>
   );
 }
 
@@ -155,13 +153,12 @@ export const Dot = ({
   }
 
   return (
-    <div onMouseOver={() =>console.log(identifier)}>
     <DotStyled
       onClick={dotClickHandler}
       isOrigin={origin === identifier}
       isFriend={canConnectWith.includes(identifier)}
+      origin={origin}
     />
-    </div>
   );
 }
 
@@ -169,9 +166,7 @@ export const Vline = ({identifier, usedFences}: {identifier: number, usedFences:
   const isUsed = usedFences.includes(`V-${identifier}`)
   
   return (
-    <div onMouseOver={() =>console.log(`V-${identifier}`)}>
-      <VlineStyled isUsed={isUsed} />
-    </div>
+    <VlineStyled isUsed={isUsed} />
   );
 }
 
@@ -179,8 +174,6 @@ export const Hline = ({identifier, usedFences}: {identifier: number, usedFences:
   const isUsed = usedFences.includes(`H-${identifier}`)
   
   return (
-    <div onMouseOver={() =>console.log(`H-${identifier}`)}>
-      <HlineStyled isUsed={isUsed} />
-    </div>
+    <HlineStyled isUsed={isUsed} />
   );
 }
