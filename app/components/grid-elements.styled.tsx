@@ -7,11 +7,11 @@ export const GridStyled = styled.div<{size: number}>`
   grid-template-columns: repeat(${(props) => props.size}, auto);
 `;
 
-export const SquareStyled = styled.div<{isFenced: boolean}>`
+export const SquareStyled = styled.div<{isFenced: boolean, wasFencedBy: number}>`
   display: inline-block;
   width: 40px;
   height: 40px;
-  background-color: ${(props) => props.isFenced ? "green" : "white"};
+  background-color: ${props => props.wasFencedBy === 1 ? "green" : props.wasFencedBy === 2 ? "blue" : "white"};
 `;
 
 export const DotStyled = styled.div<{isFriend: boolean, isOrigin: boolean}>`

@@ -1,7 +1,23 @@
 import { useState, useEffect } from "react";
 import { Grid, Square, Dot, Vline, Hline } from "./grid-elements";
 
-export const GameGrid = ({size}: {size: number}) => {
+export const GameGrid = ({
+  size,
+  currentPlayer,
+  setCurrentPlayer,
+  fencedByP1,
+  fencedByP2,
+  setFencedByP1,
+  setFencedByP2,
+}: {
+  size: number,
+  currentPlayer: number,
+  setCurrentPlayer: React.Dispatch<React.SetStateAction<number>>,
+  fencedByP1: number[],
+  fencedByP2: number[],
+  setFencedByP1: React.Dispatch<React.SetStateAction<number[]>>,
+  setFencedByP2: React.Dispatch<React.SetStateAction<number[]>>,
+}) => {
 
   const gridSize = (size * 2)
 
@@ -24,6 +40,8 @@ export const GameGrid = ({size}: {size: number}) => {
     canConnectWith={canConnectWith}
     setUsedFences={setUsedFences}
     usedFences={usedFences}
+    currentPlayer={currentPlayer}
+    setCurrentPlayer={setCurrentPlayer}
   />
 
   const hline = (key: number, id: number) => <Hline
@@ -43,6 +61,11 @@ export const GameGrid = ({size}: {size: number}) => {
     identifier={id}
     usedFences={usedFences}
     rowSize={size}
+    currentPlayer={currentPlayer}
+    fencedByP1={fencedByP1}
+    fencedByP2={fencedByP2}
+    setFencedByP1={setFencedByP1}
+    setFencedByP2={setFencedByP2}
   />
 
 
