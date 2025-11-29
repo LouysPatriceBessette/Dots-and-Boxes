@@ -3,7 +3,7 @@ import { ACTION_TYPES } from './types';
 
 export const INITIAL_STATE = {
   game: {
-    size: 3,
+    size: 10,
     gameover: false,
   },
   player: {
@@ -40,13 +40,19 @@ export const gameReducer = (state = INITIAL_STATE.game, action) => {
 };
 
 export const playerReducer = (state = INITIAL_STATE.player, action) => {
-  const { type } = action;
+  const { type, payload } = action;
 
+  let nextPlayer
+  if(!payload){
+    nextPlayer = state.currentPlayer === 1 ? 2 : 1
+  } else{
+    nextPlayer = payload
+  }
   switch (type) {
     case ACTION_TYPES.TOGGLE_CURRENT_PLAYER:
       return {
         ...state,
-        currentPlayer: state.currentPlayer === 1 ? 2 : 1,
+        currentPlayer: nextPlayer,
       };
     default:
       return state;

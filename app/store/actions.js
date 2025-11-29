@@ -7,8 +7,8 @@ export const setGameSize = (size) =>
 export const setGameover = (gameover) =>
   createAction(ACTION_TYPES.SET_GAMEOVER, gameover);
 
-export const toggleCurrentPlayer = () =>
-  createAction(ACTION_TYPES.TOGGLE_CURRENT_PLAYER);
+export const toggleCurrentPlayer = (nextPlayer) =>
+  createAction(ACTION_TYPES.TOGGLE_CURRENT_PLAYER, nextPlayer);
 
 export const setOrigin = (origin) =>
   createAction(ACTION_TYPES.SET_ORIGIN, origin);

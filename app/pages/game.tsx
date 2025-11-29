@@ -1,11 +1,8 @@
 'use client'
-import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import {
   // setGameSize,
   setGameover,
-  toggleCurrentPlayer,
-
 } from "../store/actions";
 import {
   useSize,
@@ -43,11 +40,6 @@ export const Game = () => {
   if(fencedByP1.length + fencedByP2.length === finalCount) {
     setTimeout(() => dispatch(setGameover(true)), 50)
   }
-
-  useEffect(() => {
-    dispatch(toggleCurrentPlayer())
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fencedByP1, fencedByP2])
 
   return (
     <PageContainer>
