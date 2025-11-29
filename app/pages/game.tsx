@@ -12,6 +12,7 @@ import {
   useFencedByP2,
 } from "../store/selectors";
 
+import { GameControls } from "./game-controls";
 import { GameGrid } from "../components/game-grid";
 import {
   PageContainer,
@@ -43,6 +44,7 @@ export const Game = () => {
 
   return (
     <PageContainer>
+      <GameControls/>
       <PlayersHeader>
         <Player>
           Player 1

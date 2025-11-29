@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
 import {
   setSocketInstance,
   setSocketLocalId,
+  // setSocketRemoteId,
   setChatMessage,
   toggleCurrentPlayer,
   setUsedFences
 } from '../store/actions';
 import { Socket } from 'socket.io-client';
-import React from 'react';
 
 export const socketKill = (socket: Socket) => {
   socket.disconnect();
@@ -31,7 +31,8 @@ export const SocketListen = () => {
     socket.on('connect', () => {
       console.log('Connected to WebSocket server');
       dispatch(setSocketInstance(socket))
-      dispatch(setSocketLocalId(socket.id))
+      dispatch(setSocketLocalId(socket.id ?? ''))
+      localStorage.setItem('socketId', socket.id ?? '')
     });
   
     socket.on('disconnect', () => {
@@ -50,21 +51,35 @@ export const SocketListen = () => {
       }
   
       if(command){
-        console.log(command)
-        switch(command.action){
-  
-          // {"action":"toggle-player"}
-          case 'toggle-player':
-            dispatch(toggleCurrentPlayer())
-            break;
-            
-          // {"action":"move", "move":"V-2"}
-          case 'move':
-            console.log('Dispatching move', command.move)
-            dispatch(setUsedFences(command.move))
-            break;
+        console.log('command received', command)
+
+        if(command.from === 'server'){
+          switch(command.action){
+
+            // {from: "server", "action":"create-game", "message":"Hello from the server!"}
+            case 'create-game':
+              // dispatch(setChatMessage(command.message))
+              break;
+          }
+        }
+
+        if(command.from !== 'player'){
+          switch(command.action){
+    
+            // {from: "player", "action":"toggle-player"}
+            case 'toggle-player':
+              dispatch(toggleCurrentPlayer())
+              break;
+              
+            // {from: "player", "action":"move", "move":"V-2"}
+            case 'move':
+              console.log('Dispatching move', command.move)
+              dispatch(setUsedFences(command.move))
+              break;
+          }
         }
       }else{
+        // Display chat message
         dispatch(setChatMessage(msg));
       }
     });
