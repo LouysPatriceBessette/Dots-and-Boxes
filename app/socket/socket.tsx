@@ -32,7 +32,6 @@ export const SocketListen = () => {
       console.log('Connected to WebSocket server');
       dispatch(setSocketInstance(socket))
       dispatch(setSocketLocalId(socket.id ?? ''))
-      localStorage.setItem('socketId', socket.id ?? '')
     });
   
     socket.on('disconnect', () => {
@@ -56,9 +55,23 @@ export const SocketListen = () => {
         if(command.from === 'server'){
           switch(command.action){
 
-            // {from: "server", "action":"create-game", "message":"Hello from the server!"}
-            case 'create-game':
-              // dispatch(setChatMessage(command.message))
+            case 'hello':
+              const savedSocketId = localStorage.getItem('socketId')
+
+              const reply = {
+                to: 'server',
+                action: 'refresh-id',
+                oldSocketId: savedSocketId,
+                newSocketId: command.socketId,
+              }
+              socket.emit('message', JSON.stringify(reply))
+
+              localStorage.setItem('socketId', command.socketId)
+              break;
+
+            case 'created-game':
+
+              // gameId TODO store gameId in localhost / redux
               break;
           }
         }

@@ -1,7 +1,6 @@
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import next from 'next';
-import { parse } from 'path';
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -36,6 +35,18 @@ app.prepare().then(() => {
   io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
+    // Send a hello message - The player may refresh its socket id.
+    const hello = {
+      from: 'server',
+      action: 'hello',
+      socketId: socket.id,
+    }
+    socket.emit('message', JSON.stringify(hello));
+
+
+    //
+    // MESSAGES
+    //
     socket.on('message', (msg) => {
 
       // Attempt to parse the message
@@ -44,6 +55,26 @@ app.prepare().then(() => {
       // Messages to server
       if(parsed && parsed.to === 'server') {
         console.log('Message to server', msg)
+
+        // REFRESH SOCKET ID
+        if(games.length && parsed.action === 'refresh-id' && parsed.oldSocketId && parsed.newSocketId){
+          
+          console.log(games)
+          // The use is to resync with a game
+          const userGames = games.filter((game) => game.players.includes(parsed.oldSocketId))
+          console.log('userGames', userGames)
+          if(userGames) {
+            userGames.forEach((game) => {
+              game.players[game.players.indexOf(parsed.oldSocketId)] = parsed.newSocketId
+            })
+          }
+          console.log(games)
+
+          io.to(parsed.newSocketId).emit('message', JSON.stringify({
+            from: 'server',
+            action: 'socket-id-refreshed',
+          }))
+        }
 
         // CREATE GAME
         if(parsed.action === 'create-game'){
