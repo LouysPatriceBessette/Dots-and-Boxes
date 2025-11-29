@@ -14,12 +14,9 @@
     "next": "16.0.5",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-<<<<<<< HEAD
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
-=======
     "react-redux": "^9.2.0",
->>>>>>> main
     "styled-components": "^6.1.19"
   },
   "devDependencies": {
