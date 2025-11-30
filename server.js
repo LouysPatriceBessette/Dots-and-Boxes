@@ -90,6 +90,7 @@ app.prepare().then(() => {
             from: 'server',
             action: 'socket-id-refreshed',
             redux: currentGame.redux,
+            youArePlayer: currentGame.players.indexOf(parsed.newSocketId) + 1,
           }))
         }
 

@@ -92,6 +92,7 @@ export const SocketListen = () => {
             // refresh redux (like on page reload)
             case 'socket-id-refreshed':
               dispatch(refreshReduxStore(command.redux))
+              dispatch(setIamPlayer(command.youArePlayer))
               break;
           }
         }
