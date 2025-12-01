@@ -1,10 +1,12 @@
 import { Button } from "./game-controls.styled";
 import {
   setGameId,
+  setPlayer1Name,
 } from '../store/actions';
 import {
   useSocketInstance,
   useSocketLocalId,
+  usePlayer1Name,
   useGameId,
 } from "../store/selectors";
 import { useDispatch } from "react-redux";
@@ -13,11 +15,23 @@ import { useDispatch } from "react-redux";
 export const GameControls = () => {
   const socket = useSocketInstance()
   const socketId = useSocketLocalId()
+  const player1Name = usePlayer1Name()
   const gameId = useGameId()
 
   const dispatch = useDispatch()
 
   const createGame = () => {
+    let promptAnswer
+    if(!player1Name) {
+      promptAnswer = prompt('Enter your name')
+    }
+
+    if(!promptAnswer) {
+      alert('Name is required to create a game')
+      return
+    }
+    dispatch(setPlayer1Name(promptAnswer))
+    localStorage.setItem('player1Name', promptAnswer)
     const request = {
       from: 'player',
       to: 'server',
@@ -47,7 +61,7 @@ export const GameControls = () => {
   }
 
   const gameIdString = gameId.toString().slice(0,3) + ' ' + gameId.toString().slice(3,6)
-  
+
   return (<>
     <div>
       <Button onClick={() => {

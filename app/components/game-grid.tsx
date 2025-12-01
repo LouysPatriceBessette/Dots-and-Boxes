@@ -1,15 +1,21 @@
 import { GridContainer, GridOverlay, Grid, Square, Dot, Vline, Hline } from "./grid-elements";
 import {
   useSize,
+  useGameId,
   useCurrentPlayer,
   useIamPlayer,
+  useSocketRemoteId,
+  useGameover,
 } from "../store/selectors";
 
 export const GameGrid = () => {
   const size = useSize()
   const gridSize = (size * 2)
+  const gameId = useGameId()
   const currentPlayer = useCurrentPlayer()
   const iamPlayer = useIamPlayer()
+  const remotePlayerId = useSocketRemoteId()
+  const gameover = useGameover()
   
   const dot = (key: number, id: number) => <Dot
     key={key}
@@ -90,10 +96,13 @@ export const GameGrid = () => {
     return cells
   }
 
-  const waitingForOpponent = currentPlayer !== iamPlayer
+  const waitingForOpponentMove = currentPlayer !== iamPlayer
+  const waitingForOpponentJoin = remotePlayerId === '' && gameId !== -1
+  const waitingForOpponent = waitingForOpponentMove || waitingForOpponentJoin || gameId === -1 || gameover
+  const waitingForOpponentMsg = waitingForOpponentJoin ? 'Awaiting opponent to join' : waitingForOpponentMove ? `Awaiting opponent's move` : ''
   return (
     <GridContainer $waitingForOpponent={waitingForOpponent}>
-      <GridOverlay $waitingForOpponent={waitingForOpponent}>Awaiting opponent&apos;s move</GridOverlay>
+      <GridOverlay $waitingForOpponent={waitingForOpponent}>{waitingForOpponentMsg}</GridOverlay>
     <Grid $size={gridSize - 1} $waitingForOpponent={waitingForOpponent}>
       {fillGrid(gridSize)}
     </Grid>

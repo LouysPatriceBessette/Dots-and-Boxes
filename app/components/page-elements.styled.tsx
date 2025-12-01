@@ -33,13 +33,14 @@ export const PlayerScore = styled.div<{color: string}>`
   corner-shape: squircle;
 `
 
-export const CurrentTurn = styled.div`
+export const CurrentTurn = styled.div<{$visible: boolean}>`
   text-align: center;
   font-weight: bold;
   font-size: 5em;
   & span{
     color: #fe7474ff;
   }
+    ${(props) => props.$visible ? 'display: none;' : ''}
 `
 
 export const GameGridContainer = styled.div`

@@ -7,6 +7,12 @@ export const refreshReduxStore = (data) =>
 export const setGameSize = (size) =>
   createAction(ACTION_TYPES.SET_SIZE, size);
 
+export const setPlayer1Name = (name) =>
+  createAction(ACTION_TYPES.SET_PLAYER_1_NAME, name);
+
+export const setPlayer2Name = (name) =>
+  createAction(ACTION_TYPES.SET_PLAYER_2_NAME, name);
+
 export const setGameId = (gameId) =>
   createAction(ACTION_TYPES.SET_GAME_ID, gameId);
 

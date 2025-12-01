@@ -2,11 +2,15 @@ import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import {
   // setGameSize,
+  setPlayer1Name,
   setGameId,
   setGameover,
 } from "../store/actions";
 import {
   useSize,
+  usePlayer1Name,
+  usePlayer2Name,
+  useGameId,
   useGameover,
   useCurrentPlayer,
   useFencedByP1,
@@ -33,6 +37,11 @@ export const Game = () => {
 
   useEffect(() => {
     const storedGameId = localStorage.getItem('gameId')
+    const player1Name = localStorage.getItem('player1Name')
+
+    if(player1Name) {
+      dispatch(setPlayer1Name(player1Name))
+    }
     if(storedGameId) {
       dispatch(setGameId(storedGameId))
     }
@@ -41,6 +50,9 @@ export const Game = () => {
 
   // This will com from a user selection
   const size = useSize()
+  const player1Name = usePlayer1Name()
+  const player2Name = usePlayer2Name()
+  const gameId = useGameId()
   const finalCount = Math.pow(size -1, 2)
 
   const fencedByP1 = useFencedByP1()
@@ -56,18 +68,18 @@ export const Game = () => {
       <GameControls/>
       <PlayersHeader>
         <Player>
-          Player 1
+          {player1Name}
           <PlayerScore color='green'>
             {fencedByP1.length}
           </PlayerScore>
         </Player>
 
-        <CurrentTurn>
+        <CurrentTurn $visible={!gameover || gameId === -1}>
           { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
         </CurrentTurn>
 
         <Player>
-          Player 2
+          {player2Name}
           <PlayerScore color='blue'>
             {fencedByP2.length}
           </PlayerScore>

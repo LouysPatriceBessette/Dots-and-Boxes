@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { combineReducers } from "redux";
 import { ACTION_TYPES } from '../basics/constants';
+import { INITIAL_STATE_TYPE } from "../basics/types";
 
-
-export const INITIAL_STATE = {
+export const INITIAL_STATE: INITIAL_STATE_TYPE = {
   chat: {
     messages: [],
   },
   game: {
     gameId: -1,
     size: 3,
+    player1Name: 'Player 1',
+    player2Name: 'Player 2',
     currentPlayer: 1,
     gameover: false,
     usedFences: [],
@@ -27,8 +30,8 @@ export const INITIAL_STATE = {
   },
 };
 
-export const gameReducer = (state = INITIAL_STATE.game, action) => {
-  const { type, payload } = action;
+export const gameReducer = (state = INITIAL_STATE.game, action: {type: string, payload: any}) => {
+  const { type, payload } = action
 
   if(type === ACTION_TYPES.REFRESH_REDUX_STORE){
     return {
@@ -53,6 +56,16 @@ export const gameReducer = (state = INITIAL_STATE.game, action) => {
       return {
         ...state,
         size: payload,
+      };
+    case ACTION_TYPES.SET_PLAYER_1_NAME:
+      return {
+        ...state,
+        player1Name: payload,
+      };
+    case ACTION_TYPES.SET_PLAYER_2_NAME:
+      return {
+        ...state,
+        player2Name: payload,
       };
     case ACTION_TYPES.SET_GAME_ID:
       return {
@@ -84,8 +97,8 @@ export const gameReducer = (state = INITIAL_STATE.game, action) => {
   }
 };
 
-export const mouseReducer = (state = INITIAL_STATE.mouse, action) => {
-  const { type, payload } = action;
+export const mouseReducer = (state = INITIAL_STATE.mouse, action: {type: string, payload: any}) => {
+  const { type, payload } = action
 
   switch (type) {
     case ACTION_TYPES.SET_ORIGIN:
@@ -103,8 +116,8 @@ export const mouseReducer = (state = INITIAL_STATE.mouse, action) => {
   }
 };
 
-export const chatReducer = (state = INITIAL_STATE.chat, action) => {
-  const { type, payload } = action;
+export const chatReducer = (state = INITIAL_STATE.chat, action: {type: string, payload: any}) => {
+  const { type, payload } = action
 
   if(type === ACTION_TYPES.REFRESH_REDUX_STORE){
     return {
@@ -123,8 +136,8 @@ export const chatReducer = (state = INITIAL_STATE.chat, action) => {
   }
 };
 
-export const socketReducer = (state = INITIAL_STATE.socket, action) => {
-  const { type, payload } = action;
+export const socketReducer = (state = INITIAL_STATE.socket, action: {type: string, payload: any}) => {
+  const { type, payload } = action
 
   switch (type) {
     case ACTION_TYPES.SET_IAM_PLAYER:

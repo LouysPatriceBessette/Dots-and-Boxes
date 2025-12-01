@@ -8,7 +8,7 @@ export const randomGameId = (games) => {
   // Check if already exist
   if(games && games.find(game => game.id === number)) {
     return randomGameId()
-  } else if(number.toString().length < 6){
+  } else if(number.toString().split('').length < 6){
     return randomGameId()
   } else {
     return number
