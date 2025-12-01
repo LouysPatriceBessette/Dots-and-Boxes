@@ -8,13 +8,16 @@ export const PageContainer = styled.div`
 export const PlayersHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
-  margin-bottom: 60px;
+  margin-bottom: 10px;
+  font-weight: bold;
 `
 
 export const Player = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `
 
 export const PlayerScore = styled.div<{color: string}>`
@@ -31,12 +34,11 @@ export const PlayerScore = styled.div<{color: string}>`
 `
 
 export const CurrentTurn = styled.div`
-  font-size: 3em;
   text-align: center;
-  & div{
-    font-weight: bold;
-    font-size: 2em;
-    transform: translateY(-80px);
+  font-weight: bold;
+  font-size: 5em;
+  & span{
+    color: #fe7474ff;
   }
 `
 
@@ -47,7 +49,7 @@ export const GameGridContainer = styled.div`
 `
 
 export const GameOver = styled.div`
-  color: red;
+  color: #fe7474ff;
   font-size: 4em;
   font-weight: 600;
   display: flex;

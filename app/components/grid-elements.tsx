@@ -1,4 +1,4 @@
-import { GridStyled, SquareStyled, DotStyled, VlineStyled, HlineStyled } from "./grid-elements.styled";
+import { GridContainerStyled, GridOverlayStyled, GridStyled, SquareStyled, DotStyled, VlineStyled, HlineStyled } from "./grid-elements.styled";
 
 import { useDispatch } from 'react-redux';
 import {
@@ -10,6 +10,8 @@ import {
   setUsedFences,
 } from "../store/actions";
 import {
+  useChat,
+  useGame,
   useCurrentPlayer,
   useFencedByP1,
   useFencedByP2,
@@ -17,9 +19,15 @@ import {
   useOrigin,
   useUsedFences,
   useSize,
+  useSocketInstance,
+  useSocketLocalId,
+  useSocketRemoteId,
 } from "../store/selectors";
+import { SOCKET_ACTIONS } from "../basics/constants";
 
 export const Grid = GridStyled
+export const GridContainer = GridContainerStyled
+export const GridOverlay = GridOverlayStyled
 
 export const Square = ({identifier}: {identifier: number}) => {
   const dispatch = useDispatch()
@@ -41,10 +49,14 @@ export const Square = ({identifier}: {identifier: number}) => {
 
   const wasFencedBy = wasFencedByP1 ? 1 : wasFencedByP2 ? 2 : 0
   if(isFenced && !wasFencedByP1 && !wasFencedByP2) {
-    if(currentPlayer === 2) { // runs after render... So players are reversed
-      setTimeout(() => dispatch(setFencedByP1(identifier)), 50)
+
+    // We need to delay the togglePlayer to let the squares render first and dispatch all fencedBy
+    if(currentPlayer === 1) {
+      dispatch(setFencedByP2(identifier))
+      setTimeout(() => dispatch(toggleCurrentPlayer(2)), 100)
     } else {
-      setTimeout(() => dispatch(setFencedByP2(identifier)), 50)
+      dispatch(setFencedByP1(identifier))
+      setTimeout(() => dispatch(toggleCurrentPlayer(1)), 100)
     }
   }
 
@@ -55,6 +67,19 @@ export const Square = ({identifier}: {identifier: number}) => {
 
 export const Dot = ({identifier}:{identifier: number}) => {
   const dispatch = useDispatch()
+  const socket = useSocketInstance()
+  const currentPlayer = useCurrentPlayer()
+
+  const chat = useChat()
+  const game = useGame()
+  const storeForBackend = {
+    chat: {...chat},
+    game: {...game},
+  }
+
+  const localPlayerId = useSocketLocalId()
+  const remotePlayerId = useSocketRemoteId()
+
   const canConnectWith = useCanConnectWith()
   const origin = useOrigin()
   const usedFences = useUsedFences()
@@ -78,10 +103,33 @@ export const Dot = ({identifier}:{identifier: number}) => {
 
   const friends = [up, right, down, left]
 
-  const resetTurn = () => {
+  const resetTurn = (payload: string) => {
+    const nextPlayer = currentPlayer === 1 ? 2 : 1
+
     dispatch(setOrigin(-1))
     dispatch(setCanConnectWith([]))
-    dispatch(toggleCurrentPlayer())
+    dispatch(toggleCurrentPlayer(nextPlayer))
+
+    const storeToSend = {
+      ...storeForBackend,
+      game: {
+        gameId: storeForBackend.game.gameId,
+        currentPlayer: nextPlayer,
+        usedFences: [...storeForBackend.game.usedFences, payload],
+      }
+    }
+
+    // Send a redux copy to to other player (and a copy will stay on the server)
+    const command = {
+      from: 'player',
+      to: 'player',
+      gameId: storeToSend.game.gameId,
+      localPlayerId: localPlayerId,
+      remotePlayerId: remotePlayerId,
+      action: SOCKET_ACTIONS.UPDATE_OTHER_PLAYER_REDUX,
+      redux: storeToSend,
+    }
+    socket.emit('message', JSON.stringify(command));
   }
   const dotClickHandler = () => {
     if(canConnectWith.length === 0 && origin === -1) {
@@ -101,28 +149,28 @@ export const Dot = ({identifier}:{identifier: number}) => {
       // Left
       if(origin - 1 === identifier) {
         dispatch(setUsedFences(`H-${identifier}`))
-        resetTurn()
+        resetTurn(`H-${identifier}`)
         return
       }
 
       // Right
       if(origin + 1 === identifier) {
         dispatch(setUsedFences(`H-${origin}`))
-        resetTurn()
+        resetTurn(`H-${origin}`)
         return
       }
 
       // Up
       if(origin - size === identifier) {
         dispatch(setUsedFences(`V-${identifier}`))
-        resetTurn()
+        resetTurn(`V-${identifier}`)
         return
       }
 
       // Down
       if(origin + size === identifier) {
         dispatch(setUsedFences(`V-${origin}`))
-        resetTurn()
+        resetTurn(`V-${origin}`)
         return
       }
     }

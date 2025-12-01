@@ -1,14 +1,20 @@
-import { ACTION_TYPES } from './types';
-import { createAction } from './utils';
+import { ACTION_TYPES } from '../basics/constants';
+import { createAction } from '../basics/utils';
+
+export const refreshReduxStore = (data) =>
+  createAction(ACTION_TYPES.REFRESH_REDUX_STORE, data);
 
 export const setGameSize = (size) =>
   createAction(ACTION_TYPES.SET_SIZE, size);
 
+export const setGameId = (gameId) =>
+  createAction(ACTION_TYPES.SET_GAME_ID, gameId);
+
 export const setGameover = (gameover) =>
   createAction(ACTION_TYPES.SET_GAMEOVER, gameover);
 
-export const toggleCurrentPlayer = () =>
-  createAction(ACTION_TYPES.TOGGLE_CURRENT_PLAYER);
+export const toggleCurrentPlayer = (nextPlayer) =>
+  createAction(ACTION_TYPES.TOGGLE_CURRENT_PLAYER, nextPlayer);
 
 export const setOrigin = (origin) =>
   createAction(ACTION_TYPES.SET_ORIGIN, origin);
@@ -25,5 +31,17 @@ export const setFencedByP1 = (fencedByP1) =>
 export const setFencedByP2 = (fencedByP2) =>
   createAction(ACTION_TYPES.SET_FENCED_BY_P2, fencedByP2);
 
-export const resetMoves = () =>
-  createAction(ACTION_TYPES.RESET_MOVES);
+export const setIamPlayer = (player) =>
+  createAction(ACTION_TYPES.SET_IAM_PLAYER, player);
+
+export const setSocketInstance = (socketInstance) =>
+  createAction(ACTION_TYPES.SET_SOCKET_INSTANCE, socketInstance);
+
+export const setSocketLocalId = (socketId) =>
+  createAction(ACTION_TYPES.SET_SOCKET_LOCAL_ID, socketId);
+
+export const setSocketRemoteId = (socketId) =>
+  createAction(ACTION_TYPES.SET_SOCKET_REMOTE_ID, socketId);
+
+export const setChatMessage = (message) =>
+  createAction(ACTION_TYPES.SET_CHAT_MESSAGE, message);

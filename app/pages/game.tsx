@@ -1,11 +1,9 @@
-'use client'
 import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import {
   // setGameSize,
+  setGameId,
   setGameover,
-  toggleCurrentPlayer,
-
 } from "../store/actions";
 import {
   useSize,
@@ -15,6 +13,7 @@ import {
   useFencedByP2,
 } from "../store/selectors";
 
+import { GameControls } from "../components/game-controls";
 import { GameGrid } from "../components/game-grid";
 import {
   PageContainer,
@@ -32,6 +31,14 @@ export const Game = () => {
 
   const currentPlayer = useCurrentPlayer()
 
+  useEffect(() => {
+    const storedGameId = localStorage.getItem('gameId')
+    if(storedGameId) {
+      dispatch(setGameId(storedGameId))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   // This will com from a user selection
   const size = useSize()
   const finalCount = Math.pow(size -1, 2)
@@ -41,16 +48,12 @@ export const Game = () => {
   const gameover = useGameover()
 
   if(fencedByP1.length + fencedByP2.length === finalCount) {
-    setTimeout(() => dispatch(setGameover(true)), 50)
+    setTimeout(() => dispatch(setGameover(true)), 100)
   }
-
-  useEffect(() => {
-    dispatch(toggleCurrentPlayer())
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fencedByP1, fencedByP2])
 
   return (
     <PageContainer>
+      <GameControls/>
       <PlayersHeader>
         <Player>
           Player 1
@@ -60,10 +63,7 @@ export const Game = () => {
         </Player>
 
         <CurrentTurn>
-          Current Turn
-          <div>
-            { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
-          </div>
+          { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
         </CurrentTurn>
 
         <Player>
