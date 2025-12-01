@@ -11,14 +11,15 @@ import {
   refreshReduxStore,
 } from '../store/actions';
 import { Socket } from 'socket.io-client';
+import { SOCKET_ACTIONS, tryParseJson } from '../../constants/constants';
 
 export const socketKill = (socket: Socket) => {
   socket.disconnect();
 }
 
-export const sendMessage = (socket: Socket, messageInput: string, setMessageInput: React.Dispatch<React.SetStateAction<string>>) => {
-  if (socket && messageInput) {
-    socket.emit('message', messageInput);
+export const sendMessage = (socket: Socket, message: string, setMessageInput: React.Dispatch<React.SetStateAction<string>>) => {
+  if (socket && message) {
+    socket.emit('message', JSON.stringify({from: 'chat', to: 'chat', message}));
     setMessageInput('');
   }
 };
@@ -41,13 +42,7 @@ export const SocketListen = () => {
     socket.on('message', (msg) => {
       console.log('Message received:', msg);
   
-      let command
-      try{
-        command = JSON.parse(msg)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch(error){
-        // Nothing to do...
-      }
+      const command = tryParseJson(msg)
   
       if(command){
         console.log('command received', command)
@@ -55,11 +50,12 @@ export const SocketListen = () => {
         if(command.from === 'server'){
           switch(command.action){
 
-            case 'hello':
+            case SOCKET_ACTIONS.HELLO:
               const savedSocketId = localStorage.getItem('socketId') ?? ''
               const gameId = localStorage.getItem('gameId') ?? ''
 
               const reply = {
+                from: 'player',
                 to: 'server',
                 action: 'refresh-id',
                 gameId: gameId,
@@ -71,47 +67,62 @@ export const SocketListen = () => {
               localStorage.setItem('socketId', command.socketId)
               break;
 
-            case 'created-game':
+            case SOCKET_ACTIONS.CREATED_GAME:
               dispatch(setGameId(command.gameId))
               localStorage.setItem('gameId', command.gameId)
               break;
 
             // Player 1
-            case 'player-joined-my-game':
+            case SOCKET_ACTIONS.PLAYER_JOINED_MY_GAME:
               dispatch(setSocketRemoteId(command.otherPlayer))
               break;
               
             // Player 2
-            case 'connected-to-a-game':
+            case SOCKET_ACTIONS.CONNECTED_TO_A_GAME:
               dispatch(setGameId(command.gameId))
               dispatch(setSocketRemoteId(command.otherPlayer))
               dispatch(setIamPlayer(2))                         // TODO: This is not persistent on page reload...
               localStorage.setItem('gameId', command.gameId)
               break;
             
-            // refresh redux (like on page reload)
-            case 'socket-id-refreshed':
-              dispatch(refreshReduxStore(command.redux))
-              dispatch(setIamPlayer(command.youArePlayer))
+            case SOCKET_ACTIONS.JOIN_FAILED:
+              alert('Game does not exist')
+              dispatch(setGameId(-1))
+              localStorage.removeItem('gameId')
               break;
 
-            case 'remote-player-id-updated':
+            case SOCKET_ACTIONS.PREVIOUS_GAME_DELETED:
+              dispatch(setGameId(-1))
+              localStorage.removeItem('gameId')
+              // alert('The game you were in has been deleted from the server.')
+              break;
+
+            // Refresh redux (like on page reload) - Ifs are in case the game does not exist on server
+            case SOCKET_ACTIONS.LOCAL_SOCKET_ID_REFRESHED:
+              if(command.redux) dispatch(refreshReduxStore(command.redux))
+              if(command.youArePlayer) dispatch(setIamPlayer(command.youArePlayer))
+              break;
+
+            case SOCKET_ACTIONS.REMOTE_SOCKET_ID_REFRESHED:
               dispatch(setSocketRemoteId(command.newRemoteSocketId))
               break;
           }
         }
 
-        if(command.from !== 'player'){
+        if(command.from === 'player'){
           switch(command.action){
 
-            case 'update-other-player-redux':
+            case SOCKET_ACTIONS.UPDATE_OTHER_PLAYER_REDUX:
               dispatch(refreshReduxStore(command.redux))
               break;
           }
         }
-      }else{
-        // Display chat message
-        dispatch(setChatMessage(msg));
+
+        if(command.from === 'chat'){
+          dispatch(setChatMessage(command.message))
+        }
+      } else {
+        console.log('Received a string message:', msg);
       }
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps

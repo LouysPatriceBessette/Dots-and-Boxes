@@ -19,6 +19,7 @@ export const GameControls = () => {
 
   const createGame = () => {
     const request = {
+      from: 'player',
       to: 'server',
       action: 'create-game',
       socketId: socketId,
@@ -32,6 +33,7 @@ export const GameControls = () => {
 
     if(newGameId && !isNaN(newGameId) && newGameId > 0) {
       const request = {
+        from: 'player',
         to: 'server',
         action: 'join-game',
         socketId: socketId,

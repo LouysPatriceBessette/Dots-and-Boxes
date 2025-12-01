@@ -23,6 +23,7 @@ import {
   useSocketLocalId,
   useSocketRemoteId,
 } from "../store/selectors";
+import { SOCKET_ACTIONS } from "@/constants/constants";
 
 export const Grid = GridStyled
 export const GridContainer = GridContainerStyled
@@ -118,11 +119,12 @@ export const Dot = ({identifier}:{identifier: number}) => {
 
     // Send a redux copy to to other player (and a copy will stay on the server)
     const command = {
+      from: 'player',
       to: 'player',
       gameId: storeToSend.game.gameId,
       localPlayerId: localPlayerId,
       remotePlayerId: remotePlayerId,
-      action: 'update-other-player-redux',
+      action: SOCKET_ACTIONS.UPDATE_OTHER_PLAYER_REDUX,
       redux: storeToSend,
     }
     socket.emit('message', JSON.stringify(command));
