@@ -48,7 +48,7 @@ export const Game = () => {
   const gameover = useGameover()
 
   if(fencedByP1.length + fencedByP2.length === finalCount) {
-    setTimeout(() => dispatch(setGameover(true)), 50)
+    setTimeout(() => dispatch(setGameover(true)), 100)
   }
 
   return (

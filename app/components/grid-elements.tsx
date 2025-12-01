@@ -53,10 +53,10 @@ export const Square = ({identifier}: {identifier: number}) => {
     // We need to delay the togglePlayer to let the squares render first and dispatch all fencedBy
     if(currentPlayer === 1) {
       dispatch(setFencedByP2(identifier))
-      setTimeout(() => dispatch(toggleCurrentPlayer(2)), 50)
+      setTimeout(() => dispatch(toggleCurrentPlayer(2)), 100)
     } else {
       dispatch(setFencedByP1(identifier))
-      setTimeout(() => dispatch(toggleCurrentPlayer(1)), 50)
+      setTimeout(() => dispatch(toggleCurrentPlayer(1)), 100)
     }
   }
 
@@ -113,7 +113,7 @@ export const Dot = ({identifier}:{identifier: number}) => {
     const storeToSend = {
       ...storeForBackend,
       game: {
-        ...storeForBackend.game,
+        gameId: storeForBackend.game.gameId,
         currentPlayer: nextPlayer,
         usedFences: [...storeForBackend.game.usedFences, payload],
       }

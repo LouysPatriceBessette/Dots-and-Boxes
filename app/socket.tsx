@@ -29,22 +29,29 @@ export const SocketListen = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const socket = io();
+    let socket: Socket;
+    try{
+      socket = io();
+    } catch(error){
+      console.error('WebSocket instanciation error:', error);
+      return;
+    }
+
     socket.on('connect', () => {
       console.log('Connected to WebSocket server');
       dispatch(setSocketInstance(socket))
       dispatch(setSocketLocalId(socket.id ?? ''))
     });
-  
-    socket.on('disconnect', () => {
-      console.log('Disconnected from WebSocket server');
+
+    socket.on('disconnect', (reason) => {
+      console.log('Disconnected from WebSocket server', reason);
     });
-  
+
     socket.on('message', (msg) => {
       console.log('Message received:', msg);
-  
+
       const command = tryParseJson(msg)
-  
+
       if(command){
         console.log('command received', command)
 
@@ -126,8 +133,12 @@ export const SocketListen = () => {
         console.log('Received a string message:', msg);
       }
     });
+
+    socket.on('error', (err) => {
+      console.error(`Socket.IO connection error: ${err.message}`);
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  
+
   return <div></div>
 }

@@ -32,6 +32,7 @@ export const gameReducer = (state = INITIAL_STATE.game, action) => {
 
   if(type === ACTION_TYPES.REFRESH_REDUX_STORE){
     return {
+      ...state,
       ...payload.game,
     }
   }
