@@ -49,12 +49,14 @@ export const Square = ({identifier}: {identifier: number}) => {
 
   const wasFencedBy = wasFencedByP1 ? 1 : wasFencedByP2 ? 2 : 0
   if(isFenced && !wasFencedByP1 && !wasFencedByP2) {
+
+    // We need to delay the togglePlayer to let the squares render first and dispatch all fencedBy
     if(currentPlayer === 1) {
       dispatch(setFencedByP2(identifier))
-      dispatch(toggleCurrentPlayer(2))
+      setTimeout(() => dispatch(toggleCurrentPlayer(2)), 50)
     } else {
       dispatch(setFencedByP1(identifier))
-      dispatch(toggleCurrentPlayer(1))
+      setTimeout(() => dispatch(toggleCurrentPlayer(1)), 50)
     }
   }
 
