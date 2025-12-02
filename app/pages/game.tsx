@@ -13,6 +13,7 @@ import {
   useGameId,
   useGameover,
   useCurrentPlayer,
+  useIamPlayer,
   useFencedByP1,
   useFencedByP2,
 } from "../store/selectors";
@@ -23,6 +24,8 @@ import {
   PageContainer,
   PlayersHeader,
   Player,
+  PlayerNameContainer,
+  PlayerOnlineIndicator,
   PlayerScore,
   CurrentTurn,
   GameGridContainer,
@@ -50,6 +53,7 @@ export const Game = () => {
 
   // This will com from a user selection
   const size = useSize()
+  const iamPlayer = useIamPlayer()
   const player1Name = usePlayer1Name()
   const player2Name = usePlayer2Name()
   const gameId = useGameId()
@@ -68,7 +72,9 @@ export const Game = () => {
       <GameControls/>
       <PlayersHeader>
         <Player>
-          {player1Name}
+          <PlayerNameContainer>
+            <PlayerOnlineIndicator $online={iamPlayer === 1} /> {player1Name}
+            </PlayerNameContainer>
           <PlayerScore color='green'>
             {fencedByP1.length}
           </PlayerScore>
@@ -79,7 +85,9 @@ export const Game = () => {
         </CurrentTurn>
 
         <Player>
-          {player2Name}
+          <PlayerNameContainer>
+            <PlayerOnlineIndicator $online={iamPlayer === 2} /> {player2Name}
+            </PlayerNameContainer>
           <PlayerScore color='blue'>
             {fencedByP2.length}
           </PlayerScore>

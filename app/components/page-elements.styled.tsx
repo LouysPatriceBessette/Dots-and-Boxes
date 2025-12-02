@@ -14,10 +14,14 @@ export const PlayersHeader = styled.div`
   font-weight: bold;
 `
 
+export const PlayerNameContainer = styled.div`
+  display: inline-block;
+`
+
 export const Player = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
 `
 
 export const PlayerScore = styled.div<{color: string}>`
@@ -31,6 +35,14 @@ export const PlayerScore = styled.div<{color: string}>`
   font-size: 2em;
   border-radius: 6px;
   corner-shape: squircle;
+`
+
+export const PlayerOnlineIndicator = styled.div<{$online: boolean}>`
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: ${(props) => props.$online ? 'green' : 'red'};
 `
 
 export const CurrentTurn = styled.div<{$visible: boolean}>`

@@ -99,7 +99,7 @@ export const GameGrid = () => {
   const waitingForOpponentMove = currentPlayer !== iamPlayer
   const waitingForOpponentJoin = remotePlayerId === '' && gameId !== -1
   const waitingForOpponent = waitingForOpponentMove || waitingForOpponentJoin || gameId === -1 || gameover
-  const waitingForOpponentMsg = waitingForOpponentJoin ? 'Awaiting opponent to join' : waitingForOpponentMove ? `Awaiting opponent's move` : ''
+  const waitingForOpponentMsg = waitingForOpponentJoin ? 'Awaiting opponent to join' : waitingForOpponentMove ? `Awaiting opponent's move` : gameover ? '' :'Create/join game first'
   return (
     <GridContainer $waitingForOpponent={waitingForOpponent}>
       <GridOverlay $waitingForOpponent={waitingForOpponent}>{waitingForOpponentMsg}</GridOverlay>

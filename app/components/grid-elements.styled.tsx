@@ -9,6 +9,7 @@ export const GridContainerStyled = styled.div<{$waitingForOpponent: boolean}>`
 
 export const GridOverlayStyled = styled.div<{$waitingForOpponent: boolean}>`
   ${(props) => props.$waitingForOpponent ? "display: block;" : "display: none;"}
+  
   position: absolute;
   top:50%;
   left:50%;
@@ -17,6 +18,11 @@ export const GridOverlayStyled = styled.div<{$waitingForOpponent: boolean}>`
   text-shadow: 0px 0 1px black;
   text-align: center;
   font-weight: bold;
+
+  opacity: 0;
+  &:hover {
+    opacity: 1;
+  }
 `
 
 export const GridStyled = styled.div<{$size: number, $waitingForOpponent: boolean}>`
