@@ -5,11 +5,21 @@ export const PageContainer = styled.div`
   padding: 40px 20px;
 `
 
-export const PlayersHeader = styled.div`
+export const PlayersNameHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-top: 10px;
+  font-weight: bold;
+`
+
+export const PlayersScoreHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100px;
   margin-bottom: 10px;
   font-weight: bold;
 `
@@ -46,12 +56,15 @@ export const PlayerOnlineIndicator = styled.div<{$online: boolean}>`
 
 export const CurrentTurn = styled.div<{$hidden: boolean}>`
   ${(props) => props.$hidden ? 'display: none;' : 'block'}
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: bold;
   font-size: 5em;
   & span{
     color: #fe7474ff;
   }
+    transform: translateY(-10px);
 `
 
 export const GameGridContainer = styled.div`

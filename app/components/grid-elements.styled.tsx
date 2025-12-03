@@ -36,6 +36,8 @@ export const SquareStyled = styled.div<{$wasFencedBy: number}>`
   width: 40px;
   height: 40px;
   background-color: ${props => props.$wasFencedBy === 1 ? "green" : props.$wasFencedBy === 2 ? "blue" : "white"};
+  border-radius: 5px;
+
 `;
 
 export const DotStyled = styled.div<{$isFriend: boolean, $isOrigin: boolean, $origin: number}>`
@@ -47,22 +49,22 @@ export const DotStyled = styled.div<{$isFriend: boolean, $isOrigin: boolean, $or
   cursor: ${(props) => props.$origin === -1 || (props.$isOrigin || props.$isFriend) ? "pointer" : "default"};
 `;
 
-export const VlineStyled = styled.div<{$isUsed: boolean}>`
+export const VlineStyled = styled.div<{$isUsed: boolean, $isUsedBy: number}>`
   display: inline-block;
-  width: 10px;
-  height: 40px;
-  background-color: ${(props => props.$isUsed ? "black" : "lightgrey")};
+  width: 4px;
+  height: 34px;
+  background-color: ${(props => props.$isUsed ? props.$isUsedBy === 1 ? "green" : "blue" : "lightgrey")};
+  border-radius: 2px;
+  margin-left: 3px;
+  margin-top: 3px;
 `;
 
-export const HlineStyled = styled.div<{$isUsed: boolean}>`
+export const HlineStyled = styled.div<{$isUsed: boolean, $isUsedBy: number}>`
   display: inline-block;
-  width: 40px;
-  height: 10px;
-  background-color: ${(props => props.$isUsed ? "black" : "lightgrey")};
-`;
-
-export const Cell = styled.div`
- border: 1px solid black;
- width: 40px;
- height: 40px;
+  width: 34px;
+  height: 4px;
+  background-color: ${(props => props.$isUsed ? props.$isUsedBy === 1 ? "green" : "blue" : "lightgrey")};
+  border-radius: 2px;
+  margin-top: 3px;
+  margin-left: 3px;
 `;

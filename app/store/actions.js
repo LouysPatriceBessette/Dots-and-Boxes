@@ -34,6 +34,12 @@ export const setCanConnectWith = (canConnectWith) =>
 export const setUsedFences = (usedFences) =>
   createAction(ACTION_TYPES.SET_USED_FENCES, usedFences);
 
+export const setUsedFencesP1 = (usedFencesP1) =>
+  createAction(ACTION_TYPES.SET_USED_FENCES_P1, usedFencesP1);
+
+export const setUsedFencesP2 = (usedFencesP2) =>
+  createAction(ACTION_TYPES.SET_USED_FENCES_P2, usedFencesP2);
+
 export const setFencedByP1 = (fencedByP1) =>
   createAction(ACTION_TYPES.SET_FENCED_BY_P1, fencedByP1);
 

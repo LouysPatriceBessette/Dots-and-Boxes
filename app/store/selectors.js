@@ -20,6 +20,9 @@ export const useGameover = () => useSelector((state) => state.game.gameover);
 
 export const useCurrentPlayer = () => useSelector((state) => state.game.currentPlayer);
 export const useUsedFences = () => useSelector((state) => state.game.usedFences);
+export const useUsedFencesP1 = () => useSelector((state) => state.game.usedFencesP1);
+export const useUsedFencesP2 = () => useSelector((state) => state.game.usedFencesP2);
+
 export const useFencedByP1 = () => useSelector((state) => state.game.fencedByP1);
 export const useFencedByP2 = () => useSelector((state) => state.game.fencedByP2);
 

@@ -13,6 +13,8 @@ export type INITIAL_STATE_TYPE = {
     currentPlayer: number,
     gameover: false,
     usedFences: string[],
+    usedFencesP1: string[],
+    usedFencesP2: string[],
     fencedByP1: string[],
     fencedByP2: string[],
   },

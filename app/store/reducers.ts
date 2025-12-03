@@ -16,6 +16,8 @@ export const INITIAL_STATE: INITIAL_STATE_TYPE = {
     currentPlayer: 1,
     gameover: false,
     usedFences: [],
+    usedFencesP1: [],
+    usedFencesP2: [],
     fencedByP1: [],
     fencedByP2: [],
   },
@@ -86,6 +88,20 @@ export const gameReducer = (state = INITIAL_STATE.game, action: {type: string, p
       return {
         ...state,
         usedFences: [...state.usedFences, payload],
+      };
+    case ACTION_TYPES.SET_USED_FENCES_P1:
+      if(payload === '') return state;
+
+      return {
+        ...state,
+        usedFencesP1: [...state.usedFencesP1, payload],
+      };
+    case ACTION_TYPES.SET_USED_FENCES_P2:
+      if(payload === '') return state;
+      
+      return {
+        ...state,
+        usedFencesP2: [...state.usedFencesP2, payload],
       };
     case ACTION_TYPES.SET_FENCED_BY_P1:
       return {

@@ -3,6 +3,8 @@ import { GridContainerStyled, GridOverlayStyled, GridStyled, SquareStyled, DotSt
 import { useDispatch } from 'react-redux';
 import {
   toggleCurrentPlayer,
+  setUsedFencesP1,
+  setUsedFencesP2,
   setFencedByP1,
   setFencedByP2,
   setCanConnectWith,
@@ -18,6 +20,8 @@ import {
   useCanConnectWith,
   useOrigin,
   useUsedFences,
+  useUsedFencesP1,
+  // useUsedFencesP2,
   useSize,
   useSocketInstance,
   useSocketLocalId,
@@ -106,6 +110,9 @@ export const Dot = ({identifier}:{identifier: number}) => {
 
     dispatch(setOrigin(-1))
     dispatch(setCanConnectWith([]))
+    dispatch(setUsedFences(payload))
+    dispatch(setUsedFencesP1(currentPlayer === 1 ? payload : ''))
+    dispatch(setUsedFencesP2(currentPlayer === 2 ? payload : ''))
     dispatch(toggleCurrentPlayer(nextPlayer))
 
     const storeToSend = {
@@ -114,6 +121,8 @@ export const Dot = ({identifier}:{identifier: number}) => {
         gameId: storeForBackend.game.gameId,
         currentPlayer: nextPlayer,
         usedFences: [...storeForBackend.game.usedFences, payload],
+        usedFencesP1: [...storeForBackend.game.usedFencesP1].concat(currentPlayer === 1 ? [payload] : []),
+        usedFencesP2: [...storeForBackend.game.usedFencesP2].concat(currentPlayer === 2 ? [payload] : []),
       }
     }
 
@@ -145,28 +154,24 @@ export const Dot = ({identifier}:{identifier: number}) => {
 
       // Left
       if(origin - 1 === identifier) {
-        dispatch(setUsedFences(`H-${identifier}`))
         resetTurn(`H-${identifier}`)
         return
       }
 
       // Right
       if(origin + 1 === identifier) {
-        dispatch(setUsedFences(`H-${origin}`))
         resetTurn(`H-${origin}`)
         return
       }
 
       // Up
       if(origin - size === identifier) {
-        dispatch(setUsedFences(`V-${identifier}`))
         resetTurn(`V-${identifier}`)
         return
       }
 
       // Down
       if(origin + size === identifier) {
-        dispatch(setUsedFences(`V-${origin}`))
         resetTurn(`V-${origin}`)
         return
       }
@@ -185,18 +190,24 @@ export const Dot = ({identifier}:{identifier: number}) => {
 
 export const Vline = ({identifier}: {identifier: number}) => {
   const usedFences = useUsedFences()
+  const usedFencesP1 = useUsedFencesP1()
+
   const isUsed = usedFences.includes(`V-${identifier}`)
-  
+  const isUsedBy = isUsed ? usedFencesP1.includes(`V-${identifier}`) ? 1 : 0 : 1
+
   return (
-    <VlineStyled $isUsed={isUsed} />
+    <VlineStyled $isUsed={isUsed} $isUsedBy={isUsedBy} />
   );
 }
 
 export const Hline = ({identifier}: {identifier: number,}) => {
   const usedFences = useUsedFences()
+  const usedFencesP1 = useUsedFencesP1()
+
   const isUsed = usedFences.includes(`H-${identifier}`)
-  
+  const isUsedBy = isUsed ? usedFencesP1.includes(`H-${identifier}`) ? 1 : 0 : 1
+
   return (
-    <HlineStyled $isUsed={isUsed} />
+    <HlineStyled $isUsed={isUsed} $isUsedBy={isUsedBy} />
   );
 }

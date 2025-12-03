@@ -24,7 +24,8 @@ import { GameControls } from "../components/game-controls";
 import { GameGrid } from "../components/game-grid";
 import {
   PageContainer,
-  PlayersHeader,
+  PlayersNameHeader,
+  PlayersScoreHeader,
   Player,
   PlayerNameContainer,
   PlayerOnlineIndicator,
@@ -32,7 +33,7 @@ import {
   CurrentTurn,
   GameGridContainer,
   GameOver,
-} from "../components/page-elements.styled";
+} from "./game.styled";
 import { SOCKET_ACTIONS } from "../basics/constants";
 
 export const Game = () => {
@@ -47,15 +48,17 @@ export const Game = () => {
 
   useEffect(() => {
     let interval: NodeJS.Timeout
-    if(gameId && socket){
+    if(socket){
       interval = setInterval(() => {
-        socket.emit('message', JSON.stringify({
-          from: 'player',
-          to: 'server',
-          action: SOCKET_ACTIONS.PING,
-          gameId: gameId,
-          iamPlayerId: socket.id,
-        }))
+        if(gameId !== -1) {
+          socket.emit('message', JSON.stringify({
+            from: 'player',
+            to: 'server',
+            action: SOCKET_ACTIONS.PING,
+            gameId: gameId,
+            iamPlayerId: socket.id,
+          }))
+        }
       }, 10000)
     } else {
       // @ts-expect-error No error here!
@@ -96,29 +99,33 @@ export const Game = () => {
   return (
     <PageContainer>
       <GameControls/>
-      <PlayersHeader>
+      <PlayersNameHeader>
         <Player>
           <PlayerNameContainer>
             <PlayerOnlineIndicator $online={iamPlayer === 1 || remoteIsOnline} /> {player1Name}
-            </PlayerNameContainer>
-          <PlayerScore color='green'>
-            {fencedByP1.length}
-          </PlayerScore>
+          </PlayerNameContainer>
         </Player>
+
+        <Player>
+          <PlayerNameContainer>
+            <PlayerOnlineIndicator $online={iamPlayer === 2 || remoteIsOnline} /> {player2Name}
+          </PlayerNameContainer>
+        </Player>
+      </PlayersNameHeader>
+
+      <PlayersScoreHeader>
+        <PlayerScore color='green'>
+          {fencedByP1.length}
+        </PlayerScore>
 
         <CurrentTurn $hidden={gameId === -1 || remoteIsOnline === '' || gameover}>
           { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
         </CurrentTurn>
 
-        <Player>
-          <PlayerNameContainer>
-            <PlayerOnlineIndicator $online={iamPlayer === 2 || remoteIsOnline} /> {player2Name}
-            </PlayerNameContainer>
-          <PlayerScore color='blue'>
-            {fencedByP2.length}
-          </PlayerScore>
-        </Player>
-      </PlayersHeader>
+        <PlayerScore color='blue'>
+          {fencedByP2.length}
+        </PlayerScore>
+      </PlayersScoreHeader>
 
       <GameGridContainer >
         <GameGrid />
