@@ -5,7 +5,7 @@ I used to call it *"jeux des p'tites lignes"* in French, which would translate t
 
 ## How to play?
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/hQdQWxQk8_A?si=2OSdoyprUf6NruJz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+Here is a short [Youtube video](https://www.youtube.com/watch?v=hQdQWxQk8_A) (40 seconds) to explain the rules.
 
 ## More about this game
 Obviouly, I am not the inventor. In fact this is a **19th century** game.
