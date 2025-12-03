@@ -352,15 +352,19 @@ app.prepare().then(() => {
     //
     socket.on('disconnect', () => {
       console.log(`${LOG_COLORS.INFO}> User disconnected ${socket.id}${LOG_COLORS.WHITE}`);
+      
+      const game = games.find((game) => game.players.includes(socket.id))
+      const gameId = game ? game.id : null;
 
-      const otherPlayerId = getOtherPlayerId(parsed.gameId, socket.id)
+      if(!gameId) return
 
-      const msg = {
+      const otherPlayerId = getOtherPlayerId(gameId, socket.id)
+      const msg = JSON.stringify({
+        from: 'server',
         to: 'player',
         action: SOCKET_ACTIONS.OTHER_PLAYER_DISCONNECTED,
-      }
-      io.to(otherPlayerId).emit('message', msg)
-      // TODO: Notify the other player... Online status!!
+      })
+      io.to(otherPlayerId).emit('message', (msg))
     });
   });
 
