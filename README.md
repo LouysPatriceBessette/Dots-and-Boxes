@@ -19,7 +19,7 @@ I am focussing on playing **with a human** in real time. This is a **Socket chal
 My objective is to complete all the users management logic, since the game rules are simple and where implemented in less than 2 days.
 
 
-### TODO list, as of 2025-12-02:
+### TODO list, as of 2025-12-03:
 
 - [x] `n` x `n` grid layout
 - [x] Socket connections between players of a specific game id.
@@ -30,7 +30,7 @@ My objective is to complete all the users management logic, since the game rules
 - [x] Player names
 - [x] *Ping/Pong* web socket connections check to display acurate players online state.
 - [ ] Player selection for the grid size (on game creation) with a `x` x `y` grid instead od `n` x `n`.
-- [ ] Controls: Leave, drop, destroy or start a new game.
+- [x] Controls: Leave, destroy or start a new game.
 - [ ] Share the game id (link or QR).
 - [ ] Play with an unknown player (if you have no friends available... or to resume a game dropped by your opponent).
 - [ ] A sympatic guided tour on first visit (for the controls, rule games...) instead of plain text instructions.
