@@ -102,6 +102,8 @@ export const SocketListen = () => {
               dispatch(setIamPlayer(command.youArePlayer))
               dispatch(setNameOfPlayer1(command.player1Name))
               dispatch(setNameOfPlayer2(command.player2Name))
+
+              dispatch(refreshReduxStore(command.redux))
               break;
             
             case SOCKET_ACTIONS.JOIN_FAILED:

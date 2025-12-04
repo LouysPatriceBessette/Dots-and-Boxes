@@ -9,7 +9,7 @@ export const INITIAL_STATE: INITIAL_STATE_TYPE = {
   },
   game: {
     gameId: -1,
-    size: 3,
+    size: {x: 3, y: 3},
     nameOfPlayer1: 'Player 1',
     nameOfPlayer2: 'Player 2',
     iamPlayer: 1,

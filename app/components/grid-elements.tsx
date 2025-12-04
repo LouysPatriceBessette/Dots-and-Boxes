@@ -44,7 +44,7 @@ export const Square = ({identifier}: {identifier: number}) => {
     usedFences.includes(`H-${identifier}`) &&
     usedFences.includes(`V-${identifier}`) &&
     usedFences.includes(`V-${identifier + 1}`) &&
-    usedFences.includes(`H-${identifier + size}`)
+    usedFences.includes(`H-${identifier + size.x}`)
   )
   
   const wasFencedByP1 = fencedByP1.includes(identifier)
@@ -87,15 +87,15 @@ export const Dot = ({identifier}:{identifier: number}) => {
   const usedFences = useUsedFences()
   const size = useSize()
 
-  const upId = identifier - size
+  const upId = identifier - size.x
   const rightId = identifier + 1
-  const downId = identifier + size
+  const downId = identifier + size.x
   const leftId = identifier - 1
 
   let up = upId > 0 ? upId : null
-  let right = rightId <= Math.pow(size, 2) && rightId % size !== 1 ? rightId : null
-  let down = downId <= Math.pow(size, 2) ? downId : null
-  let left = leftId > 0 && leftId % size !== 0 ? leftId : null
+  let right = rightId <= (size.x * size.y) && rightId % size.x !== 1 ? rightId : null
+  let down = downId <= (size.x * size.y) ? downId : null
+  let left = leftId > 0 && leftId % size.x !== 0 ? leftId : null
   
   // Check the usedFences
   if(up && usedFences.includes(`V-${up}`)) up = null
@@ -119,6 +119,7 @@ export const Dot = ({identifier}:{identifier: number}) => {
       ...storeForBackend,
       game: {
         gameId: storeForBackend.game.gameId,
+        size: storeForBackend.game.size,
         currentPlayer: nextPlayer,
         usedFences: [...storeForBackend.game.usedFences, payload],
         usedFencesP1: [...storeForBackend.game.usedFencesP1].concat(currentPlayer === 1 ? [payload] : []),
@@ -165,13 +166,13 @@ export const Dot = ({identifier}:{identifier: number}) => {
       }
 
       // Up
-      if(origin - size === identifier) {
+      if(origin - size.x === identifier) {
         resetTurn(`V-${identifier}`)
         return
       }
 
       // Down
-      if(origin + size === identifier) {
+      if(origin + size.x === identifier) {
         resetTurn(`V-${origin}`)
         return
       }

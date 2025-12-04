@@ -86,7 +86,7 @@ export const Game = () => {
   const size = useSize()
   const player1Name = usePlayer1Name()
   const player2Name = usePlayer2Name()
-  const finalCount = Math.pow(size -1, 2)
+  const finalCount = (size.x - 1) * (size.y - 1)
 
   const fencedByP1 = useFencedByP1()
   const fencedByP2 = useFencedByP2()

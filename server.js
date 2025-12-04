@@ -27,7 +27,7 @@ const INITIAL_GAME_STATE = {
   redux: {
     chat: { messages: [] },
     game: {
-      // size: 3,
+      size: {x: 3, y: 3},
       currentPlayer: 1,
       usedFences: [],
       usedFencesP1: [],
@@ -283,6 +283,13 @@ app.prepare().then(() => {
                 id: randomGameId(games),
                 players: [parsed.socketId],
                 player1Name: parsed.player1Name,
+                redux: {
+                  ...INITIAL_GAME_STATE.redux,
+                  game: {
+                    ...INITIAL_GAME_STATE.redux.game,
+                    size: parsed.size,
+                  }
+                }
               }
               games.push(game)
               console.log(`${LOG_COLORS.INFO}> player1 created game ${game.id}${LOG_COLORS.WHITE}`, game)
@@ -358,7 +365,8 @@ app.prepare().then(() => {
                     gameId: game.id,
                     player1Name: game.player1Name,
                     player2Name: game.player2Name,
-                    youArePlayer: joinerSeat
+                    youArePlayer: joinerSeat,
+                    redux: game.redux,
                   }))
 
                   // Notify owner

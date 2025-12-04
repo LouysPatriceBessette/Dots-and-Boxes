@@ -1,5 +1,6 @@
 import { Button } from "./game-controls.styled";
 import {
+  setGameSize,
   setGameId,
   setNameOfPlayer1,
   setNameOfPlayer2,
@@ -32,15 +33,15 @@ export const GameControls = () => {
     const myName = localStorage.getItem('myName')
     let nameToUse
     if(!myName) {
-      let promptAnswer
+      let promptAnswer1
       if(player1Name === 'Player 1') {
-        promptAnswer = prompt('Enter your name')
-        if(!promptAnswer) {
+        promptAnswer1 = prompt('Enter your name')
+        if(!promptAnswer1) {
           alert('Name is required to create a game')
           return
         }
-        nameToUse = promptAnswer
-        dispatch(setNameOfPlayer1(promptAnswer))
+        nameToUse = promptAnswer1
+        dispatch(setNameOfPlayer1(promptAnswer1))
         dispatch(setNameOfPlayer2('Player 2'))
 
         localStorage.setItem('myName', nameToUse)
@@ -52,12 +53,26 @@ export const GameControls = () => {
       dispatch(setNameOfPlayer1(myName))
     }
 
+    const promptGridSizeX: string = prompt('Enter X') ?? ''
+    const promptGridSizeY: string = prompt('Enter Y') ?? ''
+    let gridSize = {x: 3, y: 3}
+
+    if(!promptGridSizeX || isNaN(+promptGridSizeX) ||
+      !promptGridSizeY || isNaN(+promptGridSizeY)) {
+      alert('X and Y numbers are required to create a game')
+      return
+    } else {
+      gridSize = {x: Number(promptGridSizeX), y: Number(promptGridSizeY)}
+    }
+    dispatch(setGameSize(gridSize))
+
     const request = {
       from: 'player',
       to: 'server',
       action: SOCKET_ACTIONS.CREATE_GAME,
       socketId: socketId,
       player1Name: nameToUse,
+      size: gridSize,
     }
     socket.emit('message', JSON.stringify(request))
   }

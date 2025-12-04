@@ -6,7 +6,7 @@ export type INITIAL_STATE_TYPE = {
   },
   game: {
     gameId: number,
-    size: number,
+    size: {x: number, y: number},
     nameOfPlayer1: string,
     nameOfPlayer2: string,
     iamPlayer: number,

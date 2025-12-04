@@ -10,7 +10,6 @@ import {
 
 export const GameGrid = () => {
   const size = useSize()
-  const gridSize = (size * 2)
   const gameId = useGameId()
   const currentPlayer = useCurrentPlayer()
   const iamPlayer = useIamPlayer()
@@ -37,10 +36,13 @@ export const GameGrid = () => {
     identifier={id}
   />
 
+  const fillGrid = (size: { x: number; y: number; }) => {
 
-  const fillGrid = (gridSize: number) => {
+    const rowSize = size.x * 2
+    const colSize = size.y * 2
+    const gridCellsLength = (rowSize * colSize) - (size.x * 2) - (size.y * 2) + 1
 
-    const cells = Array(gridSize * gridSize - (gridSize * 2) + 1).fill(0)
+    const cells = Array(gridCellsLength).fill(0)
 
     const oddRowwSeq = ['D', 'H']
     const evenRowSeq = ['S', 'V']
@@ -58,7 +60,7 @@ export const GameGrid = () => {
     for (let i = 1; i<cells.length; i++){
 
       // Toggle Pattern
-      const Toggle = (i) % ((gridSize - 1) * 1) === 0
+      const Toggle = (i) % ((rowSize - 1) * 1) === 0
       if(Toggle){
         useSeq = useSeq === SEQ[0] ? SEQ[1] : SEQ[0]
         hCount += 0.5
@@ -103,8 +105,8 @@ export const GameGrid = () => {
   return (
     <GridContainer $waitingForOpponent={waitingForOpponent}>
       <GridOverlay $waitingForOpponent={waitingForOpponent}>{waitingForOpponentMsg}</GridOverlay>
-    <Grid $size={gridSize - 1} $waitingForOpponent={waitingForOpponent}>
-      {fillGrid(gridSize)}
+    <Grid $size={(size.x * 2) - 1} $waitingForOpponent={waitingForOpponent}>
+      {fillGrid(size)}
     </Grid>
     </GridContainer>
   );
