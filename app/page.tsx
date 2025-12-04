@@ -5,13 +5,17 @@ import { store } from "./store/store";
 import { Game } from "./pages/game";
 import { SocketListen } from "./socket";
 import { Chat } from "./components/chat";
+import { CharkraProvider } from "./components/Chakra/ChakraProvider/ChakraProvider";
 
 export default function Home() {
   return (
+    
     <Provider store={store}>
-      <Game />
-      <SocketListen/>
-      <Chat/>
+      <CharkraProvider>
+        <Game />
+        <SocketListen/>
+        <Chat/>
+      </CharkraProvider>
     </Provider>
   );
 }

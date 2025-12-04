@@ -1,0 +1,46 @@
+@use 'global-sass/palette.sass' as palette
+  
+.formComponent
+  position: relative
+
+  input, select
+    width: 100%
+
+  input.dateField
+    width: 6em
+  input.dateField + button
+    // No se...
+
+  input[type='checkbox']
+    width: auto
+  
+  input[type='radio']
+    width: auto
+
+  label:not(.switch)
+    position: absolute
+    top: -9px
+    left: 6px
+    font-size: 0.6em
+    padding: 0px 4px
+    background-color: palette.$white
+    color: palette.$darkGrey1
+    border: 1px solid palette.$lightGrey
+    border-radius: 4px
+
+    &.higher
+      top: -14px
+
+  span.switchLabel
+    position: absolute
+    top: -16px
+    left: 6px
+    font-size: 0.6em
+    padding: 0px 4px
+    background-color: palette.$white
+    color: palette.$darkGrey1
+    border: 1px solid palette.$lightGrey
+    border-radius: 4px
+
+  span.switchAnswer
+    margin-left: 6px
