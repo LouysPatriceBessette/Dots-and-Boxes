@@ -181,9 +181,24 @@ export const socketReducer = (state = INITIAL_STATE.socket, action: {type: strin
   }
 };
 
-export const rootReducer = combineReducers({
+export const combinedReducer = combineReducers({
   chat: chatReducer,
   game: gameReducer,
   mouse: mouseReducer,
   socket: socketReducer,
 });
+
+export const rootReducer = (state: INITIAL_STATE_TYPE, action: {type: string, payload: any}) => {
+  const { type } = action
+
+  if(type === ACTION_TYPES.RESET_REDUX_STORE){
+    return {
+      ...INITIAL_STATE,
+      socket: {
+        ...state.socket,
+      }  
+    }
+  }
+
+  return combinedReducer(state, action);
+};

@@ -41,6 +41,7 @@ export const headerWrap = (text, ...rest) => {
 
 export const ACTION_TYPES = {
 
+  RESET_REDUX_STORE: 'RESET_REDUX_STORE',
   REFRESH_REDUX_STORE: 'REFRESH_REDUX_STORE',
 
   SET_SIZE: 'SET_SIZE',

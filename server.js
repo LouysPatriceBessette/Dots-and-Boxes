@@ -19,6 +19,23 @@ const handle = app.getRequestHandler();
 const games = []
 const pings = []
 
+const INITIAL_GAME_STATE = {
+  id: -1,
+  players: [],
+  player1Name: '',
+  player2Name: '',
+  redux: {
+    chat: { messages: [] },
+    game: {
+      // size: 3,
+      currentPlayer: 1,
+      usedFences: [],
+      usedFencesP1: [],
+      usedFencesP2: []
+    }
+  }
+}
+
 const pingPongToServerConsole = false
 
 const checkPings = (io, fromPlayerId) => {
@@ -262,6 +279,7 @@ app.prepare().then(() => {
 
             case SOCKET_ACTIONS.CREATE_GAME:
               const game = {
+                ...INITIAL_GAME_STATE,
                 id: randomGameId(games),
                 players: [parsed.socketId],
                 player1Name: parsed.player1Name,
@@ -289,9 +307,6 @@ app.prepare().then(() => {
                     freeSeat = '' + (game.players.indexOf('LEFT_GAME') +1)  // '1' or '2'
                   }
 
-console.log('freeSeat', freeSeat)
-
-
                   let playerAId = game.players[0]
                   let playerBId = parsed.socketId
 
@@ -307,15 +322,9 @@ console.log('freeSeat', freeSeat)
 
                       game.player2Name = parsed.player2Name
                     }
-
                     game.players[Number(freeSeat) - 1] = parsed.socketId
 
-console.log('game.players', game.players)
-
-
-
                   } else {
-
                     game.players.push(parsed.socketId)
                     game.player2Name = parsed.player2Name
                   }
@@ -359,7 +368,8 @@ console.log('game.players', game.players)
                     action: SOCKET_ACTIONS.PLAYER_JOINED_MY_GAME,
                     player1Name: game.player1Name,
                     player2Name: game.player2Name,
-                    youArePlayer: ownerSeat
+                    youArePlayer: ownerSeat,
+                    redux: game.redux,
                   }))
                 } else {
                   console.log(`${LOG_COLORS.WARNING}> Failed to join game ${LOG_COLORS.ERROR}${parsed.gameId}${LOG_COLORS.RESET}`)

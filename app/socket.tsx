@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
 import {
+  resetReduxInitialState,
   setGameId,
   setIamPlayer,
   setSocketInstance,
@@ -89,6 +90,7 @@ export const SocketListen = () => {
               dispatch(setNameOfPlayer1(command.player1Name))
               dispatch(setNameOfPlayer2(command.player2Name))
               
+              dispatch(refreshReduxStore(command.redux))
               break;
               
             // Player 2
@@ -115,7 +117,6 @@ export const SocketListen = () => {
               break;
 
             case SOCKET_ACTIONS.PLAYER_LEFT_MY_GAME:
-              console.log('================================= command.leavingPlayer', command.leavingPlayer)
               dispatch(setRemoteIsOnline(false))
               if(command.leavingPlayer === 1) {
                 dispatch(setNameOfPlayer1('Player left...'))
@@ -125,11 +126,8 @@ export const SocketListen = () => {
               break;
 
             case SOCKET_ACTIONS.I_LEFT_THE_GAME:
-              dispatch(setRemoteIsOnline(false))
+              dispatch(resetReduxInitialState())
               dispatch(setNameOfPlayer1(localStorage.getItem('myName') ?? 'Player 1'))
-              dispatch(setNameOfPlayer2('Player 2'))
-              dispatch(setIamPlayer(1))
-              dispatch(setGameId(-1))
               localStorage.removeItem('gameId')
               break;
             
