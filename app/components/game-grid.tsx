@@ -97,7 +97,7 @@ export const GameGrid = () => {
   }
 
   const waitingForOpponentMove = currentPlayer !== iamPlayer
-  const waitingForOpponentJoin = remoteIsOnline === '' && gameId !== -1
+  const waitingForOpponentJoin = !remoteIsOnline && gameId !== -1
   const waitingForOpponent = waitingForOpponentMove || waitingForOpponentJoin || gameId === -1 || gameover
   const waitingForOpponentMsg = waitingForOpponentJoin ? 'Awaiting opponent to join' : waitingForOpponentMove ? `Awaiting opponent's move` : gameover ? '' :'Create/join game first'
   return (

@@ -6,11 +6,11 @@ import {
   setIamPlayer,
   setSocketInstance,
   setSocketLocalId,
-  setLocalPlayerName,
+  setNameOfPlayer1,
   setChatMessage,
   refreshReduxStore,
   setRemoteIsOnline,
-  setRemotePlayerName,
+  setNameOfPlayer2,
 } from './store/actions';
 
 import { Socket } from 'socket.io-client';
@@ -84,16 +84,22 @@ export const SocketListen = () => {
             // Player 1
             case SOCKET_ACTIONS.PLAYER_JOINED_MY_GAME:
               dispatch(setRemoteIsOnline(true))
-              dispatch(setRemotePlayerName(command.player2Name))
+              
+              dispatch(setIamPlayer(command.youArePlayer))
+              dispatch(setNameOfPlayer1(command.player1Name))
+              dispatch(setNameOfPlayer2(command.player2Name))
+              
               break;
               
             // Player 2
-            case SOCKET_ACTIONS.CONNECTED_TO_A_GAME:
+            case SOCKET_ACTIONS.JOINED_A_GAME:
               dispatch(setRemoteIsOnline(true))
               dispatch(setGameId(command.gameId))
-              dispatch(setIamPlayer(2))
-              dispatch(setRemotePlayerName(command.player1Name))
               localStorage.setItem('gameId', command.gameId)
+
+              dispatch(setIamPlayer(command.youArePlayer))
+              dispatch(setNameOfPlayer1(command.player1Name))
+              dispatch(setNameOfPlayer2(command.player2Name))
               break;
             
             case SOCKET_ACTIONS.JOIN_FAILED:
@@ -108,6 +114,32 @@ export const SocketListen = () => {
               // alert('The game you were in has been deleted from the server.')
               break;
 
+            case SOCKET_ACTIONS.PLAYER_LEFT_MY_GAME:
+              console.log('================================= command.leavingPlayer', command.leavingPlayer)
+              dispatch(setRemoteIsOnline(false))
+              if(command.leavingPlayer === 1) {
+                dispatch(setNameOfPlayer1('Player left...'))
+              }else{
+                dispatch(setNameOfPlayer2('Player left...'))
+              }
+              break;
+
+            case SOCKET_ACTIONS.I_LEFT_THE_GAME:
+              dispatch(setRemoteIsOnline(false))
+              dispatch(setNameOfPlayer1(localStorage.getItem('myName') ?? 'Player 1'))
+              dispatch(setNameOfPlayer2('Player 2'))
+              dispatch(setIamPlayer(1))
+              dispatch(setGameId(-1))
+              localStorage.removeItem('gameId')
+              break;
+            
+            case SOCKET_ACTIONS.GAME_DESTROYED:
+              dispatch(setNameOfPlayer2('Player 2'))
+              dispatch(setIamPlayer(1))
+              dispatch(setGameId(-1))
+              localStorage.removeItem('gameId')
+              break;
+            
             case SOCKET_ACTIONS.PING:
               socket.emit('message', JSON.stringify({
                 from: 'player',
@@ -127,11 +159,11 @@ export const SocketListen = () => {
               if(command.redux) dispatch(refreshReduxStore(command.redux))
               dispatch(setIamPlayer(command.youArePlayer))
               if(command.youArePlayer === 1){
-                dispatch(setLocalPlayerName(command.playerNames[0]))
-                dispatch(setRemotePlayerName(command.playerNames[1]))
+                dispatch(setNameOfPlayer1(command.playerNames[0]))
+                dispatch(setNameOfPlayer2(command.playerNames[1]))
               } else {
-                dispatch(setLocalPlayerName(command.playerNames[1]))
-                dispatch(setRemotePlayerName(command.playerNames[0]))
+                dispatch(setNameOfPlayer1(command.playerNames[1]))
+                dispatch(setNameOfPlayer2(command.playerNames[0]))
               }
               break;
 

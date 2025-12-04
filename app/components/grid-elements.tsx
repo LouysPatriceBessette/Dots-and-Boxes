@@ -80,7 +80,7 @@ export const Dot = ({identifier}:{identifier: number}) => {
     game: {...game},
   }
 
-  const localPlayerId = useSocketLocalId()
+  const localSocketId = useSocketLocalId()
 
   const canConnectWith = useCanConnectWith()
   const origin = useOrigin()
@@ -131,7 +131,7 @@ export const Dot = ({identifier}:{identifier: number}) => {
       from: 'player',
       to: 'player',
       gameId: storeToSend.game.gameId,
-      iamPlayerId: localPlayerId,
+      iamPlayerId: localSocketId,
       action: SOCKET_ACTIONS.UPDATE_OTHER_PLAYER_REDUX,
       redux: storeToSend,
     }

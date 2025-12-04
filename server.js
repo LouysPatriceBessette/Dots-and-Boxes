@@ -19,11 +19,16 @@ const handle = app.getRequestHandler();
 const games = []
 const pings = []
 
+const pingPongToServerConsole = false
+
 const checkPings = (io, fromPlayerId) => {
   const pingIndex = pings.findIndex((ping) => ping.from === fromPlayerId)
   if(pingIndex !== -1){
     const ping = pings[pingIndex]
-    console.log(headerWrap(`> Checking ping from ${fromPlayerId}`, `Ping found: ${JSON.stringify(ping)}`))
+
+    if(pingPongToServerConsole){
+      console.log(headerWrap(`> Checking ping from ${fromPlayerId}`, `Ping found: ${JSON.stringify(ping)}`))
+    }
 
     // Notify that the player is offline
     const newMsg = {
@@ -39,7 +44,9 @@ const checkPings = (io, fromPlayerId) => {
     // Remove the ping from the list
     pings.splice(pingIndex, 1)
   } else {
-    console.log(headerWrap(`> Checking ping from ${fromPlayerId}`, `No ping found.`))
+    if(pingPongToServerConsole){
+      console.log(headerWrap(`> Checking ping from ${fromPlayerId}`, `No ping found.`))
+    }
   }
 }
 
@@ -126,7 +133,13 @@ app.prepare().then(() => {
         }
 
         if(parsed.to === 'server') {
-          console.log(headerWrap(`> Message to server`, msg))
+
+          if(parsed.action !== SOCKET_ACTIONS.PING && parsed.action !== SOCKET_ACTIONS.PONG){
+            
+            console.log(headerWrap(`> Message to server`, msg))
+            console.log('============ GAMES', games)
+            console.log('parsed', parsed)
+          }
 
           switch(parsed.action){
             case SOCKET_ACTIONS.REFRESH_ID:
@@ -147,6 +160,10 @@ app.prepare().then(() => {
                     if(otherPlayerId){
                       otherPlayersToNotify[otherPlayerId] = true
                     }
+
+                    // Update games
+                    const gameIndexToUpdate = games.findIndex((g) => g.id === game.id)
+                    games[gameIndexToUpdate] = game
                   })
 
                   // Notify the other player(s)
@@ -190,8 +207,9 @@ app.prepare().then(() => {
               break;
 
             case SOCKET_ACTIONS.PING:
-              console.log('Ping/Pong between players', msg)
-
+              if(pingPongToServerConsole){
+                console.log('Ping/Pong between players', msg)
+              }
               const pingOtherPlayerId = getOtherPlayerId(parsed.gameId, parsed.iamPlayerId)
 
               if(pingOtherPlayerId){
@@ -225,8 +243,9 @@ app.prepare().then(() => {
               break;
 
             case SOCKET_ACTIONS.PONG:
-              console.log('Ping/Pong between players', msg)
-
+              if(pingPongToServerConsole){
+                console.log('Ping/Pong between players', msg)
+              }
               const pongOtherPlayerId = getOtherPlayerId(parsed.gameId, parsed.iamPlayerId)
 
               clearPingTimeout(io, pongOtherPlayerId)
@@ -264,35 +283,85 @@ app.prepare().then(() => {
 
                 if(game){
 
-                  const player1Id = game.players[0]
-                  const player2Id = parsed.socketId
+                  // Check if one of the players left
+                  let freeSeat = ''
+                  if(game.players.includes('LEFT_GAME')) {
+                    freeSeat = '' + (game.players.indexOf('LEFT_GAME') +1)  // '1' or '2'
+                  }
 
-                  game.players.push(player2Id)
-                  game.player2Name = parsed.player2Name
-                  console.log(`${LOG_COLORS.INFO}> Player2 joined game ${game.id}${LOG_COLORS.WHITE}`, game)
+console.log('freeSeat', freeSeat)
 
-                  // Confirm join to player2
-                  io.to(player2Id).emit('message', JSON.stringify({
+
+                  let playerAId = game.players[0]
+                  let playerBId = parsed.socketId
+
+                  if(Boolean(freeSeat)){
+                    if(freeSeat === '1'){
+                      playerAId = parsed.socketId
+                      playerBId = game.players[1]
+
+                      game.player1Name = parsed.player2Name
+                    } else {
+                      playerAId = game.players[0]
+                      playerBId = parsed.socketId
+
+                      game.player2Name = parsed.player2Name
+                    }
+
+                    game.players[Number(freeSeat) - 1] = parsed.socketId
+
+console.log('game.players', game.players)
+
+
+
+                  } else {
+
+                    game.players.push(parsed.socketId)
+                    game.player2Name = parsed.player2Name
+                  }
+
+                  // Update games
+                  const gameToUpdate = games.findIndex((game) => game.id === parseInt(parsed.gameId))
+                  games[gameToUpdate] = game
+
+                  console.log(`${LOG_COLORS.INFO}> Player joined game ${game.id}${LOG_COLORS.WHITE}`, game)
+
+                  let joinerSeat
+                  let ownerSeat
+                  if(!Boolean(freeSeat)){
+                    joinerSeat = 2
+                    ownerSeat = 1
+                  } else {
+                    if(freeSeat === '1'){
+                      joinerSeat = 1
+                      ownerSeat = 2
+                    } else {
+                      joinerSeat = 2
+                      ownerSeat = 1                      
+                    }
+                  }
+
+                  // Confirm join
+                  io.to(playerBId).emit('message', JSON.stringify({
                     from: 'server',
                     to: 'player',
-                    action: SOCKET_ACTIONS.CONNECTED_TO_A_GAME,
+                    action: SOCKET_ACTIONS.JOINED_A_GAME,
                     gameId: game.id,
                     player1Name: game.player1Name,
-                    player1Id: player1Id,
+                    player2Name: game.player2Name,
+                    youArePlayer: joinerSeat
                   }))
 
-                  // Notify player1
-                  io.to(player1Id).emit('message', JSON.stringify({
+                  // Notify owner
+                  io.to(playerAId).emit('message', JSON.stringify({
                     from: 'server',
                     to: 'player',
                     action: SOCKET_ACTIONS.PLAYER_JOINED_MY_GAME,
-                    otherPlayer: player2Id,
+                    player1Name: game.player1Name,
                     player2Name: game.player2Name,
-                    player2Id: player2Id,
+                    youArePlayer: ownerSeat
                   }))
                 } else {
-
-                  // TODO: Not implemented in frontend yet.
                   console.log(`${LOG_COLORS.WARNING}> Failed to join game ${LOG_COLORS.ERROR}${parsed.gameId}${LOG_COLORS.RESET}`)
                   io.to(parsed.socketId).emit('message', JSON.stringify({
                     from: 'server',
@@ -300,6 +369,96 @@ app.prepare().then(() => {
                     action: SOCKET_ACTIONS.JOIN_FAILED,
                   }))
                 }
+              }
+              break;
+
+            case SOCKET_ACTIONS.LEAVE_GAME:
+              const gameToLeave = games.find((game) => game.id === parseInt(parsed.gameId))
+              if(!gameToLeave){
+                console.log(`${LOG_COLORS.WARNING}> Game ${gameToLeave.id} not found${LOG_COLORS.WHITE}`, gameToLeave)
+                return
+              }
+
+              const requestToLeaveComesFromPlayer = gameToLeave.players.indexOf(parsed.socketId) !== -1
+              if(!requestToLeaveComesFromPlayer){
+                console.log(`${LOG_COLORS.WARNING}> Attempt to destroy game ${gameToLeave.id} from a non-player${LOG_COLORS.WHITE}`, gameToLeave)
+                return
+              }
+
+              const gameToLeavePlayersCount = gameToLeave.players.length
+              if(gameToLeavePlayersCount !== 2){
+                console.log(`${LOG_COLORS.WARNING}> Game ${gameToLeave.id} has ${gameToLeavePlayersCount} players...${LOG_COLORS.WHITE}`, gameToLeave)
+                return
+              }
+
+              const gameHasAlreadyOnePlayerLeft = gameToLeave.players.indexOf('LEFT_GAME') !== -1
+              if(gameHasAlreadyOnePlayerLeft){
+                console.log(`${LOG_COLORS.WARNING}> Game ${gameToLeave.id} should be destroyed instead${LOG_COLORS.WHITE}`, gameToLeave)
+                return
+              }
+
+              // Leaving...
+              const leavingPlayer = parsed.socketId
+              const leavingPlayerIs = gameToLeave.players.indexOf(parsed.socketId)
+              const otherPlayerId = getOtherPlayerId(gameToLeave.id, parsed.socketId)
+              // const otherPlayerIs = leavingPlayerIs === 0 ? 1 : 0
+ 
+              // Replace the leaving player id with a placeholder in the game players array
+              gameToLeave.players[leavingPlayerIs] = 'LEFT_GAME'
+
+              // Update the games
+              const gameIndex = games.findIndex((g) => g.id === gameToLeave.id)
+              games[gameIndex] = gameToLeave
+
+              console.log('games after update', games)
+
+              // Messages
+              const messageToLeavingPlayer = {
+                from: 'server',
+                to: 'player',
+                action: SOCKET_ACTIONS.I_LEFT_THE_GAME,
+                // youArePlayer: leavingPlayerIs + 1,
+              }
+              console.log('messageToLeavingPlayer', messageToLeavingPlayer)
+              io.to(leavingPlayer).emit('message', JSON.stringify(messageToLeavingPlayer))
+              
+
+              const messageToOtherPlayer = {
+                from: 'server',
+                to: 'player',
+                action: SOCKET_ACTIONS.PLAYER_LEFT_MY_GAME,
+                leavingPlayer: leavingPlayerIs + 1,
+                // youArePlayer: otherPlayerIs + 1
+              }
+              console.log('messageToOtherPlayer', messageToOtherPlayer)
+              io.to(otherPlayerId).emit('message', JSON.stringify(messageToOtherPlayer))
+
+              break;
+
+            case SOCKET_ACTIONS.DESTROY_GAME:
+              const gameToDestroy = games.find((game) => game.id === parseInt(parsed.gameId))
+
+              const requestToDestroyComesFromPlayer = gameToDestroy.players.indexOf(parsed.socketId) !== -1
+              if(!requestToDestroyComesFromPlayer){
+                console.log(`${LOG_COLORS.WARNING}> Attempt to destroy game ${gameToDestroy.id} from a non-player${LOG_COLORS.WHITE}`, gameToDestroy)
+                return
+              }
+
+              const gameToDestroyPlayersCount = gameToDestroy.players.length
+              if(gameToDestroyPlayersCount === 2){
+                console.log(`${LOG_COLORS.WARNING}> Game ${gameToDestroy.id} has ${gameToDestroyPlayersCount} players, cannot destroy${LOG_COLORS.WHITE}`, gameToDestroy)
+                return
+              }
+
+              if(gameToDestroy){
+                const gameIndex = games.findIndex((g) => g.id === gameToDestroy.id)
+                games.splice(gameIndex, 1)
+
+                io.to(parsed.socketId).emit('message', JSON.stringify({
+                  from: 'server',
+                  to: 'player',
+                  action: SOCKET_ACTIONS.GAME_DESTROYED,
+                }))
               }
               break;
 

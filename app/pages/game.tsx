@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import {
   // setGameSize,
-  setLocalPlayerName,
+  setNameOfPlayer1,
   setGameId,
   setGameover,
 } from "../store/actions";
@@ -74,7 +74,7 @@ export const Game = () => {
     const player1Name = localStorage.getItem('player1Name')
 
     if(player1Name) {
-      dispatch(setLocalPlayerName(player1Name))
+      dispatch(setNameOfPlayer1(player1Name))
     }
     if(storedGameId) {
       dispatch(setGameId(storedGameId))
@@ -118,7 +118,7 @@ export const Game = () => {
           {fencedByP1.length}
         </PlayerScore>
 
-        <CurrentTurn $hidden={gameId === -1 || remoteIsOnline === '' || gameover}>
+        <CurrentTurn $hidden={!remoteIsOnline || gameover}>
           { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
         </CurrentTurn>
 

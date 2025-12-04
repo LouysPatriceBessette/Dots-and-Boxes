@@ -10,8 +10,8 @@ export const INITIAL_STATE: INITIAL_STATE_TYPE = {
   game: {
     gameId: -1,
     size: 3,
-    localPlayerName: 'Player 1',
-    remotePlayerName: 'Player 2',
+    nameOfPlayer1: 'Player 1',
+    nameOfPlayer2: 'Player 2',
     iamPlayer: 1,
     currentPlayer: 1,
     gameover: false,
@@ -27,7 +27,7 @@ export const INITIAL_STATE: INITIAL_STATE_TYPE = {
   },
   socket: {
     instance: null,
-    localId: '',
+    localSocketId: '',
     remoteIsOnline: false,
   },
 };
@@ -64,15 +64,15 @@ export const gameReducer = (state = INITIAL_STATE.game, action: {type: string, p
         ...state,
         iamPlayer: payload,
     }
-    case ACTION_TYPES.SET_LOCAL_PLAYER_NAME:
+    case ACTION_TYPES.SET_NAME_OF_PLAYER_1:
       return {
         ...state,
-        localPlayerName: payload,
+        nameOfPlayer1: payload,
       };
-    case ACTION_TYPES.SET_REMOTE_PLAYER_NAME:
+    case ACTION_TYPES.SET_NAME_OF_PLAYER_2:
       return {
         ...state,
-        remotePlayerName: payload,
+        nameOfPlayer2: payload,
       };
     case ACTION_TYPES.SET_GAME_ID:
       return {
@@ -169,7 +169,7 @@ export const socketReducer = (state = INITIAL_STATE.socket, action: {type: strin
     case ACTION_TYPES.SET_SOCKET_LOCAL_ID:
       return {
         ...state,
-        localId: payload,
+        localSocketId: payload,
       }
     case ACTION_TYPES.SET_REMOTE_IS_ONLINE:
       return {

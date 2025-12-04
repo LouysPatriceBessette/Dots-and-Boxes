@@ -7,14 +7,11 @@ export const refreshReduxStore = (data) =>
 export const setGameSize = (size) =>
   createAction(ACTION_TYPES.SET_SIZE, size);
 
-// export const setIAmGameCreator = () =>
-//   createAction(ACTION_TYPES.SET_I_AM_GAME_CREATOR);
+export const setNameOfPlayer1 = (name) =>
+  createAction(ACTION_TYPES.SET_NAME_OF_PLAYER_1, name);
 
-export const setLocalPlayerName = (name) =>
-  createAction(ACTION_TYPES.SET_LOCAL_PLAYER_NAME, name);
-
-export const setRemotePlayerName = (name) =>
-  createAction(ACTION_TYPES.SET_REMOTE_PLAYER_NAME, name);
+export const setNameOfPlayer2 = (name) =>
+  createAction(ACTION_TYPES.SET_NAME_OF_PLAYER_2, name);
 
 export const setGameId = (gameId) =>
   createAction(ACTION_TYPES.SET_GAME_ID, gameId);
@@ -24,6 +21,12 @@ export const setGameover = (gameover) =>
 
 export const toggleCurrentPlayer = (nextPlayer) =>
   createAction(ACTION_TYPES.TOGGLE_CURRENT_PLAYER, nextPlayer);
+
+export const setPlayerLeftMyGame = () =>
+  createAction(ACTION_TYPES.PLAYER_LEFT_MY_GAME);
+
+export const setGameDestroyed = () =>
+  createAction(ACTION_TYPES.GAME_DESTROYED);
 
 export const setOrigin = (origin) =>
   createAction(ACTION_TYPES.SET_ORIGIN, origin);
