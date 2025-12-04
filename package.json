@@ -5,9 +5,9 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "./create-env.sh development && node server.js",
     "build": "next build",
-    "start": "node server.js",
+    "start": "./create-env.sh production && node server.js",
     "lint": "eslint"
   },
   "dependencies": {
