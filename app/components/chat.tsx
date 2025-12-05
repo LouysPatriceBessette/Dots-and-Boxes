@@ -48,7 +48,7 @@ export const Chat = () => {
             const message = msgParts[1];
 
             const playerNumber = name === player1Name ? 1 : name === player2Name ? 2 : 0;
-            const nameSpanned = <PlayerNameChatColor playerNumber={playerNumber}>{name}</PlayerNameChatColor>;
+            const nameSpanned = <PlayerNameChatColor $playerNumber={playerNumber}>{name}</PlayerNameChatColor>;
 
             return <p key={index}>{nameSpanned}{message}</p>
           }

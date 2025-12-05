@@ -33,6 +33,6 @@ export const ChatInputsContainer = styled.div`
   }
 `
 
-export const PlayerNameChatColor = styled.span<{playerNumber: number}>`
-  color: ${(props) => props.playerNumber === 1 ? 'green' : 'blue'};
+export const PlayerNameChatColor = styled.span<{$playerNumber: number}>`
+  color: ${(props) => props.$playerNumber === 1 ? 'green' : 'blue'};
 `;

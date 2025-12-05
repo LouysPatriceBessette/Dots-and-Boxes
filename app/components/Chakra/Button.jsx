@@ -1,8 +1,11 @@
-import React from 'react'
 import { Button, Box } from '@chakra-ui/react'
 
-export const ChakraButton = (props) => {
-  const {text, customVariant='', fullwidth, ...rest} = props
+export const ChakraButton = ({
+  text,
+  customVariant='',
+  fullwidth=false,
+  ...rest
+}) => {
   const fullwidthStyle = fullwidth ? {width: '100%'} : {}
 
   return (

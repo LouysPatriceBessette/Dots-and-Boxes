@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import { PinInput, For } from '@chakra-ui/react'
 import { deepCopy, randomReactKey } from '../../basics/utils'
 
