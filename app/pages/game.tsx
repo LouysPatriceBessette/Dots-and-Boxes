@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import {
   // setGameSize,
@@ -25,6 +25,7 @@ import { GameControls } from "../components/game-controls";
 import { GameGrid } from "../components/game-grid";
 import {
   PageContainer,
+  DrawerContainer,
   PlayersNameHeader,
   PlayersScoreHeader,
   Player,
@@ -96,17 +97,19 @@ export const Game = () => {
   const gameover = useGameover()
 
   const messages = useChatMessages()
-  const [drawerIsOpen, setDrawerIsOpen] = useState(false)
-  const messagesDrawer = useRef<HTMLDivElement>(null)
+  const [messagesLength, setMessagesLength] = useState(messages.length)
+  const [triggerOpen, setTriggerOpen] = useState(false)
 
   useEffect(() => {
-    if(messagesDrawer.current){
-      if(!drawerIsOpen) {
-        setDrawerIsOpen(true)
-      }
+    if(messages.length > messagesLength) {
+      setTriggerOpen(true)
+      setMessagesLength((prev: number) => prev + 1)
+
+      setTimeout(() => {
+        setTriggerOpen(false)
+      }, 1)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages, messagesDrawer])
+  }, [messages, messagesLength])
 
   if(fencedByP1.length + fencedByP2.length === finalCount) {
     setTimeout(() => dispatch(setGameover(true)), 100)
@@ -114,7 +117,27 @@ export const Game = () => {
 
   return (
     <PageContainer>
-      <GameControls/>
+      <DrawerContainer>
+        {/* Controls drawer */}
+        <Chakra.Drawer
+          placement="top"
+          title='Controls'
+          buttonText='Controls'
+        >
+          <GameControls/>
+        </Chakra.Drawer>
+
+        {/* Chat drawer */}
+        {gameId !== -1 &&<Chakra.Drawer
+          triggerOpen={triggerOpen}
+          placement="bottom"
+          title='Chat with the other player'
+          buttonText='Chat'
+        >
+          <Chat/>
+        </Chakra.Drawer>}
+      </DrawerContainer>
+
       <PlayersNameHeader>
         <Player>
           <PlayerNameContainer>
@@ -147,15 +170,9 @@ export const Game = () => {
         <GameGrid />
       </GameGridContainer>
 
-      <Chakra.Drawer
-        ref={messagesDrawer}
-        drawerIsOpen={drawerIsOpen}
-        setDrawerIsOpen={setDrawerIsOpen}
-        placement="bottom"
-        title='Chat with the other player'
-      >
-        <Chat/>
-      </Chakra.Drawer>
+      
+
+      
 
       {gameover && <GameOver>Game Over</GameOver>}
     </PageContainer>

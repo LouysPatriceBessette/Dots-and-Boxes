@@ -5,6 +5,11 @@ export const PageContainer = styled.div`
   padding: 40px 20px;
 `
 
+export const DrawerContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 export const PlayersNameHeader = styled.div`
   display: flex;
   justify-content: space-between;
