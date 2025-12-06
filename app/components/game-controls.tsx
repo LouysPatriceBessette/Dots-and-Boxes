@@ -147,7 +147,7 @@ export const GameControls = () => {
 
   // const myName = localStorage.getItem('myName')
   const createGameCallback = () => {
-    const gridSize = {x, y}
+    const gridSize = {x: x + 1, y: y + 1}
 
     dispatch(setNameOfPlayer1(playerName))
     dispatch(setNameOfPlayer2('Player 2'))

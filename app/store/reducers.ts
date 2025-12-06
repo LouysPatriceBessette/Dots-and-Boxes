@@ -38,6 +38,7 @@ export const gameReducer = (state = INITIAL_STATE.game, action: {type: string, p
   if(type === ACTION_TYPES.REFRESH_REDUX_STORE){
     return {
       ...state,
+      ...payload.chat,
       ...payload.game,
     }
   }

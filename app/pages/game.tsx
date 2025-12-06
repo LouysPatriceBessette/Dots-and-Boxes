@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import {
-  // setGameSize,
   setNameOfPlayer1,
   setGameId,
   setGameover,
@@ -103,6 +102,13 @@ export const Game = () => {
   const [triggerOpen, setTriggerOpen] = useState(false)
 
   useEffect(() => {
+
+    // Reset on game left or destroyed
+    if(messagesLength>0 && messages.length === 0) {
+      setMessagesLength(0)
+      return
+    }
+
     if(messages.length > messagesLength) {
       setTriggerOpen(true)
       setMessagesLength((prev: number) => prev + 1)

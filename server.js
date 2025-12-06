@@ -15,6 +15,7 @@ import {
 import {
   tryParseJson,
   randomGameId,
+  deepCopy,
 } from './app/basics/utils.js';
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -333,15 +334,17 @@ app.prepare().then(() => {
               break;
 
             case SOCKET_ACTIONS.CREATE_GAME:
+              const initialGameCopy = deepCopy(INITIAL_GAME_STATE)
+
               const game = {
-                ...INITIAL_GAME_STATE,
+                ...initialGameCopy,
                 id: randomGameId(games),
                 players: [parsed.socketId, 'FREE'],
                 player1Name: parsed.player1Name,
                 redux: {
-                  ...INITIAL_GAME_STATE.redux,
+                  ...initialGameCopy.redux,
                   game: {
-                    ...INITIAL_GAME_STATE.redux.game,
+                    ...initialGameCopy.redux.game,
                     size: parsed.size,
                   }
                 }

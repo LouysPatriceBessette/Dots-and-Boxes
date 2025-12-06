@@ -139,17 +139,18 @@ export const SocketListen = () => {
 
               setTimeout(()=> {
                 dispatch(toggleCurrentPlayer(1))
-                dispatch(setNameOfPlayer1(localStorage.getItem('myName') ?? 'Player 12'))
+                dispatch(setNameOfPlayer1(localStorage.getItem('myName') ?? 'Player 1'))
                 dispatch(setNameOfPlayer2('Player 2'))
               },1)
               break;
             
             case SOCKET_ACTIONS.GAME_DESTROYED:
-              dispatch(setNameOfPlayer1(localStorage.getItem('myName') ?? 'Player 1'))
-              dispatch(setNameOfPlayer2('Player 2'))
-              dispatch(setIamPlayer(1))
-              dispatch(setGameId(-1))
+              dispatch(resetReduxInitialState())
               localStorage.removeItem('gameId')
+
+              setTimeout(()=> {
+                dispatch(setNameOfPlayer1(localStorage.getItem('myName') ?? 'Player 1'))
+              },1)
               break;
             
             case SOCKET_ACTIONS.PING:
