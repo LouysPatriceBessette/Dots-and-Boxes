@@ -19,7 +19,7 @@ I am focussing on playing **with a human** in real time. This is a **Socket chal
 My objective is to complete all the users management logic, since the game rules are simple and where implemented in less than 2 days.
 
 
-### TODO list, as of 2025-12-04:
+### TODO list, as of 2025-12-06:
 
 - [x] `n` x `n` grid layout
 - [x] Socket connections between players of a specific game id.
@@ -31,12 +31,17 @@ My objective is to complete all the users management logic, since the game rules
 - [x] *Ping/Pong* web socket connections check to display acurate players online state.
 - [x] Controls: Grid size (on game creation) with a `x` x `y` grid instead od `n` x `n`.
 - [x] Controls: Leave, re-join and destroy.
-- [x] Auto genereate .env file
-- [ ] Controls: start a new game on game over.
-- [ ] Share the game id (link or QR).
-- [ ] Controls: Allow strangers to join new or unfinished game (since re-join works)
-- [ ] Play with an unknown player (if you have no friends available... or to resume a game dropped by your opponent).
+- [x] Auto generate .env file
+- [x] Use Chakra components
+- [x] Overall debugging
+- [x] Deploy version 0.1.0 on VPS
+- [x] Title and favicon
+- [x] SSL cert on the sub-domain
+- [x] Deploy version 0.1.1 on VPS
+- [ ] Controls: on game over, start a new game with same opponent.
 - [ ] A sympatic guided tour on first visit (for the controls, rule games...) instead of plain text instructions.
+- [ ] Display "opened to anyone" games to join (without having a game number)
+- [ ] Share a game using a link or a QR code.
 
 
 ### Instructions to run
