@@ -3,6 +3,8 @@ This is a rainy days camping game. I started coding it on **2025-11-27**.
 
 I used to call it *"jeux des p'tites lignes"* in French, which would translate to "little lines game"" in English.
 
+
+![Valid XHTML](./public/Dots-and-Squares.jpg).
 ## How to play?
 
 Here is a short [Youtube video](https://www.youtube.com/watch?v=hQdQWxQk8_A) (40 seconds) to explain the rules.
