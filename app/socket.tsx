@@ -38,6 +38,8 @@ export const sendMessage = (socket: Socket, gameId: number, message: string, set
 };
 
 export const SocketListen = () => {
+  const DEBUG_PING_PONG = false
+
   const dispatch = useDispatch()
   const language: SupportedLanguagesType = useLanguage()
 
@@ -64,7 +66,9 @@ export const SocketListen = () => {
       const command = tryParseJson(msg)
 
       if(command){
-        console.log('command received', command)
+        if(DEBUG_PING_PONG){
+          console.log('command received', command)
+        }
 
         if(command.from === 'server'){
           switch(command.action){
@@ -165,16 +169,28 @@ export const SocketListen = () => {
               break;
             
             case SOCKET_ACTIONS.PING:
-              socket.emit('message', JSON.stringify({
+              if(DEBUG_PING_PONG){
+                console.log("Received PING", command)
+              }
+              const pongMsg = {
                 from: 'player',
                 to: 'server',
                 action: SOCKET_ACTIONS.PONG,
-                gameId: command.gameId,
+                gameId: localStorage.getItem('gameId'),
                 iamPlayerId: socket.id,
-              }))
+              }
+
+              if(DEBUG_PING_PONG){
+                console.log("Sending PONG to server", pongMsg)
+              }
+
+              socket.emit('message', JSON.stringify(pongMsg))
               break;
 
             case SOCKET_ACTIONS.PONG:
+              if(DEBUG_PING_PONG){
+                console.log("Received PONG (other player is online)", command)
+              }
               dispatch(setRemoteIsOnline(command.isOnline))
               break;
 
@@ -226,7 +242,7 @@ export const SocketListen = () => {
       console.error(`Socket.IO connection error: ${err.message}`);
     });
    
-  }, [language, dispatch]);
+  }, [language, dispatch, DEBUG_PING_PONG]);
 
   return <div></div>
 }

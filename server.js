@@ -18,13 +18,26 @@ import {
   deepCopy,
 } from './app/basics/utils.js';
 
+const DEBUG_PING_PONG = false
+const DEBUG_GAMES = false
+
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 // While we do not have a DB yet...
 const games = []
-const pings = []
+
+// SERVER PINGS
+const CURRENT_ACTIVE_SOCKETS = []
+const CURRENT_TIMEOUTS = {}
+const PING_INTERVAL = 10000
+const PING_TIMEOUT = 5000
+const PING_MESSAGE = {
+  from: 'server',
+  to: 'player',
+  action: SOCKET_ACTIONS.PING,
+}
 
 const INITIAL_GAME_STATE = {
   id: -1,
@@ -45,52 +58,17 @@ const INITIAL_GAME_STATE = {
   }
 }
 
-const pingPongToServerConsole = false
-
-const checkPings = (io, fromPlayerId) => {
-  const pingIndex = pings.findIndex((ping) => ping.from === fromPlayerId)
-  if(pingIndex !== -1){
-    const ping = pings[pingIndex]
-
-    if(pingPongToServerConsole){
-      console.log(headerWrap(`> Checking ping from ${fromPlayerId}`, `Ping found: ${JSON.stringify(ping)}`))
-    }
-
-    // Notify that the player is offline
-    const newMsg = {
-      from: 'server',
-      to: 'player',
-      action: SOCKET_ACTIONS.PONG,
-      isOnline: false,
-    }
-
-    // Send the message
-    io.to(ping.to).emit('message', JSON.stringify(newMsg))
-
-    // Remove the ping from the list
-    pings.splice(pingIndex, 1)
-  } else {
-    if(pingPongToServerConsole){
-      console.log(headerWrap(`> Checking ping from ${fromPlayerId}`, `No ping found.`))
-    }
-  }
-}
-
-const clearPingTimeout = (io, fromPlayerId) => {
-  const pingIndex = pings.findIndex((ping) => ping.from === fromPlayerId)
-  if(pingIndex !== -1){
-    clearTimeout(pings[pingIndex].timeoutRef)
-    pings.splice(pingIndex, 1)
-  }
-}
-
 const getGameById = (gameId) => {
   if(!gameId){
-    console.log(headerWrap('getGameById', 'No gameId provided.'))
+    if(DEBUG_GAMES){
+      console.log(headerWrap('getGameById', 'No gameId provided.'))
+    }
     return
   }
   if(isNaN(gameId)){
-    console.log(headerWrap('getGameById', `GameId '${gameId}' is not a number.`))
+    if(DEBUG_GAMES){
+      console.log(headerWrap('getGameById', `GameId '${gameId}' is not a number.`))
+    }
     return
   }
   
@@ -140,8 +118,46 @@ app.prepare().then(() => {
     },
   });
 
+  // Players PING interval
+  setInterval(() => {
+    for(const activeSocketId of CURRENT_ACTIVE_SOCKETS){
+      if(DEBUG_PING_PONG){
+        console.log('currentActiveSockets - in the interval',CURRENT_ACTIVE_SOCKETS)
+      }
+      // Create a timout to receive PONG
+      const timeoutId = setTimeout(() => {
+        // if(DEBUG_PING_PONG){
+          console.log(`${LOG_COLORS.INFO}> No PONG received for: ${activeSocketId}${LOG_COLORS.WHITE}`);
+        // }
+        
+        // Remove socket ID - No PONG received in PING_TIMEOUT ms
+        const socketIdIndex = CURRENT_ACTIVE_SOCKETS.indexOf(activeSocketId)
+        CURRENT_ACTIVE_SOCKETS.splice(socketIdIndex, 1)
+      }, PING_TIMEOUT)
+      
+      // Associate a timeout id with the socket id - for refenrence on PONG received
+      CURRENT_TIMEOUTS[activeSocketId] = timeoutId
+
+      if(DEBUG_PING_PONG){
+        console.log(`${LOG_COLORS.INFO}> ${new Date().toISOString()} PING to : ${activeSocketId}${LOG_COLORS.WHITE}`);
+      }
+      io.to(activeSocketId).emit('message', JSON.stringify(PING_MESSAGE))
+    }
+    
+  }, PING_INTERVAL)
+
+
+  //
+  // ===========================================================  CONNECTION
+  //
   io.on('connection', (socket) => {
     console.log(`${LOG_COLORS.INFO}> A user connected: ${socket.id}${LOG_COLORS.WHITE}`);
+
+    CURRENT_ACTIVE_SOCKETS.push(socket.id)
+    if(DEBUG_PING_PONG){
+      console.log('currentActiveSockets - on connection', CURRENT_ACTIVE_SOCKETS)
+    }
+
 
     //
     // ===========================================================  CONNECT
@@ -167,6 +183,7 @@ app.prepare().then(() => {
         console.log(headerWrap('Message to anyone?', msg));
       }
 
+
       //
       // =========================================================== CHAT MESSAGES
       //
@@ -177,7 +194,6 @@ app.prepare().then(() => {
           return
         } else {
           console.log(headerWrap(`> Message to chat`, msg))
-
 
           // Keep game messages
           const game = getGameById(parsed.gameId)
@@ -194,6 +210,7 @@ app.prepare().then(() => {
         }
       }
 
+
       //
       // =========================================================== GAME MESSAGES
       //
@@ -205,15 +222,26 @@ app.prepare().then(() => {
 
         if(parsed.to === 'server') {
 
-          if(parsed.action !== SOCKET_ACTIONS.PING && parsed.action !== SOCKET_ACTIONS.PONG){
-            
-            console.log(headerWrap(`> Message to server`, msg))
-            console.log('============ GAMES', games)
-            console.log('parsed', parsed)
+          if(parsed.action !== SOCKET_ACTIONS.PONG){
+            if(DEBUG_GAMES){
+              console.log(headerWrap(`> Message to server`, msg))
+              console.log('============ GAMES', games)
+              console.log('parsed', parsed)
+            }
           }
 
           switch(parsed.action){
             case SOCKET_ACTIONS.REFRESH_ID:
+
+              // Remove old socket ID
+              const socketIdIndex = CURRENT_ACTIVE_SOCKETS.indexOf(parsed.oldSocketId)
+              if(socketIdIndex !== -1){
+                CURRENT_ACTIVE_SOCKETS.splice(socketIdIndex, 1)
+                if(DEBUG_PING_PONG){
+                  console.log('currentActiveSockets - in REFRESH_ID', CURRENT_ACTIVE_SOCKETS)
+                }
+              }
+
               if(games.length && parsed.oldSocketId && parsed.newSocketId){
                 // The use is to resync with a game
                 const userGames = games.filter((game) => game.players.includes(parsed.oldSocketId))
@@ -281,58 +309,31 @@ app.prepare().then(() => {
               }
               break;
 
-            case SOCKET_ACTIONS.PING:
-              if(pingPongToServerConsole){
-                console.log('Ping/Pong between players', msg)
+            case SOCKET_ACTIONS.PONG:
+              if(DEBUG_PING_PONG){
+                console.log('\n\n=====\nPong received:', msg)
               }
-              const pingOtherPlayerId = getOtherPlayerId(parsed.gameId, parsed.iamPlayerId)
 
-              if(pingOtherPlayerId){
-                const forwardedPing = JSON.stringify({
-                  from: 'server',
-                  to: 'player',
-                  action: SOCKET_ACTIONS.PING,
-                  gameId: parsed.gameId,
-                })
+              // Clearing PING timeout
+              clearTimeout(CURRENT_TIMEOUTS[parsed.iamPlayerId])
+              CURRENT_TIMEOUTS[parsed.iamPlayerId] = undefined
 
-                pings.push({
-                  from: parsed.iamPlayerId,
-                  to: pingOtherPlayerId,
-                  timeoutRef: setTimeout(() => checkPings(io, parsed.iamPlayerId), 1000),
-                })
+              const pongOtherPlayerId = getOtherPlayerId(parsed.gameId, parsed.iamPlayerId)
+              if(DEBUG_PING_PONG){
+                console.log('currentActiveSockets - in PONG', CURRENT_ACTIVE_SOCKETS)
+                console.log('Pong the other player?', pongOtherPlayerId ? `${LOG_COLORS.INFO}Yes${LOG_COLORS.WHITE}` : `${LOG_COLORS.INFO}No${LOG_COLORS.WHITE}`)
+              }
 
-                io.to(pingOtherPlayerId).emit('message', forwardedPing)
-
-                // Return pong now
-              } else {
-                const immediateResponse = JSON.stringify({
+              // Send a PONG to the other player to tell its opponent still is online
+              if(pongOtherPlayerId && pongOtherPlayerId !== 'FREE'){
+                const pongOtherPlayer = JSON.stringify({
                   from: 'server',
                   to: 'player',
                   action: SOCKET_ACTIONS.PONG,
-                  isOnline: false,
+                  isOnline: true,
                 })
-
-                io.to(parsed.iamPlayerId).emit('message', immediateResponse)
+                io.to(pongOtherPlayerId).emit('message', pongOtherPlayer)
               }
-              
-              break;
-
-            case SOCKET_ACTIONS.PONG:
-              if(pingPongToServerConsole){
-                console.log('Ping/Pong between players', msg)
-              }
-              const pongOtherPlayerId = getOtherPlayerId(parsed.gameId, parsed.iamPlayerId)
-
-              clearPingTimeout(io, pongOtherPlayerId)
-
-              const forwardedPong = JSON.stringify({
-                from: 'server',
-                to: 'player',
-                action: SOCKET_ACTIONS.PONG,
-                isOnline: true,
-              })
-
-              io.to(pongOtherPlayerId).emit('message', forwardedPong)
               break;
 
             case SOCKET_ACTIONS.CREATE_GAME:
@@ -486,7 +487,9 @@ app.prepare().then(() => {
               const gameIndex = getGameIndex(gameToLeave.id)
               games[gameIndex] = gameToLeave
 
-              console.log('games after update', games)
+              if(DEBUG_GAMES){
+                console.log('games after update', games)
+              }              
 
               // Messages
               const messageToLeavingPlayer = {
@@ -495,7 +498,6 @@ app.prepare().then(() => {
                 action: SOCKET_ACTIONS.I_LEFT_THE_GAME,
                 leavingPlayer: leavingPlayerIs + 1
               }
-              console.log('messageToLeavingPlayer', messageToLeavingPlayer)
               io.to(leavingPlayer).emit('message', JSON.stringify(messageToLeavingPlayer))
               
 
@@ -506,7 +508,6 @@ app.prepare().then(() => {
                 leavingPlayer: leavingPlayerIs + 1,
                 leavingPlayerName: leavingPlayerIs === 0 ? gameToLeave.player1Name : gameToLeave.player2Name
               }
-              console.log('messageToOtherPlayer', messageToOtherPlayer)
               io.to(otherPlayerId).emit('message', JSON.stringify(messageToOtherPlayer))
 
               break;
@@ -582,6 +583,10 @@ app.prepare().then(() => {
     socket.on('disconnect', () => {
       console.log(`${LOG_COLORS.INFO}> User disconnected ${socket.id}${LOG_COLORS.WHITE}`);
       
+      // Remove socket ID
+      const socketIdIndex = CURRENT_ACTIVE_SOCKETS.indexOf(socket.id)
+      if(socketIdIndex !== -1) CURRENT_ACTIVE_SOCKETS.splice(socketIdIndex, 1)
+
       const game = getGameByPlayerId(socket.id)
       const gameId = game ? game.id : null;
 

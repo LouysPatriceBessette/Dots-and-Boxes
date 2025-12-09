@@ -30,7 +30,7 @@ import { SupportedLanguagesType } from "../translations/supportedLanguages";
 import { languages } from "../translations/supportedLanguages";
 
 export const GameControls = () => {
-  const debugStorage = false
+  const DEBUG_LOCAL_STORAGE = false
 
   const fakeRef = useRef(null)
 
@@ -233,7 +233,7 @@ export const GameControls = () => {
   console.log('remoteHasLeft', remoteHasLeft)
 
   return (<>
-    {debugStorage && <div>
+    {DEBUG_LOCAL_STORAGE && <div>
       <Chakra.Button
         onClick={() => {
           localStorage.clear()

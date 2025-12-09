@@ -18,9 +18,8 @@ import {
   useFencedByP1,
   useFencedByP2,
   useSocketRemoteIsOnline,
-  useSocketInstance,
   useChatMessages,
-  // useSocketLocalId,
+  useSocketLocalId,
 } from "../store/selectors";
 
 import { GameControls } from "../components/game-controls";
@@ -39,7 +38,6 @@ import {
   GameGridContainer,
   GameOver,
 } from "./game.styled";
-import { SOCKET_ACTIONS } from "../basics/constants";
 import Chakra from "../components/Chakra";
 import { Chat } from "../components/chat";
 
@@ -48,13 +46,12 @@ import t from "../translations";
 import { SupportedLanguagesType } from "../translations/supportedLanguages";
 
 export const Game = () => {
-  const GameOverDialogDisabled = true
+  const DEBUG_DISPLAY_MY_SOCKET_ID = false
+  const WIP_GAME_OVER_DIALOG_DISABLED = true
 
-  const language: SupportedLanguagesType = useLanguage()
-
-  const socket = useSocketInstance()
   const dispatch = useDispatch()
 
+  const language: SupportedLanguagesType = useLanguage()
   const size = useSize()
   const gameId = useGameId()
   const finalCount = (size.x - 1) * (size.y - 1)
@@ -72,29 +69,6 @@ export const Game = () => {
   const remoteIsOnline = useSocketRemoteIsOnline()
   const iamPlayer = useIamPlayer()
   const otherPlayerName = iamPlayer === 1 ? player2Name : player1Name
-  
-  useEffect(() => {
-    let interval: NodeJS.Timeout
-    if(socket && gameId && gameId !== -1){
-      interval = setInterval(() => {
-        if(gameId !== -1) {
-          socket.emit('message', JSON.stringify({
-            from: 'player',
-            to: 'server',
-            action: SOCKET_ACTIONS.PING,
-            gameId: gameId,
-            iamPlayerId: socket.id,
-          }))
-        }
-      }, 500)
-    } else {
-      // @ts-expect-error No error here!
-      clearInterval(interval)
-    }
-
-    return () => clearInterval(interval)
-   
-  }, [gameId, socket])
 
   useEffect(() => {
     const storedGameId = localStorage.getItem('gameId')
@@ -107,10 +81,10 @@ export const Game = () => {
     if(storedGameId) {
       dispatch(setGameId(storedGameId))
     }
-    if(storedLanguage){
+    if(storedLanguage && language !== storedLanguage) {
       dispatch(setLanguage(storedLanguage))
     }
-  }, [dispatch])
+  }, [language, dispatch])
 
   const fencedByP1 = useFencedByP1()
   const fencedByP2 = useFencedByP2()
@@ -148,7 +122,7 @@ export const Game = () => {
     dispatch(setGameover(fencedByP1.length + fencedByP2.length === finalCount))
   }, [fencedByP1, fencedByP2, finalCount, dispatch])
 
-  // const mySocketId = useSocketLocalId()
+  const mySocketId = useSocketLocalId()
   const gameIdString = gameId.toString().slice(0,3) + ' ' + gameId.toString().slice(3,6)
 
   return (
@@ -162,9 +136,14 @@ export const Game = () => {
           <GameControls/>
         </Chakra.Drawer>
 
+        {DEBUG_DISPLAY_MY_SOCKET_ID && <>
+          <div>
+            My Socket Id: {mySocketId}
+          </div>
+        </>}
+
         {gameId !== -1 && <GameNumberStyled>
           <div>
-            {/* My Socket Id: {mySocketId} */}
             {t[language]['Number to share']}
           </div>
           <div>
@@ -217,7 +196,7 @@ export const Game = () => {
 
       <GameOver>
         {gameover && <div>{t[language]['Game Over']}</div>}
-        {!GameOverDialogDisabled && <Chakra.Dialog
+        {!WIP_GAME_OVER_DIALOG_DISABLED && <Chakra.Dialog
           ref={gameOverDialogButton}
           title={t[language]['Game Over']}
           body={<p>{`${t[language]['Invite']} ${otherPlayerName} ${t[language]['to play another game with you?']}`}</p>}
