@@ -105,6 +105,12 @@ export const GameGridContainer = styled.div`
   width: 100%;
 `
 
+export const LanguageDialogContainer = styled.div`
+  & button{
+    display: none;
+  }
+`
+
 export const GameOver = styled.div`
   display: flex;
   flex-direction: column;

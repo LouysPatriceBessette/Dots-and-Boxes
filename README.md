@@ -1,36 +1,34 @@
 # Dots and Boxes
 This is a rainy days camping game. I started coding it on **2025-11-27**.
-
 I used to call it *"jeux des p'tites lignes"* in French, which would translate to "little lines game"" in English.
 
 
 ![Valid XHTML](./public/Dots-and-Squares.jpg).
-## How to play?
 
+
+## How to play?
 Here is a short [Youtube video](https://www.youtube.com/watch?v=hQdQWxQk8_A) (40 seconds) to explain the rules.
 
 ## More about this game
-Obviouly, I am not the inventor. In fact this is a **19th century** game.
-
+Obviously, I am not the inventor. In fact this is a **19th century** game.
 Have a look at this [Wikipedia](https://en.wikipedia.org/wiki/Dots_and_boxes) article.
 
 
 ## My "work in progress" implementation
-I am focussing on playing **with a human** in real time. This is a **Socket challenge** more than coding a bot.
-
+I am focusing on playing **with a human** in real time. This is a **Socket challenge** more than coding a bot.
 My objective is to complete all the users management logic, since the game rules are simple and where implemented in less than 2 days.
 
 
-### TODO list, as of 2025-12-07:
+### TODO list, as of 2025-12-09:
 
 - [x] `n` x `n` grid layout
 - [x] Socket connections between players of a specific game id.
-- [x] Turns alternance, respecting the "additional turn" on drawing the 4^th^ line a square.
+- [x] Turns alternate respecting the "additional turn" on drawing the 4^th^ line a square.
 - [x] Socket id refresh (and players registration to a game id update).
 - [x] Score count
 - [x] Players real time chat.
 - [x] Player names
-- [x] *Ping/Pong* web socket connections check to display acurate players online state.
+- [x] *Ping/Pong* web socket connections check to display accurate players online state.
 - [x] Controls: Grid size (on game creation) with a `x` x `y` grid instead od `n` x `n`.
 - [x] Controls: Leave, re-join and destroy.
 - [x] Auto generate .env file
@@ -43,8 +41,9 @@ My objective is to complete all the users management logic, since the game rules
 - [x] Improved "box has 4 sides" dispatch (better render, data retention on server)
 - [x] Deploy version 0.1.2 on VPS
 - [x] Translations (11 languages)
-- [ ] Controls: on game over, start a new game with same opponent.
-- [ ] A sympatic guided tour on first visit (for the controls, rule games...) instead of plain text instructions.
+- [x] Changed the Ping/Pong strategy (only server emits ping, clients emit pong)
+- [x] Controls: on game over, start a new game with same opponent.
+- [ ] A sympathetic guided tour on first visit (for the controls, rule games...) instead of plain text instructions.
 - [ ] Display "opened to anyone" games to join (without having a game number)
 - [ ] Share a game using a link or a QR code.
 

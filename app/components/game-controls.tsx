@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import {
   setLanguage,
   setGameSize,
@@ -10,14 +10,10 @@ import {
   useLanguage,
   useSocketInstance,
   useSocketLocalId,
-  useIamPlayer,
-  usePlayer1Name,
-  usePlayer2Name,
   useGameId,
-  // useSocketRemoteIsOnline,
   useSocketRemoteHasLeft
 } from "../store/selectors";
-import { LuChevronLeft, LuChevronRight } from 'react-icons/lu'
+import { LuChevronLeft, LuChevronRight, LuLanguages } from 'react-icons/lu'
 
 import { useDispatch } from "react-redux";
 import { SOCKET_ACTIONS } from "../basics/constants";
@@ -34,21 +30,15 @@ import { languages } from "../translations/supportedLanguages";
 export const GameControls = () => {
   const DEBUG_LOCAL_STORAGE = false
 
-  const fakeRef = useRef(null)
-
   const language: SupportedLanguagesType = useLanguage()
 
   const socket = useSocketInstance()
   const socketId = useSocketLocalId()
-  const iamPlayer = useIamPlayer()
-  const player1Name = usePlayer1Name()
-  const player2Name = usePlayer2Name()
   const gameId = useGameId()
-  // const remoteIsOnline = useSocketRemoteIsOnline()
   const remoteHasLeft = useSocketRemoteHasLeft()
   const dispatch = useDispatch()
 
-  const [playerName, setPlayerName] = useState('')
+  const [playerName, setPlayerName] = useState(localStorage.getItem('myName') || '')
   const [x, setX] = useState(3)
   const [y, setY] = useState(3)
 
@@ -65,11 +55,6 @@ export const GameControls = () => {
     dispatch(setLanguage(selectedLangItem.value))
     setMore(false)
   }
-
-  useEffect(() => {
-    (() => setPlayerName(iamPlayer === 1 ? player1Name : player2Name))()
-
-  }, [iamPlayer, player1Name, player2Name])
 
   const leaveGame = () => {
     localStorage.removeItem('gameId')
@@ -172,8 +157,13 @@ export const GameControls = () => {
   </>
 
   // const myName = localStorage.getItem('myName')
-  const createGameCallback = () => {
+  const createGameCallback = (buttonRef: React.RefObject<HTMLButtonElement | null>) => {
     const gridSize = {x: x + 1, y: y + 1}
+
+    if(!playerName) {
+      buttonRef.current?.click()
+      return
+    }
 
     dispatch(setNameOfPlayer1(playerName))
     dispatch(setNameOfPlayer2('Player 2'))
@@ -198,6 +188,7 @@ export const GameControls = () => {
     <Chakra.Input
       label={t[language]['Your name']}
       placeholder={t[language]['Your name']}
+      minLength={1}
       value={playerName}
       setValue={setPlayerName}
     />
@@ -212,7 +203,13 @@ export const GameControls = () => {
   </>
 
   // const myName = localStorage.getItem('myName')
-  const joinGameCallback = () => {
+  const joinGameCallback = (buttonRef: React.RefObject<HTMLButtonElement | null>) => {
+
+    if(!playerName) {
+      buttonRef.current?.click()
+      return
+    }
+
     const gameNumber = Number(pinString)
     dispatch(setGameId(gameNumber))
 
@@ -232,7 +229,8 @@ export const GameControls = () => {
     socket.emit('message', JSON.stringify(request))
   }
 
-  console.log('remoteHasLeft', remoteHasLeft)
+  const createButtonRef = useRef(null)
+  const joinButtonRef = useRef(null)
 
   return (<>
     {DEBUG_LOCAL_STORAGE && <div>
@@ -250,25 +248,25 @@ export const GameControls = () => {
     <ControlButtonsContainer>
       {!more && <>
         <Chakra.Dialog
-          ref={fakeRef}
+          ref={createButtonRef}
           title={t[language]['Create a game']}
           openButtonText={t[language]['Create']}
           openButtonColor='green'
           cancelButtonText={t[language]['Cancel']}
           saveButtonText={t[language]['Save']}
-          saveCallback={createGameCallback}
+          saveCallback={() => createGameCallback(createButtonRef)}
           body={CreateForm}
           disabled={gameId !== -1}
         />
 
         <Chakra.Dialog
-          ref={fakeRef}
+          ref={joinButtonRef}
           title={t[language]['Join a game']}
           openButtonText={t[language]['Join']}
           openButtonColor='orange'
           cancelButtonText={t[language]['Cancel']}
           saveButtonText={t[language]['Save']}
-          saveCallback={joinGameCallback}
+          saveCallback={() => joinGameCallback(joinButtonRef)}
           body={JoinForm}
           disabled={gameId !== -1}
         />
@@ -301,7 +299,7 @@ export const GameControls = () => {
         />
 
         <Chakra.Menu
-          buttonTitle={t[language]['Language']}
+          buttonTitle={<LuLanguages/>}
           items={languageItems}
           onSelect={(selectedLangItem: {label: string, value: string, disabled: boolean}) => changeLanguage(selectedLangItem)}
           buttonCustomVariant='green'

@@ -27,7 +27,7 @@ import {
 } from "../store/selectors";
 import { SOCKET_ACTIONS } from "../basics/constants";
 
-import { LuSettings, LuMessagesSquare } from 'react-icons/lu'
+import { LuSettings, LuMessagesSquare, LuLanguages } from 'react-icons/lu'
 import { GameControls } from "../components/game-controls";
 import { GameGrid } from "../components/game-grid";
 import {
@@ -43,6 +43,7 @@ import {
   PlayerScore,
   CurrentTurn,
   GameGridContainer,
+  LanguageDialogContainer,
   GameOver,
 } from "./game.styled";
 import Chakra from "../components/Chakra";
@@ -51,6 +52,7 @@ import { Chat } from "../components/chat";
 // Translations
 import t from "../translations";
 import { SupportedLanguagesType } from "../translations/supportedLanguages";
+import { languages } from "../translations/supportedLanguages";
 
 export const Game = () => {
   const DEBUG_DISPLAY_MY_SOCKET_ID = false
@@ -77,11 +79,17 @@ export const Game = () => {
   const remoteIsOnline = useSocketRemoteIsOnline()
   const iamPlayer = useIamPlayer()
   const otherPlayerName = iamPlayer === 1 ? player2Name : player1Name
+  const languageItems = Object.entries(languages).map(([key, value]) => ({label: value, value: key}))
+  const languageDialogButton = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const storedGameId = localStorage.getItem('gameId')
     const player1Name = localStorage.getItem('player1Name')
-    const storedLanguage =localStorage.getItem('language')
+    const storedLanguage = localStorage.getItem('language')
+
+    if(!storedLanguage){
+      languageDialogButton.current?.click()
+    }
 
     if(player1Name) {
       dispatch(setNameOfPlayer1(player1Name))
@@ -222,6 +230,28 @@ export const Game = () => {
       <GameGridContainer >
         <GameGrid />
       </GameGridContainer>
+
+      <LanguageDialogContainer>
+        <Chakra.Dialog
+          ref={languageDialogButton}
+          title={<LuLanguages/>}
+          body={
+            <Chakra.Combobox
+              setSelectedComponent={(x: string) => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const languageCode = Object.entries(languages).filter(([_, value]) => value === x)[0][0]
+                localStorage.setItem('language', languageCode)
+                dispatch(setLanguage(languageCode))
+              }}
+              options={languageItems}
+            />
+          }
+          saveButtonText={t[language]['Ok']}
+          cancelButtonHidden={true}
+          saveCallback={() => {
+          }}
+        />
+      </LanguageDialogContainer>
 
       <GameOver>
         {gameover && <div>{t[language]['Game Over']}</div>}

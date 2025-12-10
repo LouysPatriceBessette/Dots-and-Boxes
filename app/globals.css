@@ -34,3 +34,8 @@ body {
 .chakra-menu__positioner{
   z-index: 9999 !important;
 }
+
+/* Chakra Menu cheat */
+.chakra-combobox__positioner{
+  z-index: 9999 !important;
+}
