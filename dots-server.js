@@ -394,6 +394,12 @@ app.prepare().then(() => {
                   let ownerSeat = 'A'
                   let joinerSeat = 'B'
 
+                  // Check for name change
+                  // Clear messages if different.
+                  if(freeSeat && parsed.newPlayerName !== (freeSeat === 'A' ? game.player1Name : game.player2Name)){
+                    game.redux.chat.messages = []
+                  }
+
                   // If the joiner join a started game AND replaces the original player1
                   if(freeSeat === 'A'){
                     ownerId = game.players[1]

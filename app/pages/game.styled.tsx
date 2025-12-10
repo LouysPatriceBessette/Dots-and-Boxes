@@ -21,6 +21,7 @@ export const GameNumberStyled = styled.div`
 
 export const PageContainer = styled.div`
   width: 100%;
+  min-height: calc(100vh - 50px);
   padding: 10px 20px 40px;
 `
 
@@ -126,5 +127,27 @@ export const GameOver = styled.div`
 
   & button{
     display: none;
+  }
+`
+
+export const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  margin: 10px 0 0;
+  padding: 0 10px;
+  color: white;
+  background-color: #656565ff;
+
+  & > div:nth-child(1){
+    display: flex;
+    align-items: center;
+
+    & span{
+      margin-left: 0.5em;
+    }
+  }
+  & > div:nth-child(2) > div{
+    margin: 0;
   }
 `

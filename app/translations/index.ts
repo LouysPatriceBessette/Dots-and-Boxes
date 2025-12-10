@@ -1,5 +1,6 @@
-import { supportedLanguages as supported, SupportedLanguagesType } from "./supportedLanguages";
+import { supportedLanguages as supported } from "./supportedLanguages";
 import { appTranslations } from "./appTranslations";
+import { infoTranslations } from "./infoTranslations";
 // import { tourTranslations } from "./gameTranslations";
 
 const createTranslation = () => {
@@ -8,12 +9,13 @@ const createTranslation = () => {
     // @ts-expect-error Common TS!
     translation[lang] = {
       ...appTranslations[lang],
+      ...infoTranslations[lang],
       // ...tourTranslations,
     }
   }
-  return translation as { [key in SupportedLanguagesType]: { [key: string]: string } }
+  return translation
 }
 
 export const supportedLanguages = supported
-const t = createTranslation()
+const t = createTranslation() as { [key: string]: { [key: string]: string } }
 export default t

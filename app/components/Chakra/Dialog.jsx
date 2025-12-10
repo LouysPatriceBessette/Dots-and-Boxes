@@ -9,7 +9,7 @@ export const ChakraDialog = ({
   ref,
   size='md',
   title,
-  openButtonText='Open Dialog',
+  openButtonText,
   openButtonColor='white',
 
   cancelButtonText='',
@@ -31,7 +31,7 @@ export const ChakraDialog = ({
           ref={ref}
           customVariant={openButtonColor}
           size={size}
-          text={openButtonText}
+          text={openButtonText ?? 'Open Dialog'}
           disabled={disabled}
         />
       </Dialog.Trigger>

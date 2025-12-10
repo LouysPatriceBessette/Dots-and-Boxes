@@ -27,7 +27,7 @@ import {
 } from "../store/selectors";
 import { SOCKET_ACTIONS } from "../basics/constants";
 
-import { LuSettings, LuMessagesSquare, LuLanguages } from 'react-icons/lu'
+import { LuSettings, LuMessagesSquare, LuLanguages, LuCopyright, LuInfo } from 'react-icons/lu'
 import { GameControls } from "../components/game-controls";
 import { GameGrid } from "../components/game-grid";
 import {
@@ -45,6 +45,7 @@ import {
   GameGridContainer,
   LanguageDialogContainer,
   GameOver,
+  Footer,
 } from "./game.styled";
 import Chakra from "../components/Chakra";
 import { Chat } from "../components/chat";
@@ -158,7 +159,7 @@ export const Game = () => {
       socket.emit('message', JSON.stringify(request))
   }
 
-  return (
+  return (<>
     <PageContainer>
       <ConnectedPlayersContainer>
         <span>{clientsCount}</span> {`${clientsCount >  1 ? t[language]['players'] : t[language]['player']} ${t[language]['online']}`}
@@ -235,6 +236,7 @@ export const Game = () => {
         <Chakra.Dialog
           ref={languageDialogButton}
           title={<LuLanguages/>}
+          openButtonText={''}
           body={
             <Chakra.Combobox
               setSelectedComponent={(x: string) => {
@@ -258,6 +260,7 @@ export const Game = () => {
         <Chakra.Dialog
           ref={gameOverDialogButton}
           title={t[language]['Game Over']}
+          openButtonText={''}
           body={<p>{`${t[language]['Invite']} ${otherPlayerName} ${t[language]['to play another game with you?']}`}</p>}
 
           cancelButtonText={remoteIsOnline ? t[language]['Leave'] : t[language]['Ok']}
@@ -278,5 +281,28 @@ export const Game = () => {
         />
         </GameOver>
     </PageContainer>
-  );
+
+    <Footer>
+      <div><LuCopyright/> <span>2025 - Louys Patrice Bessette</span></div>
+      <div><Chakra.Dialog
+          ref={null}
+          title={<LuInfo/>}
+          openButtonText={<LuInfo/>}
+          openButtonColor='nav'
+          body={<>
+            <p>{t[language]['InfoDialogP1']}</p>
+            <p>&nbsp;</p>
+            <p>{t[language]['InfoDialogP2']}</p>
+            <p>&nbsp;</p>
+            <p>{t[language]['InfoDialogP3']}</p>
+            <p>&nbsp;</p>
+            <p>{t[language]['InfoDialogP4']}</p>
+            <p>&nbsp;</p>
+            <p>{t[language]['InfoDialogP5']}</p>
+          </>}
+          saveButtonText={t[language]['Ok']}
+          cancelButtonHidden={true}
+        /></div>
+    </Footer>
+  </>);
 }

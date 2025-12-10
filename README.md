@@ -19,7 +19,7 @@ I am focusing on playing **with a human** in real time. This is a **Socket chall
 My objective is to complete all the users management logic, since the game rules are simple and where implemented in less than 2 days.
 
 
-### TODO list, as of 2025-12-09:
+### TODO list, as of 2025-12-10:
 
 - [x] `n` x `n` grid layout
 - [x] Socket connections between players of a specific game id.
@@ -43,6 +43,7 @@ My objective is to complete all the users management logic, since the game rules
 - [x] Translations (11 languages)
 - [x] Changed the Ping/Pong strategy (only server emits ping, clients emit pong)
 - [x] Controls: on game over, start a new game with same opponent.
+- [x] Deploy version 0.1.3 on VPS (via GitHub Actions)
 - [ ] A sympathetic guided tour on first visit (for the controls, rule games...) instead of plain text instructions.
 - [ ] Display "opened to anyone" games to join (without having a game number)
 - [ ] Share a game using a link or a QR code.
