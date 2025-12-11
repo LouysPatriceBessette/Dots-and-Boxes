@@ -9,10 +9,16 @@ const baseProps = {
   pointerRadius: 5,
 }
 
+const appClick = {
+  showControls: false,
+  showSkip: false,
+}
+
 export const steps : Tour[] = [
   {
     tour: "INSTRUCTIONS_START",
     steps: [
+      // 0
       {
         ...baseProps,
 
@@ -25,6 +31,7 @@ export const steps : Tour[] = [
         </>,
         side:'top',
       },
+      // 1
       {
         ...baseProps,
 
@@ -33,6 +40,7 @@ export const steps : Tour[] = [
         content: "Here is the game grid!",
         side:'top',
       },
+      // 2
       {
         ...baseProps,
 
@@ -41,6 +49,7 @@ export const steps : Tour[] = [
         content: "Your points will be displayed here",
         side:'right',
       },
+      // 3
       {
         ...baseProps,
 
@@ -49,6 +58,7 @@ export const steps : Tour[] = [
         content: "Your opponent's points will be displayed here",
         side:'left',
       },
+      // 4
       {
         ...baseProps,
 
@@ -57,25 +67,23 @@ export const steps : Tour[] = [
         content: "Click here please...",
         side:'right',
 
-        // BaseProps over-ride
-        showControls: false,
-        showSkip: false,
+        ...appClick,
       },
+      // 5
       {
         ...baseProps,
 
         selector: "#tour__create-button",
         title: "Create",
         content: <>
-          <H3>YEAH</H3>
+          <H3>YEAH - CREATE BTN</H3>
           <div>Create a game here.</div>
         </>,
         side:'bottom',
 
-        // BaseProps over-ride
-        showControls: false,
-        showSkip: false,
+        ...appClick,
       },
+      // 6
       {
         ...baseProps,
 
@@ -88,11 +96,6 @@ export const steps : Tour[] = [
         </>,
         side:'bottom',
       },
-    ]
-  }
-]
-
-
 
 
 
@@ -134,3 +137,15 @@ export const steps : Tour[] = [
       //   </>,
       //   side:'bottom',
       // },
+
+
+
+    ]
+  }
+]
+
+
+
+
+
+      

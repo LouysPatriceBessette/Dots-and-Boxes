@@ -29,10 +29,10 @@ import { languages } from "../translations/supportedLanguages";
 
 export const GameControls = ({
   buttonIds,
-  buttonCallbacks
+  openButtonCallbacks,
 }: {
   buttonIds: string[],
-  buttonCallbacks: React.Dispatch<React.SetStateAction<boolean>>[]
+  openButtonCallbacks: (() => void)[]
 }) => {
   const DEBUG_LOCAL_STORAGE = Boolean(Number(process.env.DEBUG_LOCAL_STORAGE))
 
@@ -164,11 +164,14 @@ export const GameControls = ({
   </>
 
   // const myName = localStorage.getItem('myName')
-  const createGameCallback = (buttonRef: React.RefObject<HTMLButtonElement | null>) => {
+
+  // This callback call is made in the create Dialog on save button click
+  const createGameCallback = (createDialogOpenButtonRef: React.RefObject<HTMLButtonElement | null>) => {
     const gridSize = {x: x + 1, y: y + 1}
 
+    // To keep this dialog opened
     if(!playerName) {
-      buttonRef.current?.click()
+      createDialogOpenButtonRef.current?.click()
       return
     }
 
@@ -210,10 +213,13 @@ export const GameControls = ({
   </>
 
   // const myName = localStorage.getItem('myName')
-  const joinGameCallback = (buttonRef: React.RefObject<HTMLButtonElement | null>) => {
 
+  // This callback call is made in the join Dialog on save button click
+  const joinGameCallback = (joinDialogOpenButtonRef: React.RefObject<HTMLButtonElement | null>) => {
+
+    // To keep this dialog opened
     if(!playerName) {
-      buttonRef.current?.click()
+      joinDialogOpenButtonRef.current?.click()
       return
     }
 
@@ -236,8 +242,8 @@ export const GameControls = ({
     socket.emit('message', JSON.stringify(request))
   }
 
-  const createButtonRef = useRef(null)
-  const joinButtonRef = useRef(null)
+  const createDialogOpenButtonRef = useRef(null)
+  const joinDialogOpenButtonRef = useRef(null)
 
   return (<>
     {DEBUG_LOCAL_STORAGE && <div>
@@ -256,35 +262,41 @@ export const GameControls = ({
       {!more && <>
         <Chakra.Dialog
           id={buttonIds[0]}
-          ref={createButtonRef}
+          ref={createDialogOpenButtonRef}
           title={t[language]['Create a game']}
           openButtonText={t[language]['Create']}
           openButtonColor='green'
-          openButtonCallback={buttonCallbacks[0]}
+          openButtonCallback={() => openButtonCallbacks?.[0]?.()}
           cancelButtonText={t[language]['Cancel']}
           saveButtonText={t[language]['Save']}
-          saveCallback={() => createGameCallback(createButtonRef)}
+          saveCallback={() => createGameCallback(createDialogOpenButtonRef)}
           body={CreateForm}
           disabled={gameId !== -1}
         />
 
         <Chakra.Dialog
           id={buttonIds[1]}
-          ref={joinButtonRef}
+          ref={joinDialogOpenButtonRef}
           title={t[language]['Join a game']}
           openButtonText={t[language]['Join']}
           openButtonColor='orange'
-          openButtonCallback={() => {}}
+          openButtonCallback={() => openButtonCallbacks?.[1]?.()}
           cancelButtonText={t[language]['Cancel']}
           saveButtonText={t[language]['Save']}
-          saveCallback={() => joinGameCallback(joinButtonRef)}
+          saveCallback={() => joinGameCallback(joinDialogOpenButtonRef)}
           body={JoinForm}
           disabled={gameId !== -1}
         />
 
         <Chakra.Button
           id={buttonIds[2]}
-          onClick={remoteHasLeft ? destroyGame : leaveGame}
+          onClick={() => {
+            if(remoteHasLeft){
+              destroyGame()
+            } else {
+              leaveGame()
+            }
+          }}
           text={remoteHasLeft ? t[language]['Delete'] : t[language]['Leave']}
           customVariant='red'
           disabled={gameId === -1 || gameId === ''}

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect } from "react";
 import { useNextStep } from 'nextstepjs';
 import { steps } from '../tour/';
@@ -98,7 +100,6 @@ export const Game = () => {
     const storedLanguage = localStorage.getItem('language')
 
     if(!storedLanguage){
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLanguageDialogOpen(true)
     }
 
@@ -118,8 +119,11 @@ export const Game = () => {
 
   const messages = useChatMessages()
   const [messagesLength, setMessagesLength] = useState(messages.length)
+
   const [controlsDrawerOpen, setControlsDrawerOpen] = useState(false)
+
   const [createGameDialodOpen, setCreateGameDialodOpen] = useState(false)
+  const [joinGameDialodOpen, setJoinGameDialodOpen] = useState(false)
   const [gameoverDialogOpen, setGameoverDialogOpen] = useState(false)
 
   // For chat Drawer auto open
@@ -127,7 +131,6 @@ export const Game = () => {
   
   useEffect(() => {
     if(gameover || (!gameover && gameIdChanged)) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setGameoverDialogOpen(true)
       dispatch(setGameIdChanged(false))
     }
@@ -136,7 +139,6 @@ export const Game = () => {
   useEffect(() => {
     // Reset on game left or destroyed
     if(messagesLength>0 && messages.length === 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMessagesLength(0)
       return
     }
@@ -185,54 +187,57 @@ export const Game = () => {
     setCurrentStep,
     // isNextStepVisible,
   } = useNextStep();
+
+  const [tourStarted, setTourStarted] = useState(false)
+
   const handleStartTour = () => {
+    setTourStarted(true)
     setWelcomeDialogOpen(false)
     startNextStep("INSTRUCTIONS_START");
   };
 
   useEffect(() => {
 
-    console.clear()
-    console.log('currentStep', currentStep, currentTour)
+    console.log({
+      currentStep,
+      controlsDrawerOpen,
+      createGameDialodOpen,
+      joinGameDialodOpen,
+    })
 
     switch(currentTour){
       case 'INSTRUCTIONS_START':
-        if(currentStep === 4 && controlsDrawerOpen){
-          setCurrentStep(5, CURRENT_STEP_DELAY);
 
-          setTimeout(() => {
-            setControlsDrawerOpen(false)
-          }, TIME_OUT_DELAY)
+        if(currentStep === 4 && controlsDrawerOpen){
+           setCurrentStep(5)
         }
 
         if(currentStep === 5 && createGameDialodOpen){
-          setCurrentStep(6, CURRENT_STEP_DELAY);
-
-          setTimeout(() => {
-            setCreateGameDialodOpen(false)
-          }, TIME_OUT_DELAY)
+           setCurrentStep(6)
         }
+
         break
+
       case 'CONTROLS_DRAWER':
         if(currentStep === 1) {
           closeNextStep()
         }
         break
+
       default:
         break
     }
-
   }, [
     currentTour,
     currentStep,
     totalSteps,
     controlsDrawerOpen,
     createGameDialodOpen,
+    joinGameDialodOpen,
     closeNextStep,
     startNextStep,
-    setCurrentStep
-    ])
-
+    setCurrentStep,
+  ])
 
   return (<>
     <PageContainer>
@@ -246,16 +251,37 @@ export const Game = () => {
           id='tour__controls-drawer--button'
           placement="top"
           buttonText={<LuSettings/>}
-          buttonCallback={() => setControlsDrawerOpen(true)}
+          buttonCallback={() => {
+            setTimeout(() => {
+              setControlsDrawerOpen(true)
+            }, TIME_OUT_DELAY)
+          }}
+          disableOverlayClick={tourStarted}
         >
-          <GameControls buttonIds={[
-            'tour__create-button',
-            'tour__join-button',
-            'tour__leave-delete-button',
-            'tour__more-controls-button'
-          ]} buttonCallbacks={[
-            setCreateGameDialodOpen,
-          ]}/>
+          <GameControls
+            buttonIds={[
+              'tour__create-button',
+              'tour__join-button',
+              'tour__leave-delete-button',
+              'tour__more-controls-button'
+            ]}
+
+            // Dialogs open buttons callbacks
+            openButtonCallbacks={[
+              // create button
+              () => {
+                console.log('openbutton callback - in Game')
+                setTimeout(() => {
+                  setCreateGameDialodOpen(true)
+                }, TIME_OUT_DELAY)
+              },
+              
+              // join button
+              () => {
+                setJoinGameDialodOpen(true)
+              },
+            ]}
+          />
         </Chakra.Drawer>
 
         {DEBUG_DISPLAY_MY_SOCKET_ID && <>
@@ -279,6 +305,7 @@ export const Game = () => {
           placement="bottom"
           title={t[language]['Chat with the other player']}
           buttonText={<LuMessagesSquare/>}
+          disableOverlayClick={tourStarted}
         >
           <Chat/>
         </Chakra.Drawer>}
@@ -323,7 +350,6 @@ export const Game = () => {
             <Chakra.Combobox
               setSelectedComponent={(x: string) => {
                 if(x){
-                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
                   const languageCode = Object.entries(languages).filter(([_, value]) => value === x)?.[0]?.[0]
                   if(languageCode){
                     localStorage.setItem('language', languageCode)

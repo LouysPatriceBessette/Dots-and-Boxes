@@ -58,7 +58,7 @@ export const ChakraDialog = (props) => {
           size={size}
           text={openButtonText ?? 'Open Dialog'}
           disabled={openButtonDisabled}
-          onMouseUp={() => openButtonCallback && openButtonCallback(true)}
+          onMouseUp={() => openButtonCallback?.()}
         />
       </Dialog.Trigger>
       <Portal>

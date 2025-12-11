@@ -13,32 +13,40 @@ export const ChakraDrawer = (props) => {
     buttonText,
     displayCloseButton=false,
     footer,
-    triggerOpen: triggerOpen=false,
+    triggerOpen=false,
+    disableOverlayClick=false,
     children, 
     ...rest
   } = props
 
-  const [isOpen, setIsopen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    if(triggerOpen && !isOpen){
-      (() => setIsopen(true))()
+    if(triggerOpen && !open){
+      (() => setOpen(true))()
     }
-  }, [triggerOpen, isOpen])
+  }, [triggerOpen, open, setOpen])
 
   return (
     <Drawer.Root
       key={placement}
       placement={placement}
-      onClose={() =>setIsopen(false)}
-      open={isOpen}
-      onPointerDownOutside={() =>setIsopen(false)}
+      onClose={() => setOpen(false)}
+      open={open}
+      setOpen={setOpen}
+      onPointerDownOutside={() => {
+        if(disableOverlayClick){
+          setOpen(true)
+        } else {
+          setOpen(false)
+        }
+      }}
     >
       <Drawer.Trigger asChild>
         <ChakraButton
           id={rest.id}
           onClick={() => {
-            setIsopen(!isOpen)
+            setOpen(!open)
             if(rest.buttonCallback){
               rest.buttonCallback()
             }
@@ -65,7 +73,7 @@ export const ChakraDrawer = (props) => {
               {footer}
             </Drawer.Footer>}
             <Drawer.CloseTrigger asChild>
-              {displayCloseButton && <CloseButton size="sm" onClick={() => setIsopen(!isOpen)}/>}
+              {displayCloseButton && <CloseButton size="sm" onClick={() => setOpen(!open)}/>}
             </Drawer.CloseTrigger>
           </Drawer.Content>
         </Drawer.Positioner>
