@@ -51,8 +51,10 @@ export const tourTranslations = {
     'Create player name h3': 'Enter it here',
     'Create player name div': 'It is important.',
 
+    'Set the grid': 'Set the grid',
+    'Set the grid div': 'Set the desired grid using the sliders.',
 
-
+    'Save the grid': 'Save the grid',
 
 
     'Player 1 score': 'Score',

@@ -39,8 +39,8 @@ export const NextStepsTranslateAndDispatch = () =>{
 
             selector: "#tour__gameg-grid",
             title: `${t[language]['Game grid']}`,
-            content: `${t[language]['Game grid body']}`,
-            side:'top',
+            content:  `${t[language]['Game grid body']}`,
+            side: 'bottom',
           },
           // 1
           {
@@ -48,8 +48,8 @@ export const NextStepsTranslateAndDispatch = () =>{
 
             selector: "#tour__controls-drawer--button",
             title: `${t[language]['Controls button']}`,
-            content:`${t[language]['Controls button body']}`,
-            side:'right',
+            content:  `${t[language]['Controls button body']}`,
+            side: 'right',
 
             ...appClick,
           },
@@ -63,7 +63,7 @@ export const NextStepsTranslateAndDispatch = () =>{
               <H3>{t[language]['Create button h3']}</H3>
               <Div1>{t[language]['Create button div']}</Div1>
             </>,
-            side:'bottom',
+            side: 'bottom',
 
             ...appClick,
           },
@@ -75,9 +75,29 @@ export const NextStepsTranslateAndDispatch = () =>{
             title: `${t[language]['Create player name']}`,
             content: <>
               <H3>{t[language]['Create player name h3']}</H3>
-              <Div1>{t[language]['Create player name div']}</Div1>
+              {/* <Div1>{t[language]['Create player name div']}</Div1> */}
             </>,
-            side:'bottom',
+            side: 'bottom',
+          },
+          // 5
+          {
+            ...baseProps,
+
+            selector: "#tour__grid-create",
+            title: `${t[language]['Set the grid']}`,
+            content: <>
+              <Div1>{t[language]['Set the grid div']}</Div1>
+            </>,
+            side: 'top',
+          },
+          // 5
+          {
+            ...baseProps,
+
+            selector: "#tour__dialog-footer > div:nth-child(2)",
+            title: `${t[language]['Save the grid']}`,
+            content: <></>,
+            side: 'top',
           },
 
 
@@ -95,7 +115,7 @@ export const NextStepsTranslateAndDispatch = () =>{
           //     <div>This is the number of persons currently on the site.</div>
           //     <div>They are not connected to your game...</div>
           //   </>,
-          //   side:'top',
+          //   side: 'top',
           // },
 
 
@@ -111,7 +131,7 @@ export const NextStepsTranslateAndDispatch = () =>{
               <H3>{t[language]['Player 1 score h3']}</H3>
               <Div1>{t[language]['Player 1 score div']}</Div1>
             </>,
-            side:'right',
+            side: 'right',
           },
           // 3
           {
@@ -124,7 +144,7 @@ export const NextStepsTranslateAndDispatch = () =>{
               <Div1>{t[language]['Player 2 score div']}</Div1>
               <Divn>{t[language]['Player 2 score div2']}</Divn>
             </>,
-            side:'left',
+            side: 'left',
           },
 
           // {
@@ -137,7 +157,7 @@ export const NextStepsTranslateAndDispatch = () =>{
           //     <div>Join a game here.</div>
 
           //   </>,
-          //   side:'bottom',
+          //   side: 'bottom',
           // },
           // {
           //    ...baseProps,
@@ -150,7 +170,7 @@ export const NextStepsTranslateAndDispatch = () =>{
           //     <div>Leave a game here.</div>
 
           //   </>,
-          //   side:'bottom',
+          //   side: 'bottom',
           // },
           // {
           //    ...baseProps,
@@ -163,7 +183,7 @@ export const NextStepsTranslateAndDispatch = () =>{
           //     <div>More controls here.</div>
 
           //   </>,
-          //   side:'bottom',
+          //   side: 'bottom',
           // },
 
 

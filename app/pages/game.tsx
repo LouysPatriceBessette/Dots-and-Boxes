@@ -297,6 +297,25 @@ export const Game = () => {
             pointer.querySelector("[data-name='nextstep-card']")?.classList.remove('nextstep-card-fix-2')
           }
         }
+
+        // Create game sliders
+        if(currentStep === 4){
+          if(pointer){
+
+            // pointer.querySelector("[data-name='nextstep-card']")?.classList.remove('nextstep-card-fix-2')
+          }
+        }
+
+        if(currentStep === 5){
+          if(pointer){
+
+            // pointer.querySelector("[data-name='nextstep-card']")?.classList.remove('nextstep-card-fix-2')
+          }
+        }
+
+
+
+        
         break
 
       default:

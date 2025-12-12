@@ -61,14 +61,13 @@ div[data-name='nextstep-overlay']{
 .nextstep-card-fix-1{
   transform: translateY(-30%) !important;
 }
-.nextstep-card-fix-1 > div > svg{
-  display: none !important;
-}
 
 /* Create button */
 .nextstep-card-fix-2{
   transform: translateX(-10%) !important;
 }
-.nextstep-card-fix-2 > div > svg{
-  display: none !important;
+
+/* Save creat grid */
+.nextstep-card-fix-3{
+  transform: translateX(-80%) !important;
 }

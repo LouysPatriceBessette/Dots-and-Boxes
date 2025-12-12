@@ -10,6 +10,7 @@ export const NextStepStore = ({children}: {children: React.ReactNode}) => {
   return <NextStep
     steps={steps}
     disableConsoleLogs
+    displayArrow={false}
   >
     {stepsTarget === 'INSTRUCTIONS_START' ?
       children :
