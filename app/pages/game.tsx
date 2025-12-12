@@ -134,10 +134,17 @@ export const Game = () => {
   
   useEffect(() => {
     if(gameover || (!gameover && gameIdChanged)) {
-      setGameoverDialogOpen(true)
-      dispatch(setGameIdChanged(false))
+      setTimeout(() => {
+        setGameoverDialogOpen(true)
+        dispatch(setGameIdChanged(false))
+      }, 5000)
     }
-  }, [gameIdChanged, language, gameover, otherPlayerName, setGameoverDialogOpen, dispatch])
+  }, [gameIdChanged, gameover, setGameoverDialogOpen, dispatch])
+
+  // On another game invitation denied by the other player.
+  useEffect(() => {
+    setGameoverDialogOpen(false)
+  }, [otherPlayerName])
 
   useEffect(() => {
     // Reset on game left or destroyed
@@ -420,11 +427,17 @@ export const Game = () => {
           open={welcomeDialogOpen}
           setOpen={setWelcomeDialogOpen}
 
+          cancelButtonText={t[language]['Cancel']}
+          cancelCallback={() => {
+            setWelcomeDialogOpen(false)
+            setControlsDrawerOpen(false)
+          }}
+
           closeButtonHidden={true}
           overlayCloseDisabled={true}
           
           saveButtonHidden={true}
-          cancelButtonHidden={true}
+          // cancelButtonHidden={true}
         />
       </LanguageDialogContainer>
 
