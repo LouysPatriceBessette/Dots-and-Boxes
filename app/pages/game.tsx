@@ -219,20 +219,14 @@ export const Game = () => {
     switch(currentTour){
       case 'INSTRUCTIONS_START':
 
-        if(currentStep === 4 && controlsDrawerOpen){
-           setCurrentStep(5)
+        if(currentStep === 1 && controlsDrawerOpen){
+           setCurrentStep(2)
         }
 
-        if(currentStep === 5 && createGameDialodOpen){
-           setCurrentStep(6)
+        if(currentStep === 2 && createGameDialodOpen){
+           setCurrentStep(3)
         }
 
-        break
-
-      case 'CONTROLS_DRAWER':
-        if(currentStep === 1) {
-          closeNextStep()
-        }
         break
 
       default:

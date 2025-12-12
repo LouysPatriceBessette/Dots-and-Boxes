@@ -31,6 +31,20 @@ export const H3 = styled.h3`
   text-align: center;
 `
 
+export const Div1 = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: justify;
+  margin-top: 1.2em;
+`
+
+export const Divn = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: justify;
+  margin-top: 0.8em;
+`
+
 export const AppLoader = styled.div`
   width: 100%;
   height: 100vh;

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLanguage } from '../store/selectors';
+import { useLanguage, useTourLoadedLanguage } from '../store/selectors';
 import { setTour } from '../store/actions';
 
 import { Tour } from 'nextstepjs';
-import { H3, AppLoader } from './tour.styled';
+import { H3, Div1, Divn, AppLoader } from './tour.styled';
 import t from '../translations';
 
 const baseProps = {
@@ -23,6 +23,7 @@ const appClick = {
 export const NextStepsTranslateAndDispatch = () =>{
 
   const language = useLanguage()
+  const loadedLanguage = useTourLoadedLanguage()
   const dispatch = useDispatch()
 
   useEffect(()=> {
@@ -38,64 +39,43 @@ export const NextStepsTranslateAndDispatch = () =>{
 
             selector: "#tour__gameg-grid",
             title: `${t[language]['Game grid']}`,
-            content: "Here is the game grid!",
+            content: `${t[language]['Game grid body']}`,
             side:'top',
-
-            // ...appClick
           },
           // 1
           {
             ...baseProps,
 
-            selector: "#tour__player-1-score",
-            title: "Score",
-            content: "Your points will be displayed here",
-            side:'right',
-          },
-          // 3
-          {
-            ...baseProps,
-
-            selector: "#tour__player-2-score",
-            title: "Score",
-            content: "Your opponent's points will be displayed here",
-            side:'left',
-          },
-          // 4
-          {
-            ...baseProps,
-
             selector: "#tour__controls-drawer--button",
-            title: "Controls",
-            content: "Click here please...",
+            title: `${t[language]['Controls button']}`,
+            content:`${t[language]['Controls button body']}`,
             side:'right',
 
             ...appClick,
           },
-          // 5
+          // 2
           {
             ...baseProps,
 
             selector: "#tour__create-button",
-            title: "Create",
+            title: `${t[language]['Create button']}`,
             content: <>
-              <H3>YEAH - CREATE BTN</H3>
-              <div>Create a game here.</div>
+              <H3>{t[language]['Create button h3']}</H3>
+              <Div1>{t[language]['Create button div']}</Div1>
             </>,
             side:'bottom',
 
             ...appClick,
           },
-          // 6
+          // 3
           {
             ...baseProps,
 
             selector: "#tour__playername-create-container",
-            title: "Your fuckin name",
+            title: `${t[language]['Create player name']}`,
             content: <>
-              <H3>YEAH</H3>
-              <div>DESTROY!!!.</div>
-
+              <H3>{t[language]['Create player name h3']}</H3>
+              <Div1>{t[language]['Create player name div']}</Div1>
             </>,
             side:'bottom',
           },
@@ -118,6 +98,34 @@ export const NextStepsTranslateAndDispatch = () =>{
           //   side:'top',
           // },
 
+
+
+
+          // 1
+          {
+            ...baseProps,
+
+            selector: "#tour__player-1-score",
+            title: `${t[language]['Player 1 score']}`,
+            content: <>
+              <H3>{t[language]['Player 1 score h3']}</H3>
+              <Div1>{t[language]['Player 1 score div']}</Div1>
+            </>,
+            side:'right',
+          },
+          // 3
+          {
+            ...baseProps,
+
+            selector: "#tour__player-2-score",
+            title: `${t[language]['Player 2 score']}`,
+            content: <>
+              <H3>{t[language]['Player 2 score h3']}</H3>
+              <Div1>{t[language]['Player 2 score div']}</Div1>
+              <Divn>{t[language]['Player 2 score div2']}</Divn>
+            </>,
+            side:'left',
+          },
 
           // {
           //    ...baseProps,
@@ -165,11 +173,12 @@ export const NextStepsTranslateAndDispatch = () =>{
     ]
 
     setTimeout(() => {
-      dispatch(setTour(steps))
+      dispatch(setTour({steps, language}))
     }, 8000)
   }, [dispatch, language])
 
-  return <AppLoader>
-    <div className="loader"></div>
-  </AppLoader>
+  return loadedLanguage === '' ? 
+    <AppLoader><div className="loader"></div></AppLoader>
+    :
+    <></>
 }

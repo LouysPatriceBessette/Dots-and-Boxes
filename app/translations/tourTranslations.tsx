@@ -19,6 +19,8 @@ const wikilinks = {
 
 export const tourTranslations = {
   EN: {
+
+    // Welcome Dialog
     'Tour Dialog title': `Welcome to Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
@@ -31,7 +33,40 @@ export const tourTranslations = {
     </p>,
     'Tour Dialog button': 'Start the tour',
 
+    // Steps
+    // No JSX allowed here... Sadly.
+    //
     'Game grid': 'Game grid',
+    'Game grid body': 'This is where you wil play.',
+
+
+    'Controls button': 'Controls',
+    'Controls button body': 'Please click here now.',
+
+    'Create button': 'Create game',
+    'Create button h3': 'A game begins here.',
+    'Create button div': 'Click again here.',
+            
+    'Create player name': 'Your name',
+    'Create player name h3': 'Enter it here',
+    'Create player name div': 'It is important.',
+
+
+
+
+
+    'Player 1 score': 'Score',
+    'Player 1 score h3': 'Player 1',
+    'Player 1 score div': 'This will be your\'s if you created the game.',
+
+    'Player 2 score': 'Score',
+    'Player 2 score h3': 'Player 2',
+    'Player 2 score div': 'This will be your opponent\'s if you created the game.',
+    'Player 2 score div2': 'But your\'s if you joined the game.',
+
+
+
+
   },
   FR: {
     'Game grid': 'Grille de jeu',

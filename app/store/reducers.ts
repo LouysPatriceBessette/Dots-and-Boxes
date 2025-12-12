@@ -38,6 +38,7 @@ export const INITIAL_STATE: INITIAL_STATE_TYPE = {
     remoteHasLeft: false,
   },
   nextStep: {
+    loadedLanguage: '',
     steps: [{
       tour: 'Empty tour',
       steps: []
@@ -258,7 +259,8 @@ export const tourReducer = (state = INITIAL_STATE.nextStep, action: {type: strin
     case ACTION_TYPES.SET_TOUR:
       return {
         ...state,
-        steps:payload,
+        loadedLanguage: payload.loadedLanguage,
+        steps: payload.steps,
       };
     default:
       return state;

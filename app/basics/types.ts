@@ -37,6 +37,7 @@ export type INITIAL_STATE_TYPE = {
     remoteHasLeft: boolean,
   },
   nextStep: {
+    loadedLanguage: string,
     steps: Tour[],
   }
 };

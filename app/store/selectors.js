@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 
 export const useTour = () => useSelector((state) => state.nextStep.steps);
+export const useTourLoadedLanguage = () => useSelector((state) => state.nextStep.loadedLanguage);
 
 export const useChat = () => useSelector((state) => state.chat);
 export const useGame = () => useSelector((state) => state.game);
