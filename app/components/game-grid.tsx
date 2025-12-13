@@ -94,7 +94,7 @@ import { SupportedLanguagesType } from "../translations/supportedLanguages";
 
     return cells
   }
-export const GameGrid = () => {
+export const GameGrid = ({id}: {id: string}) => {
   const language: SupportedLanguagesType = useLanguage()
   const size = useSize()
   const gameId = useGameId()
@@ -108,7 +108,7 @@ export const GameGrid = () => {
   const waitingForOpponent = waitingForOpponentMove || waitingForOpponentJoin || gameId === -1 || gameover
   const waitingForOpponentMsg = waitingForOpponentJoin ? t[language]['Awaiting opponent to join'] : waitingForOpponentMove ? t[language]['Awaiting opponent\'s move'] : gameover ? '' : t[language]['Create/join game first']
   return (
-    <GridContainer $waitingForOpponent={waitingForOpponent}>
+    <GridContainer $waitingForOpponent={waitingForOpponent} id={id}>
       <GridOverlay $waitingForOpponent={waitingForOpponent}>{waitingForOpponentMsg}</GridOverlay>
       <Grid $size={(size.x * 2) - 1} $waitingForOpponent={waitingForOpponent}>
         {fillGrid(size)}

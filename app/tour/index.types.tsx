@@ -3,8 +3,10 @@ import React from "react"
 export type DomElementPositions = {
   $selector: string,
   isFoundInDOM: boolean,
-  $top: number,
-  $left: number,
+  $arrowTop: number,
+  $arrowLeft: number,
+  $dialogTop?: number,
+  $dialogLeft?: number,
 }
 
 export type TourMain = {
@@ -24,8 +26,9 @@ export type TourMainStyledProps = {
 export type TourSteps = {
   dialog: {
     $visible: boolean,
-    $title: string,
-    $description: string,
+    $title: string | React.ReactElement<string>,
+    $description: string | React.ReactElement<string>
+    $definedPosition?: 'A1' | 'A2' | 'A3' | 'B1' | 'B2' | 'B3' | 'C1' | 'C2' | 'C3',
     $prevCallback: () => void,
     $nextCallback: () => void,
   },
@@ -42,15 +45,18 @@ export type TourSteps = {
 
 export type StyledStepProps = {
   $visible: boolean,
-  $top: number,
-  $left: number,
+  $arrowTop: number,
+  $arrowLeft: number,
+  $dialogTop: number,
+  $dialogLeft: number,
+  $definedPosition?: 'A1' | 'A2' | 'A3' | 'B1' | 'B2' | 'B3' | 'C1' | 'C2' | 'C3',
 }
 
 export type StepArrowProps = {
   $visible: boolean,
   $selector: string,
-  $top?: number,
-  $left?: number,
+  $arrowTop?: number,
+  $arrowLeft?: number,
   $direction: 'up' | 'down' | 'left' | 'right',
   $length: number,
   $distance: number,
@@ -62,9 +68,9 @@ export type StepArrowProps = {
 }
 
 export type StepTitleProps =  {
-  $title: string
+  $title: string | React.ReactElement<string>
 }
 
 export type StepDescriptionProps = {
-  $description: string
+  $description: string  | React.ReactElement<string>
 }

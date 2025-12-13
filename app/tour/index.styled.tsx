@@ -19,11 +19,8 @@ export const TourMainStyled = styled.div<TourMainStyledProps>`
 `
 export const TourOverlayinnerStyled = styled.div`
   position: relative;
-  border: 1px solid orange;
-  
   width: 100vw;
   height: 100vh;
-
 `
 
 /* ARROW */
@@ -33,8 +30,8 @@ export const ArrowContainer = styled.div<StepArrowProps>`
   width: 0px;
   height: 0px;
 
-  top: ${(props) => props.$top ?? 0}px;
-  left: ${(props) => props.$left ?? 0}px;
+  top: ${(props) => props.$arrowTop ?? 0}px;
+  left: ${(props) => props.$arrowLeft ?? 0}px;
 
   transform: scale(${(props) => props.$scale})translateX(-50%);
 
@@ -126,26 +123,22 @@ export const ArrowHeadStyled = styled.div<StepArrowProps>`
   border-top-width: 16px;
 `
 
-/* TARGET */
-export const Target = styled.div`
-  position: absolute;
-  top: 300px;
-  left: 300px;
-  width: 1px;
-  height: 1px;
-  background-color: blue;
-`
-
 /* STEP */
 export const StepStyled = styled.div<StyledStepProps>`
   position: absolute;
-  top: ${(props) => props.$top}px;
-  left: ${(props) => props.$left}px;
-  
-  min-width: 200px;
+  display: flex;
+  flex-direction: column;
 
-  max-width: 80vw;
+  top: ${(props) => props.$definedPosition ? props.$dialogTop : '30'}vh;
+  left: ${(props) => props.$definedPosition ? props.$dialogLeft : '50'}vw;
+
+  transform: translateX(-50%);
+  
+  min-width: 450px;
+  max-width: 50vw;
+  min-height: 22vh;
   max-height: 80vh;
+  margin: auto 0;
 
   border: 1px solid grey;
   border-radius: 6px;
@@ -153,6 +146,12 @@ export const StepStyled = styled.div<StyledStepProps>`
 
   padding: 0.4em 0.7em 0.2em;
   background-color: #e6f7f6ff;
+
+  @media (max-width: 425px) {
+    left: 0;
+    width: 100%;
+    transform: unset;
+  }
 `
 
 export const StepTitleStyled = styled.div`
@@ -164,9 +163,17 @@ export const StepTitleStyled = styled.div`
 export const StepDescriptionStyled = styled.div`
   font-size: 1em;
   margin-bottom: 0.5em;
+  text-align: center;
 `
 
 export const StepButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-grow: 1;
+  align-items: end;
+`
+
+/* Text formattin */
+export const RedText = styled.span`
+  color: red;
 `

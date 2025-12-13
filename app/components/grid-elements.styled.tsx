@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 
-export const GridContainerStyled = styled.div<{$waitingForOpponent: boolean}>`
+export const GridContainerStyled = styled.div<{id: string, $waitingForOpponent: boolean}>`
   position: relative;
   ${(props) => props.$waitingForOpponent ? "cursor: not-allowed;" : "cursor: auto;"}
 `

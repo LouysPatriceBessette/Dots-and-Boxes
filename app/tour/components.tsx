@@ -16,8 +16,8 @@ export const StepArrow = (props: StepArrowProps) => {
   return props.$visible ? <>
     <ArrowContainer
       {...props}
-      $top={props.$foundElements?.[props.$currentStep].$top}
-      $left={props.$foundElements?.[props.$currentStep].$left}
+      $arrowTop={props.$foundElements?.[props.$currentStep].$arrowTop}
+      $arrowLeft={props.$foundElements?.[props.$currentStep].$arrowLeft}
     >
       <ArrowRotator {...props}>
         <>

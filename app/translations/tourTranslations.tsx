@@ -30,7 +30,6 @@ export const tourTranslations = {
       Make the guided tour to learn about the user interface of this web version of the game and about the game rules.
     </p>,
     'Tour Dialog button': 'Start the tour',
-    'Tour coming soon...': 'The tour of the app is coming soon...',
   },
   FR: {
     'Tour Dialog title': `Bienvenue dans Dots and Boxes !`,
@@ -44,7 +43,6 @@ export const tourTranslations = {
       Faites la visite guidée pour découvrir l<Apos/>interface utilisateur de cette version web ainsi que les règles du jeu.
     </p>,
     'Tour Dialog button': 'Commencer le tour',
-    'Tour coming soon...': 'Le tour de l\'application arrive bientôt...',
   },
   ES: {
     'Tour Dialog title': `¡Bienvenido a Dots and Boxes!`,
@@ -58,7 +56,6 @@ export const tourTranslations = {
       Realiza la visita guiada para aprender sobre la interfaz de usuario de esta versión web del juego y sobre las reglas del juego.
     </p>,
     'Tour Dialog button': 'Iniciar el tour',
-    'Tour coming soon...': 'El tour de la aplicación llegará pronto...',
   },
   DE: {
     'Tour Dialog title': `Willkommen bei Dots and Boxes!`,
@@ -72,7 +69,6 @@ export const tourTranslations = {
       Machen Sie die geführte Tour, um die Benutzeroberfläche dieser Webversion des Spiels und die Spielregeln kennenzulernen.
     </p>,
     'Tour Dialog button': 'Die Tour starten',
-    'Tour coming soon...': 'Die Tour der App kommt bald...',
   },
   IT: {
     'Tour Dialog title': `Benvenuto in Dots and Boxes!`,
@@ -86,7 +82,6 @@ export const tourTranslations = {
       Fai il tour guidato per conoscere l<Apos/>interfaccia utente di questa versione web del gioco e le regole del gioco.
     </p>,
     'Tour Dialog button': 'Inizia il tour',
-    'Tour coming soon...': 'Il tour dell\'app arriverà presto...',
   },
   NL: {
     'Tour Dialog title': `Welkom bij Dots and Boxes!`,
@@ -100,7 +95,6 @@ export const tourTranslations = {
       Maak de rondleiding om kennis te maken met de gebruikersinterface van deze webversie van het spel en met de spelregels.
     </p>,
     'Tour Dialog button': 'Begin de tour',
-    'Tour coming soon...': 'De tour van de app komt binnenkort...',
   },
   RU: {
     'Tour Dialog title': `Добро пожаловать в Dots and Boxes!`,
@@ -114,7 +108,6 @@ export const tourTranslations = {
       Пройдите обучающий тур, чтобы ознакомиться с интерфейсом пользователя этой веб-версии игры и правилами игры.
     </p>,
     'Tour Dialog button': 'Начать тур',
-    'Tour coming soon...': 'Тур приложения скоро появится...',
   },
   ZH: {
     'Tour Dialog title': `欢迎来到 Dots and Boxes！`,
@@ -128,7 +121,6 @@ export const tourTranslations = {
       进行指导游览，了解此游戏网络版本的用户界面及其游戏规则。
     </p>,
     'Tour Dialog button': '开始 tour',
-    'Tour coming soon...': '应用程序的导览即将推出...',
   },
   JA: {
     'Tour Dialog title': `Dots and Boxesへようこそ！`,
@@ -142,7 +134,6 @@ export const tourTranslations = {
       ガイドツアーでこのゲームのウェブ版のユーザーインターフェースとルールを学びましょう。
     </p>,
     'Tour Dialog button': 'ツアーを開始',
-    'Tour coming soon...': 'アプリのツアーがもうすぐ登場します...',
   },
   KO: {
     'Tour Dialog title': `Dots and Boxes에 오신 것을 환영합니다!`,
@@ -156,7 +147,6 @@ export const tourTranslations = {
       가이드는 이 게임의 웹 버전 사용자 인터페이스와 게임 규칙에 대해 알아보는 투어입니다.
     </p>,
     'Tour Dialog button': '투어 시작하기',
-    'Tour coming soon...': '앱 투어가 곧 출시됩니다...',
   },
   PT: {
     'Tour Dialog title': `Bem-vindo ao Dots and Boxes!`,
@@ -170,7 +160,6 @@ export const tourTranslations = {
       Faça o tour guiado para aprender sobre a interface do usuário desta versão web do jogo e sobre as regras do jogo.
     </p>,
     'Tour Dialog button': 'Começar o tour',
-    'Tour coming soon...': 'O tour do aplicativo está chegando em breve...',
   },
   HT: {
     'Tour Dialog title': `Byenveni nan Dots and Boxes!`,
@@ -184,6 +173,5 @@ export const tourTranslations = {
       Fè tour gid la pou aprann sou entèfas itilizatè a nan vèsyon entènèt sa a nan jwèt la ak sou règ jwèt la.
     </p>,
     'Tour Dialog button': 'Kòmanse tour la',
-    'Tour coming soon...': 'Tour aplikasyon an ap vini byento...',
   },
 }

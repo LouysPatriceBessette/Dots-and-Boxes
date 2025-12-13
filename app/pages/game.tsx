@@ -64,9 +64,6 @@ import { languages } from "../translations/supportedLanguages";
 export const Game = () => {
   const DEBUG_DISPLAY_MY_SOCKET_ID = Boolean(Number(process.env.DEBUG_DISPLAY_MY_SOCKET_ID));
 
-  // TEMP
-  const TOUR_AVAILABLE = false
-
   const dispatch = useDispatch()
   const isLoaded = useIsLoaded()
 
@@ -96,6 +93,7 @@ export const Game = () => {
   const [languageDialogOpen, setLanguageDialogOpen] = useState(false)
   const [languageSelectionMade, setLanguageSelectionMade] = useState('')
   const [welcomeDialogOpen, setWelcomeDialogOpen] = useState(false)
+  const [tourActive, setTourActive] = useState(false)
 
   useEffect(() => {
     const storedGameId = localStorage.getItem('gameId')
@@ -273,8 +271,8 @@ export const Game = () => {
         </PlayerScore>
       </PlayersScoreHeader>
 
-      <GameGridContainer >
-        <GameGrid />
+      <GameGridContainer>
+        <GameGrid id='MainGrid' />
       </GameGridContainer>
 
       <LanguageDialogContainer>
@@ -325,15 +323,16 @@ export const Game = () => {
           </WelcomeDialogTitleStyled>}
           body={<WelcomeDialogBodyStyled>
             {t[language]['Tour Dialog P1']}
-            {TOUR_AVAILABLE ? t[language]['Tour Dialog P2'] : ''}
+            {t[language]['Tour Dialog P2']}
             
             <Chakra.Button
-              text={`${TOUR_AVAILABLE ? t[language]['Tour Dialog button'] : ''} ${TOUR_AVAILABLE ? '' : t[language]['Tour coming soon...']}`}
+              text={t[language]['Tour Dialog button']}
               onClick={() => {
-                // console.log('Start Tour...')
+                setTourActive(true)
+                setWelcomeDialogOpen(false)
+                setControlsDrawerOpen(false)
               }}
               customVariant='orange'
-              disabled
             />
           </WelcomeDialogBodyStyled>}
 
@@ -411,7 +410,7 @@ export const Game = () => {
     </Footer>
 
     <Tour
-      $isActive={true}
+      $isActive={tourActive}
       
       setControlsDrawerOpen={setControlsDrawerOpen}
       setCreateGameDialogOpen={setCreateGameDialogOpen}
