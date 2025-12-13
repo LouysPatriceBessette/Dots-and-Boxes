@@ -75,7 +75,7 @@ export const ChakraDialog = (props) => {
             <Dialog.Body>
               {body}
             </Dialog.Body>
-            <Dialog.Footer id='tour__dialog-footer'>
+            <Dialog.Footer>
               {!cancelButtonHidden && <Dialog.ActionTrigger asChild>
                 <Button
                 customVariant={cancelButtonColor}

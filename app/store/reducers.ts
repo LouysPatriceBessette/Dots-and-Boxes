@@ -4,6 +4,9 @@ import { ACTION_TYPES } from '../basics/constants';
 import { INITIAL_STATE_TYPE } from "../basics/types";
 
 export const INITIAL_STATE: INITIAL_STATE_TYPE = {
+  app: {
+    isLoaded: false,
+  },
   chat: {
     messages: [],
   },
@@ -24,7 +27,6 @@ export const INITIAL_STATE: INITIAL_STATE_TYPE = {
     fencedByP2: [],
   },
   language: {
-    isDefault: true,
     selected: 'EN'
   },
   mouse: {
@@ -37,14 +39,21 @@ export const INITIAL_STATE: INITIAL_STATE_TYPE = {
     remoteIsOnline: false,
     remoteHasLeft: false,
   },
-  nextStep: {
-    loadedLanguage: '',
-    steps: [{
-      tour: 'Empty tour',
-      steps: []
-    }],
-  }
 };
+
+export const appReducer = (state = INITIAL_STATE.app, action: {type: string, payload: any}) => {
+  const { type, payload } = action
+
+  switch (type) {
+    case ACTION_TYPES.SET_LOADED:
+      return {
+        ...state,
+        isLoaded: payload,
+      };
+    default:
+      return state;
+  }
+}
 
 export const gameReducer = (state = INITIAL_STATE.game, action: {type: string, payload: any}) => {
   const { type, payload } = action
@@ -241,40 +250,19 @@ export const languageReducer = (state = INITIAL_STATE.language, action: {type: s
         isDefault: false,
         selected: payload,
       };
-    case ACTION_TYPES.SET_LANGUAGE_IS_DEFAULT:
-      return {
-        ...state,
-        isDefault: true,
-        selected: 'EN',
-      };
-    default:
-      return state;
-  }
-}
-
-export const tourReducer = (state = INITIAL_STATE.nextStep, action: {type: string, payload: any}) => {
-  const { type, payload } = action
-
-  switch (type) {
-    case ACTION_TYPES.SET_TOUR:
-      return {
-        ...state,
-        loadedLanguage: payload.loadedLanguage,
-        steps: payload.steps,
-      };
     default:
       return state;
   }
 }
 
 export const combinedReducer = combineReducers({
+  app: appReducer,
   chat: chatReducer,
   clients: clientsReducer,
   game: gameReducer,
   language: languageReducer,
   mouse: mouseReducer,
   socket: socketReducer,
-  nextStep: tourReducer,
 });
 
 export const rootReducer = (state: INITIAL_STATE_TYPE, action: {type: string, payload: any}) => {
@@ -290,12 +278,6 @@ export const rootReducer = (state: INITIAL_STATE_TYPE, action: {type: string, pa
       language: {
         ...state.language,
       },
-      nextStep: {
-        ...state.nextStep,
-        loadedLanguage: state.nextStep.loadedLanguage,
-        steps: [...state.nextStep.steps],
-        
-      }
     }
   }
 

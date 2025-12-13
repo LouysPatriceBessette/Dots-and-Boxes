@@ -1,22 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect } from "react";
-import { useNextStep } from 'nextstepjs';
-import { NextStepsTranslateAndDispatch } from '../tour/NextStepsTranslateAndDispatch';
-
-import { WelcomeDialogTitleStyled, WelcomeDialogBodyStyled } from '../tour/tour.styled';
 
 import { useDispatch } from 'react-redux';
 import {
   setLanguage,
-  setLanguageIsDefault,
   setNameOfPlayer1,
   setGameId,
   setGameover,
   setGameIdChanged,
 } from "../store/actions";
 import {
-  useTour,
+  useIsLoaded,
   useClientsCount,
   useLanguage,
   useLanguageIsDefault,
@@ -54,6 +49,8 @@ import {
   CurrentTurn,
   GameGridContainer,
   LanguageDialogContainer,
+  WelcomeDialogTitleStyled,
+  WelcomeDialogBodyStyled,
   GameOver,
   Footer,
 } from "./game.styled";
@@ -68,7 +65,11 @@ import { languages } from "../translations/supportedLanguages";
 export const Game = () => {
   const DEBUG_DISPLAY_MY_SOCKET_ID = Boolean(Number(process.env.DEBUG_DISPLAY_MY_SOCKET_ID));
 
+  // TEMP
+  const TOUR_AVAILABLE = false
+
   const dispatch = useDispatch()
+  const isLoaded = useIsLoaded()
 
   const clientsCount = useClientsCount()
   const language: SupportedLanguagesType = useLanguage()
@@ -186,158 +187,10 @@ export const Game = () => {
       socket.emit('message', JSON.stringify(request))
   }
 
-  // =============================== Guided tour
-  const CURRENT_STEP_DELAY = 800
-  const TIME_OUT_DELAY = 500
-  const tours = useTour()
+  return !isLoaded ? <></> : <>
 
-  const {
-    startNextStep,
-    closeNextStep,
-    currentTour,
-    currentStep,
-    setCurrentStep,
-    isNextStepVisible,
-  } = useNextStep();
-
-  const [tourStarted, setTourStarted] = useState(false)
-
-  const handleStartTour = () => {
-    setTourStarted(true)
-    setControlsDrawerOpen(false)
-    setWelcomeDialogOpen(false)
-    startNextStep("INSTRUCTIONS_START");
-  };
-
-
-  //
-  //
-  //  NEXTSTEP USEEFFECT
-  //
-  //
-  useEffect(() => {
-
-    console.log({
-      tourStarted,
-      currentStep,
-      controlsDrawerOpen,
-      createGameDialodOpen: createGameDialogOpen,
-      joinGameDialodOpen: joinGameDialogOpen,
-      isNextStepVisible,
-    })
-
-    if(tourStarted && !isNextStepVisible){
-      console.log('setTourStarted')
-      setTourStarted(false)
-      setControlsDrawerOpen(false)
-      setCreateGameDialogOpen(false)
-      setJoinGameDialogOpen(false)
-      return
-    } else if(!tourStarted){
-      return
-    }
-
-    switch(currentTour){
-      case 'INSTRUCTIONS_START':
-
-        // Position out of viewport fix
-        const pointer = document.querySelector("[data-name='nextstep-pointer']")
-        // let pointerRect
-        // let prevStyle
-        console.log('pointer', pointer)
-
-        // if(pointer){
-        //   pointerRect = pointer.getBoundingClientRect()
-        //   prevStyle = window.getComputedStyle(pointer)?.transform
-        //   console.log('pointerRect', pointerRect)
-        //   console.log('prevStyle: ', prevStyle)
-        // }
-
-        // Fix NextStep position
-        if(currentStep === 1 && !controlsDrawerOpen){
-          if(pointer){
-
-            pointer.querySelector("[data-name='nextstep-card']")?.classList.add('nextstep-card-fix-1')
-          }
-
-        }
-
-        if(currentStep === 1 && controlsDrawerOpen){
-          setCurrentStep(2, CURRENT_STEP_DELAY)
-
-          if(pointer){
-            setTimeout(() => {
-              pointer.querySelector("[data-name='nextstep-card']")?.classList.remove('nextstep-card-fix-1')
-            }, CURRENT_STEP_DELAY - 0)
-          }
-        }
-
-        if(currentStep === 2 && !createGameDialogOpen){
-          if(pointer){
-
-            pointer.querySelector("[data-name='nextstep-card']")?.classList.add('nextstep-card-fix-2')
-          }
-        }
-
-        if(currentStep === 2 && createGameDialogOpen){
-          setCurrentStep(3, CURRENT_STEP_DELAY)
-          setTimeout(() => {
-            const el = document.querySelectorAll("[data-scope='dialog']")
-            for (let i = 0; i < el.length; i++) {
-              if(el[i].scrollTop > 0){
-                el[i].scrollTo({top: 0, behavior: 'smooth'})
-              }
-            }
-          }, CURRENT_STEP_DELAY + TIME_OUT_DELAY)
-        }
-
-        if(currentStep === 3){
-          if(pointer){
-
-            pointer.querySelector("[data-name='nextstep-card']")?.classList.remove('nextstep-card-fix-2')
-          }
-        }
-
-        // Create game sliders
-        if(currentStep === 4){
-          if(pointer){
-
-            // pointer.querySelector("[data-name='nextstep-card']")?.classList.remove('nextstep-card-fix-2')
-          }
-        }
-
-        if(currentStep === 5){
-          if(pointer){
-
-            // pointer.querySelector("[data-name='nextstep-card']")?.classList.remove('nextstep-card-fix-2')
-          }
-        }
-
-
-
-        
-        break
-
-      default:
-        break
-    }
-  }, [
-    tourStarted,
-    setTourStarted,
-    currentTour,
-    currentStep,
-    controlsDrawerOpen,
-    createGameDialogOpen,
-    joinGameDialogOpen,
-    closeNextStep,
-    startNextStep,
-    setCurrentStep,
-    isNextStepVisible,
-  ])
-
-  return (<>
     <PageContainer>
-      <ConnectedPlayersContainer id='tour__online-players'>
+      <ConnectedPlayersContainer>
         <span>{clientsCount}</span> {`${clientsCount >  1 ? t[language]['players'] : t[language]['player']} ${t[language]['online']}`}
       </ConnectedPlayersContainer>
 
@@ -346,30 +199,18 @@ export const Game = () => {
         <Chakra.Drawer
           open={controlsDrawerOpen}
           setOpen={setControlsDrawerOpen}
-          id='tour__controls-drawer--button'
           placement="top"
           buttonText={<LuSettings/>}
           buttonCallback={() => {
-            setTimeout(() => {
-              setControlsDrawerOpen(true)
-            }, tourStarted ? TIME_OUT_DELAY : 0)
+            setControlsDrawerOpen(true)
           }}
-          disableOverlayClick={tourStarted}
+          disableOverlayClick={true}
           onOpenChange={(state: {open:boolean}) => {
-            setTimeout(() => {
-              console.log('DRAWER IS OPEN', state)
-              setControlsDrawerOpen(state.open)
-            }, tourStarted ? TIME_OUT_DELAY : 0)
+            console.log('DRAWER IS OPEN', state)
+            setControlsDrawerOpen(state.open)
           }}
         >
           <GameControls
-            buttonIds={[
-              'tour__create-button',
-              'tour__join-button',
-              'tour__leave-delete-button',
-              'tour__more-controls-button'
-            ]}
-
             setWelcomeDialogOpen={setWelcomeDialogOpen}
             setCreateGameDialogOpen={setCreateGameDialogOpen}
             setJoinGameDialogOpen={setJoinGameDialogOpen}
@@ -394,11 +235,11 @@ export const Game = () => {
 
         {/* Chat drawer */}
         {gameId !== -1 &&<Chakra.Drawer
-          triggerOpen={triggerChatDrawerOpen} // TODO: trigger open was removed
+          triggerOpen={triggerChatDrawerOpen}
           placement="bottom"
           title={t[language]['Chat with the other player']}
           buttonText={<LuMessagesSquare/>}
-          disableOverlayClick={tourStarted}
+          disableOverlayClick={true}
         >
           <Chat/>
         </Chakra.Drawer>}
@@ -419,7 +260,7 @@ export const Game = () => {
       </PlayersNameHeader>
 
       <PlayersScoreHeader>
-        <PlayerScore color='green' id='tour__player-1-score'>
+        <PlayerScore color='green'>
           {fencedByP1.length}
         </PlayerScore>
 
@@ -427,13 +268,13 @@ export const Game = () => {
           { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
         </CurrentTurn>
 
-        <PlayerScore color='blue' id='tour__player-2-score'>
+        <PlayerScore color='blue'>
           {fencedByP2.length}
         </PlayerScore>
       </PlayersScoreHeader>
 
       <GameGridContainer >
-        <GameGrid id='tour__gameg-grid' />
+        <GameGrid />
       </GameGridContainer>
 
       <LanguageDialogContainer>
@@ -449,12 +290,10 @@ export const Game = () => {
                     dispatch(setLanguage(languageCode))
                   } else{
                     localStorage.removeItem('language')
-                    dispatch(setLanguageIsDefault())
                     setLanguageDialogOpen(true)
                   }
                 } else{
                   localStorage.removeItem('language')
-                  dispatch(setLanguageIsDefault())
                   setLanguageDialogOpen(true)
                 }
               }}
@@ -483,12 +322,15 @@ export const Game = () => {
           </WelcomeDialogTitleStyled>}
           body={<WelcomeDialogBodyStyled>
             {t[language]['Tour Dialog P1']}
-            {t[language]['Tour Dialog P2']}
+            {TOUR_AVAILABLE ? t[language]['Tour Dialog P2'] : ''}
             
             <Chakra.Button
-              text={t[language]['Tour Dialog button']}
-              onClick={handleStartTour}
+              text={`${TOUR_AVAILABLE ? t[language]['Tour Dialog button'] : ''} ${TOUR_AVAILABLE ? '' : t[language]['Tour coming soon...']}`}
+              onClick={() => {
+                console.log('Start Tour...')
+              }}
               customVariant='orange'
+              disabled
             />
           </WelcomeDialogBodyStyled>}
 
@@ -564,7 +406,6 @@ export const Game = () => {
           cancelButtonHidden={true}
         /></div>
     </Footer>
-
-    <NextStepsTranslateAndDispatch/>
-  </>);
+  </>
 }
+

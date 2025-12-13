@@ -28,13 +28,11 @@ import { SupportedLanguagesType } from "../translations/supportedLanguages";
 import { languages } from "../translations/supportedLanguages";
 
 export const GameControls = ({
-  buttonIds,
   setWelcomeDialogOpen,
   setCreateGameDialogOpen,
   setJoinGameDialogOpen,
   setControlsDrawerOpen,
 }: {
-  buttonIds: string[],
   setWelcomeDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setCreateGameDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setJoinGameDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -124,7 +122,6 @@ export const GameControls = ({
   const CreateForm = <>
 
     <Chakra.Input
-      id='tour__playername-create'
       label={t[language]['Your name']}
       placeholder={t[language]['Your name']}
       value={playerName}
@@ -162,7 +159,7 @@ export const GameControls = ({
       </div>
 
       <div>
-        <GridContainer $waitingForOpponent={true} id='tour__grid-create'>
+        <GridContainer $waitingForOpponent={true}>
           <Grid $size={((x + 1) * 2) - 1} $waitingForOpponent={true}>
             {fillGrid({x: (x + 1), y: (y + 1)})}
           </Grid>
@@ -261,8 +258,6 @@ export const GameControls = ({
     <ControlButtonsContainer>
       {!more && <>
         <Chakra.Dialog
-          id={buttonIds[0]}
-
           title={t[language]['Create a game']}
           body={CreateForm}
 
@@ -288,8 +283,6 @@ export const GameControls = ({
         />
 
         <Chakra.Dialog
-          id={buttonIds[1]}
-
           title={t[language]['Join a game']}
           body={JoinForm}
 
@@ -315,7 +308,6 @@ export const GameControls = ({
         />
 
         <Chakra.Button
-          id={buttonIds[2]}
           onClick={() => {
             if(remoteHasLeft){
               destroyGame()
@@ -329,7 +321,6 @@ export const GameControls = ({
         />
 
         <Chakra.Button
-          id={buttonIds[3]}
           onClick={() => setMore(!more)}
           text={<LuChevronRight/>}
           customVariant='grey'

@@ -4,7 +4,7 @@ export const languages = {
   'ES': `Español`,
   'HT': `Kreyòl Ayisyen`,
   'PT': `Português`,
-  //'IT': `Italiano`,
+  'IT': `Italiano`,
   'DE': `Deutsch`,
   'NL': `Nederlands`,
   'RU': `Русский`,
@@ -13,6 +13,6 @@ export const languages = {
   'KO': `한국어`,
 }
 
-export type SupportedLanguagesType = "EN" | "FR" | "ES" | "DE" | "NL" | "RU" | "ZH" | "JA" | "KO" | "PT" | "HT"
+export type SupportedLanguagesType = "EN" | "FR" | "ES" | "DE" | "IT" |"NL" | "RU" | "ZH" | "JA" | "KO" | "PT" | "HT"
 
 export const supportedLanguages: SupportedLanguagesType[] = ['EN','FR','ES','DE','NL','RU','ZH','JA','KO','PT','HT']
