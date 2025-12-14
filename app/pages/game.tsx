@@ -187,7 +187,7 @@ export const Game = () => {
   return !isLoaded ? <></> : <>
 
     <PageContainer>
-      <ConnectedPlayersContainer>
+      <ConnectedPlayersContainer id='connectedPlayers'>
         <span>{clientsCount}</span> {`${clientsCount >  1 ? t[language]['players'] : t[language]['player']} ${t[language]['online']}`}
       </ConnectedPlayersContainer>
 
@@ -262,9 +262,9 @@ export const Game = () => {
           {fencedByP1.length}
         </PlayerScore>
 
-        <CurrentTurn $hidden={!remoteIsOnline || gameover}>
+        {gameId !== -1 && <CurrentTurn $hidden={!remoteIsOnline || gameover}>
           { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
-        </CurrentTurn>
+        </CurrentTurn>}
 
         <PlayerScore color='blue' id='player2Score'>
           {fencedByP2.length}
@@ -272,7 +272,7 @@ export const Game = () => {
       </PlayersScoreHeader>
 
       <GameGridContainer>
-        <GameGrid id='MainGrid' />
+        <GameGrid id='playGrid' />
       </GameGridContainer>
 
       <LanguageDialogContainer>

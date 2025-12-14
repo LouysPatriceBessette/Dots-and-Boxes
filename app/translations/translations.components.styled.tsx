@@ -8,6 +8,8 @@ export const Apos = () => <>&apos;</>
 
 export const Quot = () => <>&quot;</>
 
+export const BlankLine = () => <>&nbsp;</>
+
 export const Hr = styled.hr`
   border: none;
   width: 80%;
