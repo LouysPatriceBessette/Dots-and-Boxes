@@ -159,7 +159,7 @@ export const GameControls = ({
       </div>
 
       <div>
-        <GridContainer $waitingForOpponent={true}>
+        <GridContainer id='createGrid' $waitingForOpponent={true}>
           <Grid $size={((x + 1) * 2) - 1} $waitingForOpponent={true}>
             {fillGrid({x: (x + 1), y: (y + 1)})}
           </Grid>

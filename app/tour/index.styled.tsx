@@ -5,6 +5,12 @@ import {
   StepArrowProps,
 } from "./index.types"
 
+export const ArrowButton = styled.div`
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 9px;
+`
+
 export const TourMainStyled = styled.div<TourMainStyledProps>`
   position: fixed;
   top: 0;
@@ -129,14 +135,14 @@ export const StepStyled = styled.div<StyledStepProps>`
   display: flex;
   flex-direction: column;
 
-  top: ${(props) => props.$definedPosition ? props.$dialogTop : '30'}vh;
+  top: ${(props) => props.$definedPosition ? props.$dialogTop : '220'}px;
   left: ${(props) => props.$definedPosition ? props.$dialogLeft : '50'}vw;
 
   transform: translateX(-50%);
   
-  min-width: 450px;
-  max-width: 50vw;
-  min-height: 22vh;
+  min-width: 320px;
+  max-width: 50vw;    // TODO: if props.$definedPosition is set, change this to a new value
+  min-height: 170px;
   max-height: 80vh;
   margin: auto 0;
 
@@ -146,12 +152,6 @@ export const StepStyled = styled.div<StyledStepProps>`
 
   padding: 0.4em 0.7em 0.2em;
   background-color: #e6f7f6ff;
-
-  @media (max-width: 425px) {
-    left: 0;
-    width: 100%;
-    transform: unset;
-  }
 `
 
 export const StepTitleStyled = styled.div`
