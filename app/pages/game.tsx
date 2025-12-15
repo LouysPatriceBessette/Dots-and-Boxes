@@ -30,11 +30,13 @@ import {
 } from "../store/selectors";
 import { SOCKET_ACTIONS } from "../basics/constants";
 
+import { Loader } from '../_loading/Loader'
 import { Tour } from "../tour";
 import { LuSettings, LuMessagesSquare, LuLanguages, LuCopyright, LuInfo, LuDoorOpen } from 'react-icons/lu'
 import { GameControls } from "../components/game-controls";
 import { GameGrid } from "../components/game-grid";
 import {
+  LoadingWrapper,
   PageContainer,
   ConnectedPlayersContainer,
   GameNumberStyled,
@@ -92,8 +94,6 @@ export const Game = () => {
   // Dialogs open states
   const [languageDialogOpen, setLanguageDialogOpen] = useState(false)
   const [languageSelectionMade, setLanguageSelectionMade] = useState('')
-  const [welcomeDialogOpen, setWelcomeDialogOpen] = useState(false)
-  const [tourActive, setTourActive] = useState(false)
 
   useEffect(() => {
     const storedGameId = localStorage.getItem('gameId')
@@ -122,14 +122,20 @@ export const Game = () => {
   const [messagesLength, setMessagesLength] = useState(messages.length)
 
   const [controlsDrawerOpen, setControlsDrawerOpen] = useState(false)
+  const [chatDrawerOpen, setChatDrawerOpen] = useState(false)
 
   const [createGameDialogOpen, setCreateGameDialogOpen] = useState(false)
   const [joinGameDialogOpen, setJoinGameDialogOpen] = useState(false)
   const [gameoverDialogOpen, setGameoverDialogOpen] = useState(false)
+  const [more, setMore] = useState(false)
 
   // For chat Drawer auto open
   const [triggerChatDrawerOpen, setTriggerChatDrawerOpen] = useState(false)
   
+  const [welcomeDialogOpen, setWelcomeDialogOpen] = useState(false)
+  const [tourActive, setTourActive] = useState(false)
+  const [tourEnabledButton, setControlsEnabledButtonForTour] = useState('')
+
   useEffect(() => {
     if(gameover || (!gameover && gameIdChanged)) {
       setTimeout(() => {
@@ -151,10 +157,14 @@ export const Game = () => {
       return
     }
 
+    // Opens the chat drawer if there are more messages in the store than in the local state.
+    // This is useful for missed incoming messages distributed real time via dispatch.
+    // The "trigger" comes from a redux-refresh on page or device re-open.
     if(messages.length > messagesLength) {
       setTriggerChatDrawerOpen(true)
       setMessagesLength(messagesLength)
 
+      // Reset local state for the next trigger
       setTimeout(() => {
         setTriggerChatDrawerOpen(false)
       }, 1)
@@ -184,240 +194,277 @@ export const Game = () => {
       socket.emit('message', JSON.stringify(request))
   }
 
-  return !isLoaded ? <></> : <>
+  return <>
+    <LoadingWrapper $isLoaded={isLoaded}>
+      <PageContainer>
+        <ConnectedPlayersContainer id='connectedPlayers'>
+          <span>{clientsCount}</span> {`${clientsCount >  1 ? t[language]['players'] : t[language]['player']} ${t[language]['online']}`}
+        </ConnectedPlayersContainer>
 
-    <PageContainer>
-      <ConnectedPlayersContainer id='connectedPlayers'>
-        <span>{clientsCount}</span> {`${clientsCount >  1 ? t[language]['players'] : t[language]['player']} ${t[language]['online']}`}
-      </ConnectedPlayersContainer>
+        <DrawerContainer>
+          {/* Controls drawer */}
+          <Chakra.Drawer
+            open={controlsDrawerOpen}
+            setOpen={setControlsDrawerOpen}
+            onOpenChange={(state: {open:boolean}) => {
+              setControlsDrawerOpen(state.open)
+            }}
 
-      <DrawerContainer>
-        {/* Controls drawer */}
-        <Chakra.Drawer
-          open={controlsDrawerOpen}
-          setOpen={setControlsDrawerOpen}
-          placement="top"
-          buttonId='ControlsButton'
-          buttonText={<LuSettings/>}
-          buttonCallback={() => {
-            setControlsDrawerOpen(true)
-          }}
-          disableOverlayClick={false}
-          onOpenChange={(state: {open:boolean}) => {
-            // console.log('DRAWER IS OPEN', state)
-            setControlsDrawerOpen(state.open)
-          }}
-        >
-          <GameControls
-            setWelcomeDialogOpen={setWelcomeDialogOpen}
-            setCreateGameDialogOpen={setCreateGameDialogOpen}
-            setJoinGameDialogOpen={setJoinGameDialogOpen}
-            setControlsDrawerOpen={setControlsDrawerOpen}
-          />
-        </Chakra.Drawer>
+            buttonId='controls-button'
+            buttonText={<LuSettings/>}
 
-        {DEBUG_DISPLAY_MY_SOCKET_ID && <>
-          <div>
-            My Socket Id: {mySocketId}
-          </div>
-        </>}
+            placement="top"
+            disableOverlayClick={tourActive}
+          >
+            <GameControls
+              setWelcomeDialogOpen={setWelcomeDialogOpen}
 
-        {gameId !== -1 && <GameNumberStyled>
-          <div>
-            {gameIdString}
-          </div>
-          <div>
-            {t[language]['Number to share']}
-          </div>
-        </GameNumberStyled>}
+              createGameDialogOpen={createGameDialogOpen}
+              setCreateGameDialogOpen={setCreateGameDialogOpen}
 
-        {/* Chat drawer */}
-        {gameId !== -1 &&<Chakra.Drawer
-          triggerOpen={triggerChatDrawerOpen}
-          placement="bottom"
-          title={t[language]['Chat with the other player']}
-          buttonText={<LuMessagesSquare/>}
-          disableOverlayClick={false}
-        >
-          <Chat/>
-        </Chakra.Drawer>}
-      </DrawerContainer>
+              joinGameDialogOpen={joinGameDialogOpen}
+              setJoinGameDialogOpen={setJoinGameDialogOpen}
 
-      <PlayersNameHeader>
-        <Player>
-          <PlayerNameContainer id='player1Name'>
-            <PlayerOnlineIndicator $online={iamPlayer === 1 || remoteIsOnline} /> {player1Name}
-          </PlayerNameContainer>
-        </Player>
+              setControlsDrawerOpen={setControlsDrawerOpen}
 
-        <Player>
-          <PlayerNameContainer id='player2Name'>
-            <PlayerOnlineIndicator $online={iamPlayer === 2 || remoteIsOnline} /> {player2Name}
-          </PlayerNameContainer>
-        </Player>
-      </PlayersNameHeader>
+              more={more}
+              setMore={setMore}
 
-      <PlayersScoreHeader>
-        <PlayerScore color='green' id='player1Score'>
-          {fencedByP1.length}
-        </PlayerScore>
+              tourActive={tourActive}
+              tourEnabledButton={tourEnabledButton}
+            />
+          </Chakra.Drawer>
 
-        {gameId !== -1 && <CurrentTurn $hidden={!remoteIsOnline || gameover}>
-          { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
-        </CurrentTurn>}
+          {DEBUG_DISPLAY_MY_SOCKET_ID && <>
+            <div>
+              My Socket Id: {mySocketId}
+            </div>
+          </>}
 
-        <PlayerScore color='blue' id='player2Score'>
-          {fencedByP2.length}
-        </PlayerScore>
-      </PlayersScoreHeader>
+          {gameId !== -1 && <GameNumberStyled>
+            <div>
+              {gameIdString}
+            </div>
+            <div>
+              {t[language]['Number to share']}
+            </div>
+          </GameNumberStyled>}
 
-      <GameGridContainer>
-        <GameGrid id='playGrid' />
-      </GameGridContainer>
+          {/* Chat drawer */}
+          {(gameId !== -1 || tourActive) && <div id='chat-drawer'>
+            <Chakra.Drawer
+              open={chatDrawerOpen}
+              setOpen={setChatDrawerOpen}
+              triggerOpen={triggerChatDrawerOpen}
 
-      <LanguageDialogContainer>
-        <Chakra.Dialog
-          title={<LuLanguages/>}
-          body={
-            <Chakra.Combobox
-              setSelectedComponent={(x: string) => {
-                if(x){
-                  const languageCode = Object.entries(languages).filter(([_, value]) => value === x)?.[0]?.[0]
-                  if(languageCode){
-                    localStorage.setItem('language', languageCode)
-                    dispatch(setLanguage(languageCode))
-                    setLanguageSelectionMade(languageCode)
+              buttonId='chat-button'
+              buttonText={<LuMessagesSquare/>}
+
+              title={t[language]['Chat with the other player']}
+              placement="bottom"
+              disableOverlayClick={false}
+            >
+              <Chat/>
+            </Chakra.Drawer>
+          </div>}
+        </DrawerContainer>
+
+        <PlayersNameHeader>
+          <Player>
+            <PlayerNameContainer id='player1Name'>
+              <PlayerOnlineIndicator $online={iamPlayer === 1 || remoteIsOnline} /> {player1Name}
+            </PlayerNameContainer>
+          </Player>
+
+          <Player>
+            <PlayerNameContainer id='player2Name'>
+              <PlayerOnlineIndicator $online={iamPlayer === 2 || remoteIsOnline} /> {player2Name}
+            </PlayerNameContainer>
+          </Player>
+        </PlayersNameHeader>
+
+        <PlayersScoreHeader>
+          <PlayerScore color='green' id='player1Score'>
+            {fencedByP1.length}
+          </PlayerScore>
+
+          {gameId !== -1 && <CurrentTurn $hidden={!remoteIsOnline || gameover}>
+            { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
+          </CurrentTurn>}
+
+          <PlayerScore color='blue' id='player2Score'>
+            {fencedByP2.length}
+          </PlayerScore>
+        </PlayersScoreHeader>
+
+        <GameGridContainer>
+          <GameGrid id='playGrid' />
+        </GameGridContainer>
+
+        <LanguageDialogContainer>
+          <Chakra.Dialog
+            title={<LuLanguages/>}
+            body={
+              <Chakra.Combobox
+                setSelectedComponent={(x: string) => {
+                  if(x){
+                    const languageCode = Object.entries(languages).filter(([_, value]) => value === x)?.[0]?.[0]
+                    if(languageCode){
+                      localStorage.setItem('language', languageCode)
+                      dispatch(setLanguage(languageCode))
+                      setLanguageSelectionMade(languageCode)
+                    } else{
+                      localStorage.removeItem('language')
+                      setLanguageDialogOpen(true)
+                      setLanguageSelectionMade('')
+                    }
                   } else{
                     localStorage.removeItem('language')
                     setLanguageDialogOpen(true)
                     setLanguageSelectionMade('')
                   }
-                } else{
-                  localStorage.removeItem('language')
-                  setLanguageDialogOpen(true)
-                  setLanguageSelectionMade('')
-                }
-              }}
-              options={languageItems}
-            />
-          }
-
-          open={languageDialogOpen}
-          setOpen={setLanguageDialogOpen}
-          closeButtonHidden={true}
-          overlayCloseDisabled={true}
-          
-          saveButtonText={t[language]['Ok']}
-          saveButtonDisabled={!languageSelectionMade}
-          saveButtonCallback={() => {
-            setLanguageDialogOpen(false)
-            setWelcomeDialogOpen(true)
-          }}
-
-          cancelButtonHidden={true}
-        />
-
-        <Chakra.Dialog
-          title={<WelcomeDialogTitleStyled>
-            <LuDoorOpen/> <span>{t[language]['Tour Dialog title']}</span>
-          </WelcomeDialogTitleStyled>}
-          body={<WelcomeDialogBodyStyled>
-            {t[language]['Tour Dialog P1']}
-            {t[language]['Tour Dialog P2']}
-            
-            <Chakra.Button
-              text={t[language]['Tour Dialog button']}
-              onClick={() => {
-                setTourActive(true)
-                setWelcomeDialogOpen(false)
-                setControlsDrawerOpen(false)
-              }}
-              customVariant='orange'
-            />
-          </WelcomeDialogBodyStyled>}
-
-          open={welcomeDialogOpen}
-          setOpen={setWelcomeDialogOpen}
-
-          cancelButtonText={t[language]['Cancel']}
-          cancelCallback={() => {
-            setWelcomeDialogOpen(false)
-            setControlsDrawerOpen(false)
-          }}
-
-          closeButtonHidden={true}
-          overlayCloseDisabled={true}
-          
-          saveButtonHidden={true}
-          // cancelButtonHidden={true}
-        />
-      </LanguageDialogContainer>
-
-      <GameOver>
-        {gameover && <div>{t[language]['Game Over']}</div>}
-        <Chakra.Dialog
-          title={t[language]['Game Over']}
-          body={<p>{`${t[language]['Invite']} ${otherPlayerName} ${t[language]['to play another game with you?']}`}</p>}
-
-          open={gameoverDialogOpen}
-          setOpen={setGameoverDialogOpen}
-
-          closeButtonHidden={true}
-          overlayCloseDisabled={true}
-
-          cancelButtonText={remoteIsOnline ? t[language]['Leave'] : t[language]['Ok']}
-          cancelCallback={leaveGame}
-          
-          saveButtonText={t[language]['Create a new game']}
-          saveButtonHidden={remoteIsOnline ? false : true}
-          saveButtonCallback={() => {
-            setGameoverDialogOpen(false)
-            const request = {
-              from: 'player',
-              to: 'server',
-              action: SOCKET_ACTIONS.REQUEST_ANOTHER_GAME,
-              socketId: mySocketId,
-              gameId: gameId,
+                }}
+                options={languageItems}
+              />
             }
-            socket.emit('message', JSON.stringify(request))
-          }}
-        />
-      </GameOver>
-    </PageContainer>
 
-    <Footer>
-      <div><LuCopyright/> <span>2025 - Louys Patrice Bessette</span></div>
-      <div><Chakra.Dialog
-          title={<LuInfo/>}
-          body={<>
-            <p>{t[language]['InfoDialogP1']}</p>
-            <p>&nbsp;</p>
-            <p>{t[language]['InfoDialogP2']}</p>
-            <p>&nbsp;</p>
-            <p>{t[language]['InfoDialogP3']}</p>
-            <p>&nbsp;</p>
-            <p>{t[language]['InfoDialogP4']}</p>
-            <p>&nbsp;</p>
-            <p>{t[language]['InfoDialogP5']}</p>
-          </>}
+            open={languageDialogOpen}
+            setOpen={setLanguageDialogOpen}
+            closeButtonHidden={true}
+            overlayCloseDisabled={true}
+            
+            saveButtonText={t[language]['Ok']}
+            saveButtonDisabled={!languageSelectionMade}
+            saveButtonCallback={() => {
+              setLanguageDialogOpen(false)
+              setWelcomeDialogOpen(true)
+            }}
 
-          openButtonText={<LuInfo/>}
-          openButtonColor='nav'
-          
-          saveButtonText={t[language]['Ok']}
-          cancelButtonHidden={true}
-        /></div>
-    </Footer>
+            cancelButtonHidden={true}
+          />
 
-    <Tour
-      $isActive={tourActive}
+          <Chakra.Dialog
+            title={<WelcomeDialogTitleStyled>
+              <LuDoorOpen/> <span>{t[language]['Tour Dialog title']}</span>
+            </WelcomeDialogTitleStyled>}
+            body={<WelcomeDialogBodyStyled>
+              {t[language]['Tour Dialog P1']}
+              {t[language]['Tour Dialog P2']}
+              
+              <Chakra.Button
+                text={t[language]['Tour Dialog button']}
+                onClick={() => {
+                  setTourActive(true)
+                  setWelcomeDialogOpen(false)
+                  setControlsDrawerOpen(false)
+                }}
+                customVariant='orange'
+              />
+            </WelcomeDialogBodyStyled>}
+
+            open={welcomeDialogOpen}
+            setOpen={setWelcomeDialogOpen}
+
+            cancelButtonText={t[language]['Cancel']}
+            cancelCallback={() => {
+              setWelcomeDialogOpen(false)
+              setControlsDrawerOpen(false)
+            }}
+
+            closeButtonHidden={true}
+            overlayCloseDisabled={true}
+            
+            saveButtonHidden={true}
+            // cancelButtonHidden={true}
+          />
+        </LanguageDialogContainer>
+
+        <GameOver>
+          {gameover && <div>{t[language]['Game Over']}</div>}
+          <Chakra.Dialog
+            title={t[language]['Game Over']}
+            body={<p id='gameover-body'>{`${t[language]['Invite']} ${otherPlayerName} ${t[language]['to play another game with you?']}`}</p>}
+
+            open={gameoverDialogOpen}
+            setOpen={setGameoverDialogOpen}
+
+            closeButtonHidden={true}
+            overlayCloseDisabled={true}
+
+            cancelButtonText={remoteIsOnline ? t[language]['Leave'] : t[language]['Ok']}
+            cancelCallback={leaveGame}
+            
+            saveButtonText={t[language]['Create a new game']}
+            saveButtonHidden={remoteIsOnline ? false : true}
+            saveButtonCallback={() => {
+              setGameoverDialogOpen(false)
+              const request = {
+                from: 'player',
+                to: 'server',
+                action: SOCKET_ACTIONS.REQUEST_ANOTHER_GAME,
+                socketId: mySocketId,
+                gameId: gameId,
+              }
+              socket.emit('message', JSON.stringify(request))
+            }}
+          />
+        </GameOver>
+      </PageContainer>
+
+      <Footer>
+        <div><LuCopyright/> <span>2025 - Louys Patrice Bessette</span></div>
+        <div><Chakra.Dialog
+            title={<LuInfo/>}
+            body={<>
+              <p>{t[language]['InfoDialogP1']}</p>
+              <p>&nbsp;</p>
+              <p>{t[language]['InfoDialogP2']}</p>
+              <p>&nbsp;</p>
+              <p>{t[language]['InfoDialogP3']}</p>
+              <p>&nbsp;</p>
+              <p>{t[language]['InfoDialogP4']}</p>
+              <p>&nbsp;</p>
+              <p>{t[language]['InfoDialogP5']}</p>
+            </>}
+
+            openButtonText={<LuInfo/>}
+            openButtonColor='nav'
+            
+            saveButtonText={t[language]['Ok']}
+            cancelButtonHidden={true}
+          /></div>
+      </Footer>
+
       
+
+      <Tour
+        tourActive={tourActive}
+
+        setControlsDrawerOpen={setControlsDrawerOpen}
+        setControlsEnabledButtonForTour={setControlsEnabledButtonForTour}
+        setMore={setMore}
+
+        setCreateGameDialogOpen={setCreateGameDialogOpen}
+        setJoinGameDialogOpen={setJoinGameDialogOpen}
+        setGameoverDialogOpen={setGameoverDialogOpen}
+
+        chatDrawerOpen={chatDrawerOpen}
+        setChatDrawerOpen={setChatDrawerOpen}
+      />
+    </LoadingWrapper>
+
+    {isLoaded === undefined ? <></> : <Loader
+      setTourActive={setTourActive}
+
       setControlsDrawerOpen={setControlsDrawerOpen}
+      setMore={setMore}
+
       setCreateGameDialogOpen={setCreateGameDialogOpen}
       setJoinGameDialogOpen={setJoinGameDialogOpen}
       setGameoverDialogOpen={setGameoverDialogOpen}
-      setTriggerChatDrawerOpen={setTriggerChatDrawerOpen}
-      />
+
+      setChatDrawerOpen={setChatDrawerOpen}
+    />}
   </>
 }
 

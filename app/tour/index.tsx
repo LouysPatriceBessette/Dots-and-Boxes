@@ -1,13 +1,15 @@
  
 import { useEffect, useState, useRef } from 'react'
+import { useDispatch } from 'react-redux';
+import { setIsLoaded } from '../store/actions';
+
 import Chakra from '../components/Chakra'
 import {
   TourMainStyled,
-  ArrowButton,
+  StepButton,
   TourOverlayinnerStyled,
   StepStyled,
   StepButtonContainer,
-  RedText,
 } from "./index.styled"
 
 import {
@@ -22,23 +24,35 @@ import {
   DomElementPositions,
 } from "./index.types"
 
-import { Apos, BlankLine } from "../translations/translations.components.styled"
+import {
+  Apos,
+  Bold,
+  RedText,
+  TourBlankLine,
+} from "../translations/translations.components.styled"
 
 export const Tour = ({
-    $isActive,
-    // setControlsDrawerOpen,
-    // setCreateGameDialogOpen,
-    // setJoinGameDialogOpen,
-    // setGameoverDialogOpen,
-    // setTriggerChatDrawerOpen,
+    tourActive,
+
+    setControlsDrawerOpen,
+    setControlsEnabledButtonForTour,
+    setMore,
+
+    setCreateGameDialogOpen,
+    setJoinGameDialogOpen,
+    setGameoverDialogOpen,
+
+    setChatDrawerOpen,
   }: TourMain) => {
 
   const EDITING_STEPS = true
 
+  const dispatch = useDispatch()
+
   //
   // ================================================= TOUR STEPS DEFINITION
   //
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   const tourSteps: TourSteps[] = [
 
     // ================================================== Intro 1
@@ -48,7 +62,7 @@ export const Tour = ({
         $title: <div>Portez attention à la flèche <b><RedText>rouge</RedText>.</b></div>,
         $description: <>
           <div>Dans ce cas-ci, il s<Apos/>agit du nombre de joueurs potentiels qui sont actuellement sur le site.</div>
-          <div><BlankLine/></div>
+          <div><TourBlankLine/></div>
           <div>Ce nombre vous inclus.</div>
         </>,
         $prevCallback: () => {},
@@ -57,7 +71,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#connectedPlayers',
+        $selector: '#connectedPlayers',
         $direction: 'up',
         $length: 40,
         $distance: 0,
@@ -72,7 +86,7 @@ export const Tour = ({
         $title: <div>Développement futur...</div>,
         $description: <>
           <div>Vous pourrez leur faire une demande pour jouer avec eux. </div>
-          <div><BlankLine/></div>
+          <div><TourBlankLine/></div>
           <div>Mais pour le moment, il faut inviter un de vos amis directement.</div>
           {/* <div><BlankLine/></div>
           <div>Ce nombre vous inclus.</div> */}
@@ -83,7 +97,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#connectedPlayers',
+        $selector: '#connectedPlayers',
         $direction: 'up',
         $length: 40,
         $distance: 0,
@@ -107,36 +121,13 @@ export const Tour = ({
   
       arrow: {
         $visible: false,
-        $selector:'',
+        $selector: '',
         $direction: 'left',
         $length: 40,
         $distance: 0,
         $scale: 1,
       }
     },
-
-    // // ================================================== Controls drawer
-    // {
-    //   dialog: {
-    //     $visible: true,
-    //     $title: <div>Controles</div>,
-    //     $description: <>
-    //       
-    //       <div>Ce boutton ouvre un panneau de contrôle.</div>
-    //     </>,
-    //     $prevCallback: () => {},
-    //     $nextCallback: () => {},
-    //   },
-  
-    //   arrow: {
-    //     $visible: true,
-    //     $selector:'#ControlsButton',
-    //     $direction: 'left',
-    //     $length: 40,
-    //     $distance: 0,
-    //     $scale: 1,
-    //   }
-    // },
 
     // ================================================== Player 1 name
     {
@@ -145,7 +136,7 @@ export const Tour = ({
         $title: <div>Nom du joueur 1</div>,
         $description: <>
           <div>Son nom est à gauche.</div>
-          <div>Si vous créez la partie, votre nom sera là.</div>,
+          <div>Si vous créez la partie, votre nom sera là.</div>
         </>,
         $prevCallback: () => {},
         $nextCallback: () => {},
@@ -153,7 +144,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#player1Name',
+        $selector: '#player1Name',
         $direction: 'left',
         $length: 40,
         $distance: 10,
@@ -176,7 +167,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#player1Score',
+        $selector: '#player1Score',
         $direction: 'left',
         $length: 40,
         $distance: 0,
@@ -196,7 +187,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#player2Name',
+        $selector: '#player2Name',
         $direction: 'right',
         $length: 40,
         $distance: 10,
@@ -219,7 +210,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#player2Score',
+        $selector: '#player2Score',
         $direction: 'right',
         $length: 40,
         $distance: 0,
@@ -234,10 +225,10 @@ export const Tour = ({
         $title: <div>Grille de jeu</div>,
         $description: <>
           <div>La grille est composée de boites.</div>
-          <div><BlankLine/></div>
-          <div>Ici, il s<Apos/>agit d<Apos/>une grille de 2 x 2.</div>
-          {/* <div><BlankLine/></div> */}
+          <div><TourBlankLine/></div>
+          <div>Ici, il s<Apos/>agit d<Apos/>une grille de <Bold>2</Bold> x <Bold>2</Bold>.</div>
           <div>Elle peut être de dimensions différente.</div>
+          <div>Par exemple: <Bold>6</Bold> x <Bold>8</Bold></div>
         </>,
         $definedPosition: 'A2',
         $prevCallback: () => {},
@@ -246,7 +237,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#playGrid',
+        $selector: '#playGrid',
         $direction: 'up',
         $length: 40,
         $distance: 0,
@@ -254,23 +245,82 @@ export const Tour = ({
       }
     },
 
-    // ================================================== 
+    // ================================================== Controls drawer
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: <div>Contrôles</div>,
         $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div>Ce boutton ouvre un panneau de contrôle.</div>
         </>,
+
+
         $prevCallback: () => {},
-        $nextCallback: () => {},
+
+        $nextCallback: () => {
+          setTimeout(() => {
+            setControlsDrawerOpen(true)
+            setControlsEnabledButtonForTour('createGame')
+          }, 900)
+        },
       },
   
       arrow: {
         $visible: true,
-        $selector:'#unknown',
+        $selector: '#controls-button',
+        $direction: 'left',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== 
+    // {
+    //   dialog: {
+    //     $visible: true,
+    //     $title: <div>Titre</div>,
+    //     $description: <>
+    //       <div></div>
+    //       <div></div>
+    //       <div></div>
+    //     </>,
+    //     $prevCallback: () => {},
+    //     $nextCallback: () => {},
+    //   },
+  
+    //   arrow: {
+    //     $visible: true,
+    //     $selector: '#unknown',
+    //     $direction: 'right',
+    //     $length: 40,
+    //     $distance: 0,
+    //     $scale: 1,
+    //   }
+    // },
+
+    // ================================================== Controls drawer is opened. Show the fucking arrow.
+    {
+      dialog: {
+        $visible: true,
+        $title: <div>Damn</div>,
+        $description: <>
+          <div>Click the create button now! cawliss</div>
+          <div></div>
+          <div></div>
+        </>,
+        $prevCallback: () => {
+          setControlsDrawerOpen(false)
+          setControlsEnabledButtonForTour('')
+        },
+        $nextCallback: () => {
+          // setCreateGameDialogOpen(true)
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#createGame',
         $direction: 'right',
         $length: 40,
         $distance: 0,
@@ -294,7 +344,76 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#unknown',
+        $selector: '#joinGame',
+        $direction: 'right',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+    // ================================================== 
+    {
+      dialog: {
+        $visible: true,
+        $title: <div>Titre</div>,
+        $description: <>
+          <div></div>
+          <div></div>
+          <div></div>
+        </>,
+        $prevCallback: () => {},
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#destroy-leaveGame',
+        $direction: 'right',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+    // ================================================== 
+    {
+      dialog: {
+        $visible: true,
+        $title: <div>Titre</div>,
+        $description: <>
+          <div></div>
+          <div></div>
+          <div></div>
+        </>,
+        $prevCallback: () => {},
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#more',
+        $direction: 'right',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+    // ================================================== 
+    {
+      dialog: {
+        $visible: true,
+        $title: <div>Titre</div>,
+        $description: <>
+          <div></div>
+          <div></div>
+          <div></div>
+        </>,
+        $prevCallback: () => {},
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#less',
         $direction: 'right',
         $length: 40,
         $distance: 0,
@@ -318,7 +437,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#unknown',
+        $selector: '#welcome',
         $direction: 'right',
         $length: 40,
         $distance: 0,
@@ -342,7 +461,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#unknown',
+        $selector: '#language',
         $direction: 'right',
         $length: 40,
         $distance: 0,
@@ -366,7 +485,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#unknown',
+        $selector: '#chat-button',
         $direction: 'right',
         $length: 40,
         $distance: 0,
@@ -390,7 +509,81 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#unknown',
+        $selector: '#joint-input',
+        $direction: 'right',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== 
+    // {
+    //   dialog: {
+    //     $visible: true,
+    //     $title: <div>Titre</div>,
+    //     $description: <>
+    //       <div></div>
+    //       <div></div>
+    //       <div></div>
+    //     </>,
+    //     $prevCallback: () => {},
+    //     $nextCallback: () => {},
+    //   },
+  
+    //   arrow: {
+    //     $visible: true,
+    //     $selector: '#unknown',
+    //     $direction: 'right',
+    //     $length: 40,
+    //     $distance: 0,
+    //     $scale: 1,
+    //   }
+    // },
+
+    // ================================================== Enter name in dialog...
+    {
+      dialog: {
+        $visible: true,
+        $title: <div>Create a game</div>,
+        $description: <>
+          <div>Enter your name</div>
+          <div></div>
+          <div></div>
+        </>,
+        $prevCallback: () => {
+          // setCreateGameDialogOpen(false)
+        },
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#create-input',
+        $direction: 'down',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== 
+    {
+      dialog: {
+        $visible: true,
+        $title: <div>Titre</div>,
+        $description: <>
+          <div></div>
+          <div></div>
+          <div></div>
+        </>,
+        $prevCallback: () => {},
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#chat-drawer',
         $direction: 'right',
         $length: 40,
         $distance: 0,
@@ -414,7 +607,7 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#unknown',
+        $selector: '#chat-messages',
         $direction: 'right',
         $length: 40,
         $distance: 0,
@@ -438,7 +631,31 @@ export const Tour = ({
   
       arrow: {
         $visible: true,
-        $selector:'#unknown',
+        $selector: '#chat-input',
+        $direction: 'right',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== 
+    {
+      dialog: {
+        $visible: true,
+        $title: <div>Titre</div>,
+        $description: <>
+          <div></div>
+          <div></div>
+          <div></div>
+        </>,
+        $prevCallback: () => {},
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#gameover-body',
         $direction: 'right',
         $length: 40,
         $distance: 0,
@@ -457,22 +674,6 @@ export const Tour = ({
   // ================================================= TOUR LOGIC
   //
   const [currentStep, setCurrentStep] = useState(0)
-
-  // On tour activation
-  useEffect(() => {
-    if($isActive) {
-      console.log('\n\n\ntour is active')
-    } else{
-      setCurrentStep(0)
-    }
-  }, [EDITING_STEPS,$isActive, currentStep])
-
-  // On tour step change
-  useEffect(() => {
-    if(!(currentStep >= 0 && currentStep < tourSteps.length)) {
-      setCurrentStep(0)
-    }
-  }, [currentStep, tourSteps])
 
   //
   // Find all the selector position on load
@@ -501,22 +702,34 @@ export const Tour = ({
   const selectors = tourSteps.map((step) => step.arrow.$selector)
 
   useEffect(() => {
-    console.clear()
+
+    if(EDITING_STEPS){
+      // console.clear()
+      console.log('\n\n\n\ncurrentStep:', currentStep)
+    }
+
     foundElements.current = selectors.map((selector, index) => {
+
+
+      if(foundElements && foundElements.current && foundElements.current[index].isFoundInDOM){
+        return foundElements.current[index]
+      }
 
       const isFoundInDOM = !selector ? false : !!document.querySelector(selector)
       const rect = getElementPosition(selector)
 
       const rectPosition: DomElementPositions = {
-        $selector: selector,
         isFoundInDOM: isFoundInDOM,
+        $selector: selector,
+        
         $arrowTop: rect.$arrowTop,
         $arrowLeft: rect.$arrowLeft,
         $dialogTop: 35,   // in px
         $dialogLeft: 50,  // in vw
       }
-
-      console.log('rectPosition', rectPosition)
+      if(EDITING_STEPS){
+        // console.log(`rectPosition - Data for step #${index}`, rectPosition)
+      }
 
       switch(tourSteps[index].arrow.$direction) {
         case 'up':
@@ -547,9 +760,9 @@ export const Tour = ({
       C1 C2 C3
 
       Note that on mobile, the width is 100%, and therefore, it is only:
-         A
-         B
-         C
+        A
+        B
+        C
       And (TODO) we force to landscape portrait.
 
       */
@@ -621,14 +834,32 @@ export const Tour = ({
         $definedPosition: tourSteps[index].dialog.$definedPosition,
       }
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectors])
 
-  return (
-    <TourMainStyled $isActive={$isActive}>
+    const foundCount = foundElements.current.filter((f) => f.isFoundInDOM)
+    const notFoundCount = foundElements.current.filter((f) => !f.isFoundInDOM)
+
+    if(EDITING_STEPS){
+      console.log('foundElements.current', foundElements.current)
+      console.log('found:', foundCount.length, foundCount.map((f) => f.$selector))
+      console.log('not found:', notFoundCount.length, notFoundCount.map((f) => f.$selector))
+    }
+
+    if(notFoundCount.filter((nf) => nf.$selector !== '').length === 0){
+      setTimeout(() => {
+        dispatch(setIsLoaded(true));
+      }, 1000)
+    }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectors, currentStep])
+
+  console.log('\n\n ========================= RE-RENDER!\n\n')
+
+  return !tourActive ? <></> : <TourMainStyled id='GranPa'>
       <TourOverlayinnerStyled>
 
         <StepArrow
+          data-step={currentStep}
           {...tourSteps[currentStep].arrow}
           $foundElements={foundElements.current}
           $currentStep={currentStep}
@@ -647,17 +878,17 @@ export const Tour = ({
 
           <StepButtonContainer>
             <Chakra.Button
-              text={<ArrowButton>←</ArrowButton>}
+              text={<StepButton>←</StepButton>}
               customVariant='grey'
               disabled={currentStep === 0}
               onClick={() => {
                 setCurrentStep((prev) => prev - 1 )
-                tourSteps[currentStep].dialog.$nextCallback()
+                tourSteps[currentStep].dialog.$prevCallback()
               }}
             />
 
             <Chakra.Button
-              text={<ArrowButton>→</ArrowButton>}
+              text={<StepButton>→</StepButton>}
               customVariant='green'
               disabled={currentStep === tourSteps.length - 1}
               onClick={() => {
@@ -668,7 +899,10 @@ export const Tour = ({
           </StepButtonContainer>
             
         </StepStyled>
+
+        <div>Step: {currentStep}</div>
+
       </TourOverlayinnerStyled>
+      
     </TourMainStyled>
-  )
 }

@@ -29,14 +29,33 @@ import { languages } from "../translations/supportedLanguages";
 
 export const GameControls = ({
   setWelcomeDialogOpen,
+
+  createGameDialogOpen,
   setCreateGameDialogOpen,
+
+  joinGameDialogOpen,
   setJoinGameDialogOpen,
   setControlsDrawerOpen,
+  tourActive,
+  tourEnabledButton,
+
+  more,
+  setMore,
 }: {
   setWelcomeDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
+
+  createGameDialogOpen: boolean,
   setCreateGameDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
+
+  joinGameDialogOpen: boolean,
   setJoinGameDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setControlsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>
+
+  setControlsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  tourActive: boolean,
+  tourEnabledButton: string,
+
+  more: boolean
+  setMore: React.Dispatch<React.SetStateAction<boolean>>,
 }) => {
   const DEBUG_LOCAL_STORAGE = Boolean(Number(process.env.DEBUG_LOCAL_STORAGE))
 
@@ -54,8 +73,6 @@ export const GameControls = ({
 
   const pinLength = 6
   const [pinString, setPinString] = useState('')
-
-  const [more, setMore] = useState(false)
 
   const languageItems = Object.entries(languages).map((item) =>
     ({label: item[1], value: item[0], disabled: language === item[0]}))
@@ -122,6 +139,7 @@ export const GameControls = ({
   const CreateForm = <>
 
     <Chakra.Input
+      id='create-input'
       label={t[language]['Your name']}
       placeholder={t[language]['Your name']}
       value={playerName}
@@ -168,8 +186,6 @@ export const GameControls = ({
     </DialogGrid>
   </>
 
-  // const myName = localStorage.getItem('myName')
-
   // This callback call is made in the create Dialog on save button click
   const createGameCallback = () => {
     setControlsDrawerOpen(false)
@@ -198,6 +214,7 @@ export const GameControls = ({
 
   const JoinForm = <>
     <Chakra.Input
+      id='joint-input'
       label={t[language]['Your name']}
       placeholder={t[language]['Your name']}
       minLength={1}
@@ -213,8 +230,6 @@ export const GameControls = ({
       lastPin={localStorage.getItem('LastGameNumberUsed') ?? ''}
     />
   </>
-
-  // const myName = localStorage.getItem('myName')
 
   // This callback call is made in the join Dialog on save button click
   const joinGameCallback = () => {
@@ -258,8 +273,12 @@ export const GameControls = ({
     <ControlButtonsContainer>
       {!more && <>
         <Chakra.Dialog
+          id='createGame'
           title={t[language]['Create a game']}
           body={CreateForm}
+
+          open={createGameDialogOpen}
+          setOpen={setCreateGameDialogOpen}
 
           onOpenChange={(state: {open:boolean}) => {
             setTimeout(() => {
@@ -270,7 +289,7 @@ export const GameControls = ({
 
           openButtonText={t[language]['Create']}
           openButtonColor='green'
-          openButtonDisabled={gameId !== -1}
+          openButtonDisabled={gameId !== -1 || (tourActive && tourEnabledButton === '') || (tourActive && tourEnabledButton !== 'createGame')}
 
           saveButtonText={t[language]['Save']}
           saveButtonCallback={() => createGameCallback()}
@@ -279,23 +298,27 @@ export const GameControls = ({
           cancelButtonText={t[language]['Cancel']}
           
           closeButtonHidden={true}
-          overlayCloseDisabled={true}
+          overlayCloseDisabled={tourActive}
         />
 
         <Chakra.Dialog
+          id='joinGame'
           title={t[language]['Join a game']}
           body={JoinForm}
+
+          open={joinGameDialogOpen}
+          setOpen={setJoinGameDialogOpen}
 
           onOpenChange={(state: {open:boolean}) => {
             setTimeout(() => {
               console.log('DIALOG IS OPEN', state)
-              setCreateGameDialogOpen(state.open)
+              setJoinGameDialogOpen(state.open)
             }, TIME_OUT_DELAY)
           }}
 
           openButtonText={t[language]['Join']}
           openButtonColor='orange'
-          openButtonDisabled={gameId !== -1}
+          openButtonDisabled={gameId !== -1 || (tourActive && tourEnabledButton === '') || (tourActive && tourEnabledButton !== 'joinGame')}
 
           saveButtonText={t[language]['Save']}
           saveButtonCallback={() => joinGameCallback()}
@@ -304,10 +327,11 @@ export const GameControls = ({
           cancelButtonText={t[language]['Cancel']}
 
           closeButtonHidden={true}
-          overlayCloseDisabled={true}
+          overlayCloseDisabled={tourActive}
         />
 
         <Chakra.Button
+          id='destroy-leaveGame'
           onClick={() => {
             if(remoteHasLeft){
               destroyGame()
@@ -317,32 +341,44 @@ export const GameControls = ({
           }}
           text={remoteHasLeft ? t[language]['Delete'] : t[language]['Leave']}
           customVariant='red'
-          disabled={gameId === -1 || gameId === ''}
+          
+          disabled={gameId === -1 || gameId === '' || (tourActive && tourEnabledButton === '') || (tourActive && tourEnabledButton !== 'destroy-leaveGame')}
         />
 
         <Chakra.Button
+          id='more'
           onClick={() => setMore(!more)}
           text={<LuChevronRight/>}
           customVariant='grey'
+
+          disabled={(tourActive && tourEnabledButton === '') || (tourActive && tourEnabledButton !== 'more')}
         />
       </>}
 
       {more && <>
       <Chakra.Button
+          id='less'
           onClick={() => setMore(!more)}
           text={<LuChevronLeft/>}
           customVariant='grey'
+
+          disabled={(tourActive && tourEnabledButton === '') || (tourActive && tourEnabledButton !== 'less')}
         />
 
         <Chakra.Button
+          id='welcome'
           onClick={() => setWelcomeDialogOpen(true)}
           text={t[language]['Tour']}
           customVariant='orange'
-          disabled={gameId !== -1 || gameId === ''}
+
+          disabled={gameId !== -1 || gameId === '' || tourActive}
         />
 
         <Chakra.Menu
+          id='language'
           buttonTitle={<LuLanguages/>}
+          buttonDisabled={tourActive}
+
           items={languageItems}
           onSelect={
             (selectedLangItem: {label: string, value: string,

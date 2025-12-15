@@ -25,8 +25,6 @@ if [ ! -f .env ]; then
   echo "DEBUG_LOCAL_STORAGE=0" >> .env
   echo "DEBUG_DISPLAY_MY_SOCKET_ID=0" >> .env
   echo "#========================== " >> .env
-  echo "NEXT_PUBLIC_LOADER_DELAY='5000'" >> .env
-  echo "#========================== " >> .env
   echo "" >> .env
   echo "#========================== Anything below is safe to edit like a normal .env file." >> .env
 else

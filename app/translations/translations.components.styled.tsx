@@ -8,7 +8,7 @@ export const Apos = () => <>&apos;</>
 
 export const Quot = () => <>&quot;</>
 
-export const BlankLine = () => <>&nbsp;</>
+export const TourBlankLine = () => <div style={{height: '0.6em'}}>&nbsp;</div>
 
 export const Hr = styled.hr`
   border: none;
@@ -19,8 +19,11 @@ export const Hr = styled.hr`
 
 const AnchorStyled = styled.a`
   color: #5a79f1ff;
-  // text-decoration: none;
   cursor: pointer;
 `
 
 export const Anchor = ({children, href}: {children: React.ReactNode, href: string}) => <AnchorStyled href={href} target='_blank'>{children}</AnchorStyled>
+
+export const RedText = styled.span`
+  color: red;
+`

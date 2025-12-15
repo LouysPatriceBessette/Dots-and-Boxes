@@ -10,17 +10,18 @@ export type DomElementPositions = {
 }
 
 export type TourMain = {
-  $isActive: boolean,
-
+  tourActive: boolean,
+  
   setControlsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  setControlsEnabledButtonForTour: React.Dispatch<React.SetStateAction<string>>,
+  setMore: React.Dispatch<React.SetStateAction<boolean>>,
+
   setCreateGameDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setJoinGameDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setGameoverDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setTriggerChatDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>,
-}
 
-export type TourMainStyledProps = {
-  $isActive: boolean,
+  chatDrawerOpen: boolean
+  setChatDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export type TourSteps = {
@@ -64,7 +65,7 @@ export type StepArrowProps = {
   children?: React.ReactElement<StepArrowProps>,
 
   $foundElements?: DomElementPositions[] | null,
-  $currentStep: number
+  $currentStep: number,
 }
 
 export type StepTitleProps =  {

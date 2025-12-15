@@ -46,7 +46,7 @@ export const Chat = () => {
 
   return (
     <>
-      <ChatMessagesContainer ref={messagesScrollBox}>
+      <ChatMessagesContainer id='chat-messages' ref={messagesScrollBox}>
         {messages.map((msg: string, index: number) => 
           {
             const msgParts = msg.split('</span>')
@@ -61,7 +61,7 @@ export const Chat = () => {
         )}
       </ChatMessagesContainer>
 
-      <ChatInputsContainer>
+      <ChatInputsContainer id='chat-input'>
         <Chakra.Input
           disabled={gameId === -1}
           placeholder={t[language]['Message']}

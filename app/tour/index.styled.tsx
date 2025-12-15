@@ -1,17 +1,10 @@
 import { styled } from "styled-components";
 import { 
-  TourMainStyledProps,
   StyledStepProps,
   StepArrowProps,
 } from "./index.types"
 
-export const ArrowButton = styled.div`
-  font-size: 2em;
-  font-weight: bold;
-  margin-bottom: 9px;
-`
-
-export const TourMainStyled = styled.div<TourMainStyledProps>`
+export const TourMainStyled = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -19,9 +12,8 @@ export const TourMainStyled = styled.div<TourMainStyledProps>`
   right: 0;
   padding: 0;
   margin: 0;
-
-  z-index: ${(props) => props.$isActive ? 10000 : -1};
   background-color: transparent;
+  z-index: 9999;
 `
 export const TourOverlayinnerStyled = styled.div`
   position: relative;
@@ -141,7 +133,7 @@ export const StepStyled = styled.div<StyledStepProps>`
   transform: translateX(-50%);
   
   min-width: 320px;
-  max-width: 50vw;    // TODO: if props.$definedPosition is set, change this to a new value
+  max-width: 50vw;
   min-height: 170px;
   max-height: 80vh;
   margin: auto 0;
@@ -152,6 +144,10 @@ export const StepStyled = styled.div<StyledStepProps>`
 
   padding: 0.4em 0.7em 0.2em;
   background-color: #e6f7f6ff;
+
+  @media (min-width: 480px) {
+    min-width: 480px;
+  }
 `
 
 export const StepTitleStyled = styled.div`
@@ -164,6 +160,7 @@ export const StepDescriptionStyled = styled.div`
   font-size: 1em;
   margin-bottom: 0.5em;
   text-align: center;
+  text-wrap: balance;
 `
 
 export const StepButtonContainer = styled.div`
@@ -173,7 +170,8 @@ export const StepButtonContainer = styled.div`
   align-items: end;
 `
 
-/* Text formattin */
-export const RedText = styled.span`
-  color: red;
+export const StepButton = styled.div`
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 9px;
 `

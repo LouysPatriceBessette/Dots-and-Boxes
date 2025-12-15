@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const LoadingWrapper = styled.div<{$isLoaded?: boolean}>`
+  opacity: ${(props) => !props.$isLoaded ? '0' : '1'};
+`
+
 export const GameNumberStyled = styled.div`
   display: flex;
   flex-direction: column;
