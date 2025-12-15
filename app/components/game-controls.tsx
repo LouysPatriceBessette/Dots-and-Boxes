@@ -367,7 +367,11 @@ export const GameControls = ({
 
         <Chakra.Button
           id='welcome'
-          onClick={() => setWelcomeDialogOpen(true)}
+          onClick={() => {
+            setMore(false)
+            setControlsDrawerOpen(false)
+            setWelcomeDialogOpen(true)
+          }}
           text={t[language]['Tour']}
           customVariant='orange'
 

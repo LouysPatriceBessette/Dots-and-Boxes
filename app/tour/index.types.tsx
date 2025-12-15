@@ -24,6 +24,8 @@ export type TourMain = {
   setChatDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
+export type TourStepsProps = Omit<TourMain, 'tourActive' | 'chatDrawerOpen'>
+
 export type TourSteps = {
   dialog: {
     $visible: boolean,

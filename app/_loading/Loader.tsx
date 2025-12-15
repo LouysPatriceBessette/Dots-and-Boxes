@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useIsLoaded } from '../store/selectors';
 import { AppLoaderStyled as AppLoader } from './AppLoader.styled';
-import { TourMain } from '../tour/index.types';
+import { TourStepsProps } from '../tour/index.types';
 
-interface Loader extends Omit<TourMain, 'tourActive' | 'setControlsEnabledButtonForTour' | 'chatDrawerOpen'>{
+interface Loader extends Omit<TourStepsProps, 'setControlsEnabledButtonForTour'>{
   setTourActive: React.Dispatch<React.SetStateAction<boolean>>,
 }
 export const Loader = (props: Loader) => {
