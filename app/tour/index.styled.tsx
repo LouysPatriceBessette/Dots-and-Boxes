@@ -38,6 +38,7 @@ export const TourInnerStyled = styled.div`
 /* ARROW */
 export const ArrowPositionner = styled.div<StepArrowProps>`
   position: absolute;
+  opacity: ${(props) => props.$visible ? 1 : 0};
 
   width: 0px;
   height: 0px;

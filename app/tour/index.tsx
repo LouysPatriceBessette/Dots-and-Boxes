@@ -45,7 +45,7 @@ export const Tour = ({
   const dispatch = useDispatch()
   const isLoaded = useIsLoaded()
   const [currentStep, setCurrentStep] = useState(0)
-  const [editingStep, setEditingStep] = useState('0')
+  const [inputtingStep, setInputtingStep] = useState('0')
 
   // Steps data
   const tourSteps = TourStepsData({
@@ -303,30 +303,61 @@ export const Tour = ({
         {EDITING_STEPS && <>
           <div
             style={{
-              padding: '4px',
+              padding: '4px 20px',
+              display: 'flex',
+              justifyContent: 'space-between',
             }}
           >
             <div>
               Step:
               <input
-                value={editingStep === currentStep.toString() ? editingStep : currentStep.toString()}
-                onChange={(event) => setEditingStep(event.target.value)}
+                value={inputtingStep !== '' ? inputtingStep : currentStep.toString()}
+                onFocus={(event) => {
+                  event.preventDefault()
+                  event?.target.select()
+                }}
+                onKeyUp={(event) => {
+                  console.log(event.key)
+                  if(['Backspace'].indexOf(event.key) !== -1){
+                    setInputtingStep('')
+                    // @ts-expect-error Noe error here
+                    event.target.value = ''
+                    return
+                  }
+                  if(['Enter'].indexOf(event.key) !== -1){
+                    setInputtingStep('')
+                    setCurrentStep(Number(inputtingStep))
+                    return
+                  }
+                  if('0123456789'.indexOf(event.key) === -1){
+                    return
+                  }
+                  setInputtingStep((prev) => {
+                    if(prev === '0'){
+                      return `${event.key}`
+                    }
+                    return `${prev}${event.key}`
+                  })
+                }}
+                onChange={() => {}}
                 style={{
-                  width: '30px',
+                  width: '40px',
                   border: '1px solid grey',
                   borderRadius: '4px',
                   padding: '0 4px',
                   marginLeft: '6px',
                   marginRight: '6px',
                   textAlign: 'right',
+                  backgroundColor: (Number(inputtingStep) < 0 || Number(inputtingStep) > tourSteps.length - 1) ? 'red' : 'white',
                 }}
               />
               <button
                 onClick={() => {
-                  setCurrentStep(Number(editingStep))
-                  setCurrentStep(Number(editingStep))
+                  setInputtingStep('')
+                  setCurrentStep(Number(inputtingStep))
                 }}
                 style={{
+                  opacity: inputtingStep === currentStep.toString() || Number(inputtingStep) > tourSteps.length - 1 ? 0 : 1,
                   backgroundColor: 'lightgrey',
                   borderRadius: '4px',
                   padding: '0 4px',
@@ -339,7 +370,8 @@ export const Tour = ({
               <button
                 onClick={() => {
                   console.clear()
-                  console.log(foundElements.current?.[currentStep])
+                  console.log('Rendered Arrow:', foundElements.current?.[currentStep])
+                  console.log('Tour Step:', tourSteps[currentStep])
                 }}
                 style={{
                   backgroundColor: 'lightgrey',
@@ -348,7 +380,7 @@ export const Tour = ({
                   marginTop: '6px',
                 }}
               >
-                Log object
+                Log objects
               </button>
             </div>
           </div>

@@ -14,7 +14,7 @@ import {
 } from "./index.styled"
 
 export const StepArrow = (props: StepArrowProps) => {
-  return props.$visible ? <>
+  return <>
     <ArrowPositionner
       {...props}
       $arrowTop={props.$foundElements?.[props.$currentStep].$arrowTop}
@@ -33,7 +33,7 @@ export const StepArrow = (props: StepArrowProps) => {
       </ArrowRotator>
     </ArrowContainer>
     </ArrowPositionner>
-  </> : <></>
+  </>
 }
 
 export const StepTitle = ({
