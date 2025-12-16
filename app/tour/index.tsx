@@ -8,7 +8,7 @@ import Chakra from '../components/Chakra'
 import {
   TourMainStyled,
   StepButton,
-  TourOverlayinnerStyled,
+  TourInnerStyled,
   StepStyled,
   StepButtonContainer,
 } from "./index.styled"
@@ -44,13 +44,9 @@ export const Tour = ({
 
   const dispatch = useDispatch()
   const isLoaded = useIsLoaded()
-
-  //
-  // ================================================= TOUR STEPS DEFINITION from a separate file
-  //
-
   const [currentStep, setCurrentStep] = useState(0)
 
+  // Steps data
   const tourSteps = TourStepsData({
     setCurrentStep,
 
@@ -64,11 +60,6 @@ export const Tour = ({
 
     setChatDrawerOpen,
   })
-
-  //
-  // ================================================= TOUR LOGIC
-  //
-  
 
   //
   // Find all the selector position on load
@@ -98,11 +89,9 @@ export const Tour = ({
 
   useEffect(() => {
 
-    if(EDITING_STEPS){
-      // console.clear()
-      console.log('\n\n\n\ncurrentStep:', currentStep)
-    }
-
+    // Find all the element positions
+    // And keep them in foundElements
+    // Only on page load (while the animated loading icon shows)
     if(!isLoaded){
       foundElements.current = selectors.map((selector, index) => {
 
@@ -250,9 +239,7 @@ export const Tour = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectors, currentStep])
 
-  console.log('\n\n ========================= RE-RENDER!\n\n')
-
-  // Arrow X/Y translation (top/left)
+  // Arrow X/Y animated translation (top/left)
   const prev = {
     x: foundElements.current?.[currentStep - 1]?.$arrowLeft,
     y: foundElements.current?.[currentStep - 1]?.$arrowTop,
@@ -265,18 +252,12 @@ export const Tour = ({
   const isTranslation = prev.x && prev.y && next.x && next.y
   let diff = {x: 0, y: 0}
   if(isTranslation){
-    diff = {
-      // @ts-expect-error There is no erro here
-      x: next.x - prev.x,  //prev.x <= next.x ? next.x - prev.x : -(prev.x - next.x),
-      // @ts-expect-error There is no erro here
-      y: next.y - prev.y,  //prev.y <= next.y ? next.y - prev.y : -(prev.y - next.y),
-    }
-}
+    // @ts-expect-error Come on TS! There is no error here.
+    diff = {x: next.x - prev.x, y: next.y - prev.y}
+  }
 
-
-  // Main container de Tour z-index 9999
-  return !tourActive ? <></> : <TourMainStyled id='GranPa'>
-      <TourOverlayinnerStyled>
+  return !tourActive ? <></> : <TourMainStyled>
+      <TourInnerStyled>
 
         <StepArrow
           data-step={currentStep}
@@ -321,9 +302,9 @@ export const Tour = ({
             
         </StepStyled>
 
-        <div>Step: {currentStep}</div>
+        {EDITING_STEPS && <div>Step: {currentStep} {JSON.stringify(foundElements.current?.[currentStep])}</div>}
 
-      </TourOverlayinnerStyled>
+      </TourInnerStyled>
       
     </TourMainStyled>
 }

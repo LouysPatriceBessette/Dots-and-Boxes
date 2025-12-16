@@ -29,7 +29,7 @@ export const TourMainStyled = styled.div`
   z-index: 9999;
 `
 
-export const TourOverlayinnerStyled = styled.div`
+export const TourInnerStyled = styled.div`
   position: relative;
   width: 100vw;
   height: 100vh;
