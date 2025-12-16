@@ -45,6 +45,7 @@ export const Tour = ({
   const dispatch = useDispatch()
   const isLoaded = useIsLoaded()
   const [currentStep, setCurrentStep] = useState(0)
+  const [editingStep, setEditingStep] = useState('0')
 
   // Steps data
   const tourSteps = TourStepsData({
@@ -111,9 +112,6 @@ export const Tour = ({
           $arrowLeft: rect.$arrowLeft,
           $dialogTop: 35,   // in px
           $dialogLeft: 50,  // in vw
-        }
-        if(EDITING_STEPS){
-          // console.log(`rectPosition - Data for step #${index}`, rectPosition)
         }
 
         switch(tourSteps[index].arrow.$direction) {
@@ -302,7 +300,59 @@ export const Tour = ({
             
         </StepStyled>
 
-        {EDITING_STEPS && <div>Step: {currentStep} {JSON.stringify(foundElements.current?.[currentStep])}</div>}
+        {EDITING_STEPS && <>
+          <div
+            style={{
+              padding: '4px',
+            }}
+          >
+            <div>
+              Step:
+              <input
+                value={editingStep === currentStep.toString() ? editingStep : currentStep.toString()}
+                onChange={(event) => setEditingStep(event.target.value)}
+                style={{
+                  width: '30px',
+                  border: '1px solid grey',
+                  borderRadius: '4px',
+                  padding: '0 4px',
+                  marginLeft: '6px',
+                  marginRight: '6px',
+                  textAlign: 'right',
+                }}
+              />
+              <button
+                onClick={() => {
+                  setCurrentStep(Number(editingStep))
+                  setCurrentStep(Number(editingStep))
+                }}
+                style={{
+                  backgroundColor: 'lightgrey',
+                  borderRadius: '4px',
+                  padding: '0 4px',
+                }}
+              >
+                Go
+              </button>
+            </div>
+            <div>
+              <button
+                onClick={() => {
+                  console.clear()
+                  console.log(foundElements.current?.[currentStep])
+                }}
+                style={{
+                  backgroundColor: 'lightgrey',
+                  borderRadius: '4px',
+                  padding: '0 4px',
+                  marginTop: '6px',
+                }}
+              >
+                Log object
+              </button>
+            </div>
+          </div>
+        </>}
 
       </TourInnerStyled>
       
