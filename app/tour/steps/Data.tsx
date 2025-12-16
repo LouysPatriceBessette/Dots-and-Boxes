@@ -1,7 +1,7 @@
 import { TourSteps } from "../index.types"
 import { useLanguage } from '../../store/selectors'
 
-import { TourStepsProps } from '../../tour/index.types'
+import { TourStepsDataType } from '../../tour/index.types'
 import {
   Apos,
   Bold,
@@ -11,19 +11,21 @@ import {
 
 import t from '../../translations'
 
-export const TourStepsData = (props: TourStepsProps) => {
+export const TourStepsData = (props: TourStepsDataType) => {
   const language = useLanguage()
-  
+
   const {
+    setCurrentStep,
+
     setControlsDrawerOpen,
     setControlsEnabledButtonForTour,
-    setMore,
+    // setMore,
 
     setCreateGameDialogOpen,
-    setJoinGameDialogOpen,
-    setGameoverDialogOpen,
+    // setJoinGameDialogOpen,
+    // setGameoverDialogOpen,
 
-    setChatDrawerOpen,
+    // setChatDrawerOpen,
   } = props
   
 
@@ -93,9 +95,9 @@ export const TourStepsData = (props: TourStepsProps) => {
       },
   
       arrow: {
-        $visible: false,
-        $selector: '',
-        $direction: 'left',
+        $visible: true,
+        $selector: '#connectedPlayers',
+        $direction: 'up',
         $length: 40,
         $distance: 0,
         $scale: 1,
@@ -231,10 +233,13 @@ export const TourStepsData = (props: TourStepsProps) => {
         $prevCallback: () => {},
 
         $nextCallback: () => {
-          setTimeout(() => {
+          // setTimeout(() => {
             setControlsDrawerOpen(true)
             setControlsEnabledButtonForTour('createGame')
-          }, 900)
+          // }, 100)
+          setTimeout(() => {
+            // setCurrentStep((prev) => prev + 1 )
+          },600)
         },
       },
   
@@ -242,6 +247,66 @@ export const TourStepsData = (props: TourStepsProps) => {
         $visible: true,
         $selector: '#controls-button',
         $direction: 'left',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== Controls drawer 2 ( to maintain the arrow while the drawer opens)
+    // {
+    //   dialog: {
+    //     $visible: true,
+    //     $title: <div>Contrôles</div>,
+    //     $description: <>
+    //       <div>Ce boutton ouvre un panneau de contrôle.</div>
+    //     </>,
+
+
+    //     $prevCallback: () => {},
+
+    //     $nextCallback: () => {
+    //       setTimeout(() => {
+    //         setControlsDrawerOpen(true)
+    //         setControlsEnabledButtonForTour('createGame')
+    //       }, 100)
+    //     },
+    //   },
+  
+    //   arrow: {
+    //     $visible: true,
+    //     $selector: '#controls-button',
+    //     $direction: 'left',
+    //     $length: 40,
+    //     $distance: 0,
+    //     $scale: 1,
+    //   }
+    // },
+
+    // ================================================== Controls drawer is opened. Show the fucking arrow.
+    {
+      dialog: {
+        $visible: true,
+        $title: <div>Damn</div>,
+        $description: <>
+          <div>Click the create button now! cawliss</div>
+          <div></div>
+          <div></div>
+        </>,
+        $prevCallback: () => {
+          setControlsDrawerOpen(false)
+          setControlsEnabledButtonForTour('')
+        },
+        // $currCallback: () => {},
+        $nextCallback: () => {
+          setCreateGameDialogOpen(true)
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#createGame',
+        $direction: 'right',
         $length: 40,
         $distance: 0,
         $scale: 1,
@@ -271,35 +336,6 @@ export const TourStepsData = (props: TourStepsProps) => {
     //     $scale: 1,
     //   }
     // },
-
-    // ================================================== Controls drawer is opened. Show the fucking arrow.
-    {
-      dialog: {
-        $visible: true,
-        $title: <div>Damn</div>,
-        $description: <>
-          <div>Click the create button now! cawliss</div>
-          <div></div>
-          <div></div>
-        </>,
-        $prevCallback: () => {
-          setControlsDrawerOpen(false)
-          setControlsEnabledButtonForTour('')
-        },
-        $nextCallback: () => {
-          setCreateGameDialogOpen(true)
-        },
-      },
-  
-      arrow: {
-        $visible: true,
-        $selector: '#createGame',
-        $direction: 'right',
-        $length: 40,
-        $distance: 0,
-        $scale: 1,
-      }
-    },
 
     // ================================================== 
     {

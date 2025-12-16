@@ -46,6 +46,10 @@ export type TourSteps = {
   }
 }
 
+export interface TourStepsDataType extends TourStepsProps{
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>
+}
+
 export type StyledStepProps = {
   $visible: boolean,
   $arrowTop: number,
@@ -60,6 +64,7 @@ export type StepArrowProps = {
   $selector: string,
   $arrowTop?: number,
   $arrowLeft?: number,
+  $translation: {x: number, y: number},
   $direction: 'up' | 'down' | 'left' | 'right',
   $length: number,
   $distance: number,

@@ -4,6 +4,18 @@ import {
   StepArrowProps,
 } from "./index.types"
 
+export const TourOverlay = styled.div<{$tourActive: boolean}>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  // opacity: 0.3;
+  // background-color: ${(props) => props.$tourActive ?  "orange" : "transparent"};
+  pointer-events: ${(props) => props.$tourActive ?  "none" : "auto"};
+  z-index: ${(props) => props.$tourActive ?  "9998" : "-1"};
+`
+
 export const TourMainStyled = styled.div`
   position: fixed;
   top: 0;
@@ -13,8 +25,10 @@ export const TourMainStyled = styled.div`
   padding: 0;
   margin: 0;
   background-color: transparent;
+  pointer-events: auto;
   z-index: 9999;
 `
+
 export const TourOverlayinnerStyled = styled.div`
   position: relative;
   width: 100vw;
@@ -22,15 +36,19 @@ export const TourOverlayinnerStyled = styled.div`
 `
 
 /* ARROW */
-export const ArrowContainer = styled.div<StepArrowProps>`
+export const ArrowPositionner = styled.div<StepArrowProps>`
   position: absolute;
 
   width: 0px;
   height: 0px;
 
-  top: ${(props) => props.$arrowTop ?? 0}px;
-  left: ${(props) => props.$arrowLeft ?? 0}px;
+  top: ${(props) => props.$translation.y ? (props.$arrowTop ?? 0) - props.$translation.y : (props.$arrowTop ?? 0)}px;
+  left: ${(props) => props.$translation.x ? (props.$arrowLeft ?? 0) - props.$translation.x : (props.$arrowLeft ?? 0)}px;
+  transform: translate(${(props) => props.$translation?.x ?? 0}px, ${(props) => props.$translation?.y ?? 0}px);
+  transition: all 0.5s ease-in-out;
+`
 
+export const ArrowContainer = styled.div<StepArrowProps>`
   transform: scale(${(props) => props.$scale})translateX(-50%);
 
   animation: ${(props) => props.$direction === 'up' ? 'bounceUp' : props.$direction === 'down' ? 'bounceDown' : props.$direction === 'left' ? 'bounceLeft' : 'bounceRight'} 1s infinite;
@@ -129,6 +147,7 @@ export const StepStyled = styled.div<StyledStepProps>`
 
   top: ${(props) => props.$definedPosition ? props.$dialogTop : '220'}px;
   left: ${(props) => props.$definedPosition ? props.$dialogLeft : '50'}vw;
+  transition: all 0.5s ease-in-out;
 
   transform: translateX(-50%);
   

@@ -4,6 +4,7 @@ import {
   StepDescriptionProps,
 } from "./index.types"
 import {
+  ArrowPositionner,
   ArrowContainer,
   ArrowRotator,
   ArrowHeadStyled,
@@ -14,6 +15,11 @@ import {
 
 export const StepArrow = (props: StepArrowProps) => {
   return props.$visible ? <>
+    <ArrowPositionner
+      {...props}
+      $arrowTop={props.$foundElements?.[props.$currentStep].$arrowTop}
+      $arrowLeft={props.$foundElements?.[props.$currentStep].$arrowLeft}
+    >
     <ArrowContainer
       {...props}
       $arrowTop={props.$foundElements?.[props.$currentStep].$arrowTop}
@@ -26,6 +32,7 @@ export const StepArrow = (props: StepArrowProps) => {
         </>
       </ArrowRotator>
     </ArrowContainer>
+    </ArrowPositionner>
   </> : <></>
 }
 

@@ -11,27 +11,31 @@ export const Loader = (props: Loader) => {
   const EDITING_STEPS = true
   const isLoaded = useIsLoaded()
 
-  const addedStyle = window.document.createElement('style');
-  addedStyle.innerHTML = `
-    [data-scope="dialog"]{
-      opacity: 0;
-    }
-  `;
-
-  const removedStyle = window.document.createElement('style');
-  removedStyle.innerHTML = `
-    [data-scope="dialog"]{
-      opacity: 1;
-    }
-  `;
-
   useEffect(() => {
-    if(!isLoaded){
-      window.document.head.appendChild(addedStyle);
-    } else {
-      window.document.head.appendChild(removedStyle);
+    if(window){
+      if(!isLoaded){
+
+        const addedStyle = window.document.createElement('style');
+        addedStyle.innerHTML = `
+          [data-scope="dialog"]{
+            opacity: 0;
+          }
+        `;
+        
+        window.document.head.appendChild(addedStyle);
+      } else {
+
+        const removedStyle = window.document.createElement('style');
+        removedStyle.innerHTML = `
+          [data-scope="dialog"]{
+            opacity: 1;
+          }
+        `;
+
+        window.document.head.appendChild(removedStyle);
+      }
     }
-  },[isLoaded, addedStyle, removedStyle])
+  },[isLoaded])
 
   useEffect(() => {
     if(!!!isLoaded){

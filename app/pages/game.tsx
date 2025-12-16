@@ -32,6 +32,7 @@ import { SOCKET_ACTIONS } from "../basics/constants";
 
 import { Loader } from '../_loading/Loader'
 import { Tour } from "../tour";
+import { TourOverlay } from "../tour/index.styled";
 import { LuSettings, LuMessagesSquare, LuLanguages, LuCopyright, LuInfo, LuDoorOpen } from 'react-icons/lu'
 import { GameControls } from "../components/game-controls";
 import { GameGrid } from "../components/game-grid";
@@ -436,21 +437,22 @@ export const Game = () => {
       </Footer>
 
       
+      <TourOverlay $tourActive={tourActive}>
+        <Tour
+          tourActive={tourActive}
 
-      <Tour
-        tourActive={tourActive}
+          setControlsDrawerOpen={setControlsDrawerOpen}
+          setControlsEnabledButtonForTour={setControlsEnabledButtonForTour}
+          setMore={setMore}
 
-        setControlsDrawerOpen={setControlsDrawerOpen}
-        setControlsEnabledButtonForTour={setControlsEnabledButtonForTour}
-        setMore={setMore}
+          setCreateGameDialogOpen={setCreateGameDialogOpen}
+          setJoinGameDialogOpen={setJoinGameDialogOpen}
+          setGameoverDialogOpen={setGameoverDialogOpen}
 
-        setCreateGameDialogOpen={setCreateGameDialogOpen}
-        setJoinGameDialogOpen={setJoinGameDialogOpen}
-        setGameoverDialogOpen={setGameoverDialogOpen}
-
-        chatDrawerOpen={chatDrawerOpen}
-        setChatDrawerOpen={setChatDrawerOpen}
-      />
+          chatDrawerOpen={chatDrawerOpen}
+          setChatDrawerOpen={setChatDrawerOpen}
+        />
+      </TourOverlay>
     </LoadingWrapper>
 
     {isLoaded === undefined ? <></> : <Loader

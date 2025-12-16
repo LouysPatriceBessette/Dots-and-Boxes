@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const LoadingWrapper = styled.div<{$isLoaded?: boolean}>`
   opacity: ${(props) => !props.$isLoaded ? '0' : '1'};
+  transition: opacity 0.8s ease-in-out;
 `
 
 export const GameNumberStyled = styled.div`
