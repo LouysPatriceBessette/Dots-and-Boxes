@@ -5,7 +5,6 @@ import { TourStepsDataType } from '../../tour/index.types'
 import {
   Apos,
   Bold,
-  RedText,
   TourBlankLine,
 } from "../../translations/translations.components.styled"
 
@@ -15,7 +14,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
   const language = useLanguage()
 
   const {
-    setCurrentStep,
+    // setCurrentStep,
 
     setControlsDrawerOpen,
     setControlsEnabledButtonForTour,
@@ -34,12 +33,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Portez attention à la flèche <b><RedText>rouge</RedText>.</b></div>,
-        $description: <>
-          <div>Dans ce cas-ci, il s<Apos/>agit du nombre de joueurs potentiels qui sont actuellement sur le site.</div>
-          <div><TourBlankLine/></div>
-          <div>Ce nombre vous inclus.</div>
-        </>,
+        $title: t[language]['Intro 1 title'],
+        $description: t[language]['Intro 1 description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
@@ -58,20 +53,14 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Développement futur...</div>,
-        $description: <>
-          <div>Vous pourrez leur faire une demande pour jouer avec eux. </div>
-          <div><TourBlankLine/></div>
-          <div>Mais pour le moment, il faut inviter un de vos amis directement.</div>
-          {/* <div><BlankLine/></div>
-          <div>Ce nombre vous inclus.</div> */}
-        </>,
+        $title: t[language]['Intro 2 title'],
+        $description: t[language]['Intro 2 description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
   
       arrow: {
-        $visible: true,
+        $visible: false,
         $selector: '#connectedPlayers',
         $direction: 'up',
         $length: 40,
@@ -84,18 +73,14 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Débutons!</div>,
-        $description: <>
-          {/* <div>Vous voyez la flèche <b><RedText>rouge?</RedText></b></div> */}
-          <div>Il doit y avoir deux joueurs.</div>
-          <div>Le joueur qui crée la partie est le joueur 1.</div>
-        </>,
+        $title: t[language]['Intro 3 title'],
+        $description: t[language]['Intro 3 description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
   
       arrow: {
-        $visible: true,
+        $visible: false,
         $selector: '#connectedPlayers',
         $direction: 'up',
         $length: 40,
@@ -108,11 +93,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Nom du joueur 1</div>,
-        $description: <>
-          <div>Son nom est à gauche.</div>
-          <div>Si vous créez la partie, votre nom sera là.</div>
-        </>,
+        $title: t[language]['Player 1 name title'],
+        $description: t[language]['Player 1 name description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
@@ -131,11 +113,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Pointage du joueur 1</div>,
-        $description: <>
-          <div>Pour chaque boîte que le joueur ferme, un point lui est attribué.</div>
-          <div></div>
-        </>,
+        $title: t[language]['Player 1 score title'],
+        $description: t[language]['Player 1 score description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
@@ -154,8 +133,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Nom du joueur 2</div>,
-        $description: <div>Si vous rejoignez une partie, votre nom sera à gauche.</div>,
+        $title: t[language]['Player 2 name title'],
+        $description: t[language]['Player 2 name description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
@@ -174,11 +153,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Pointage du Joueur 2</div>,
-        $description: <>
-          <div>Pour chaque boîte que le joueur ferme, un point lui est attribué.</div>
-          <div></div>
-        </>,
+        $title: t[language]['Player 2 score title'],
+        $description: t[language]['Player 2 score description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
@@ -197,14 +173,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Grille de jeu</div>,
-        $description: <>
-          <div>La grille est composée de boites.</div>
-          <div><TourBlankLine/></div>
-          <div>Ici, il s<Apos/>agit d<Apos/>une grille de <Bold>2</Bold> x <Bold>2</Bold>.</div>
-          <div>Elle peut être de dimensions différente.</div>
-          <div>Par exemple: <Bold>6</Bold> x <Bold>8</Bold></div>
-        </>,
+        $title: t[language]['Play grid title'],
+        $description: t[language]['Play grid description'],
         $definedPosition: 'A2',
         $prevCallback: () => {},
         $nextCallback: () => {},
@@ -220,26 +190,16 @@ export const TourStepsData = (props: TourStepsDataType) => {
       }
     },
 
-    // ================================================== Controls drawer
+    // ================================================== Controls drawer button
     {
       dialog: {
         $visible: true,
-        $title: <div>Contrôles</div>,
-        $description: <>
-          <div>Ce boutton ouvre un panneau de contrôle.</div>
-        </>,
-
-
+        $title: t[language]['Controls drawer button title'],
+        $description: t[language]['Controls drawer button description'],
         $prevCallback: () => {},
-
         $nextCallback: () => {
-          // setTimeout(() => {
-            setControlsDrawerOpen(true)
-            setControlsEnabledButtonForTour('createGame')
-          // }, 100)
-          setTimeout(() => {
-            // setCurrentStep((prev) => prev + 1 )
-          },600)
+          setControlsDrawerOpen(true)
+          setControlsEnabledButtonForTour('createGame')
         },
       },
   
@@ -253,46 +213,12 @@ export const TourStepsData = (props: TourStepsDataType) => {
       }
     },
 
-    // ================================================== Controls drawer 2 ( to maintain the arrow while the drawer opens)
-    // {
-    //   dialog: {
-    //     $visible: true,
-    //     $title: <div>Contrôles</div>,
-    //     $description: <>
-    //       <div>Ce boutton ouvre un panneau de contrôle.</div>
-    //     </>,
-
-
-    //     $prevCallback: () => {},
-
-    //     $nextCallback: () => {
-    //       setTimeout(() => {
-    //         setControlsDrawerOpen(true)
-    //         setControlsEnabledButtonForTour('createGame')
-    //       }, 100)
-    //     },
-    //   },
-  
-    //   arrow: {
-    //     $visible: true,
-    //     $selector: '#controls-button',
-    //     $direction: 'left',
-    //     $length: 40,
-    //     $distance: 0,
-    //     $scale: 1,
-    //   }
-    // },
-
-    // ================================================== Controls drawer is opened. Show the fucking arrow.
+    // ================================================== Create game button (Controls drawer is opened)
     {
       dialog: {
         $visible: true,
-        $title: <div>Damn</div>,
-        $description: <>
-          <div>Click the create button now! cawliss</div>
-          <div></div>
-          <div></div>
-        </>,
+        $title: t[language]['Create game title'],
+        $description: t[language]['Create game description'],
         $prevCallback: () => {
           setControlsDrawerOpen(false)
           setControlsEnabledButtonForTour('')
@@ -313,11 +239,33 @@ export const TourStepsData = (props: TourStepsDataType) => {
       }
     },
 
+    // ================================================== Create player name
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Create name input title'],
+        $description: t[language]['Create name input description'],
+        $prevCallback: () => {
+          setCreateGameDialogOpen(false)
+        },
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#create-input',
+        $direction: 'down',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
     // ================================================== 
     // {
     //   dialog: {
     //     $visible: true,
-    //     $title: <div>Titre</div>,
+    //     $title: t[language]['Meeeeh input title'],
     //     $description: <>
     //       <div></div>
     //       <div></div>
@@ -341,7 +289,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -364,7 +312,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -387,7 +335,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -410,7 +358,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -434,7 +382,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -458,20 +406,18 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: <div>{t[language]['Meeeeh title']}</div>,
         $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
+          {t[language]['Meeeeh description']}
         </>,
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
-  
+
       arrow: {
         $visible: true,
         $selector: '#language',
-        $direction: 'right',
+        $direction: 'up',
         $length: 40,
         $distance: 0,
         $scale: 1,
@@ -482,7 +428,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -506,7 +452,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -530,7 +476,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     // {
     //   dialog: {
     //     $visible: true,
-    //     $title: <div>Titre</div>,
+    //     $title: t[language]['Meeeeh input title'],
     //     $description: <>
     //       <div></div>
     //       <div></div>
@@ -550,37 +496,13 @@ export const TourStepsData = (props: TourStepsDataType) => {
     //   }
     // },
 
-    // ================================================== Enter name in dialog...
-    {
-      dialog: {
-        $visible: true,
-        $title: <div>Create a game</div>,
-        $description: <>
-          <div>Enter your name</div>
-          <div></div>
-          <div></div>
-        </>,
-        $prevCallback: () => {
-          // setCreateGameDialogOpen(false)
-        },
-        $nextCallback: () => {},
-      },
-  
-      arrow: {
-        $visible: true,
-        $selector: '#create-input',
-        $direction: 'down',
-        $length: 40,
-        $distance: 0,
-        $scale: 1,
-      }
-    },
+
 
     // ================================================== 
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -604,7 +526,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -628,7 +550,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -652,7 +574,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: <div>Titre</div>,
+        $title: t[language]['Meeeeh input title'],
         $description: <>
           <div></div>
           <div></div>
@@ -676,44 +598,6 @@ export const TourStepsData = (props: TourStepsDataType) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // {
-    //   dialog: {
-    //     $visible: true,
-    //     $title: <div>{t[language]['some tranlsation key']}</div>,
-    //     $description: <>
-    //       {t[language]['some tranlsation key']}
-    //     </>,
-    //     $prevCallback: () => {setters[0](true)},
-    //     $nextCallback: () => {},
-    //   },
-
-    //   arrow: {
-    //     $visible: true,
-    //     $selector: '#unknown',
-    //     $direction: 'right',
-    //     $length: 40,
-    //     $distance: 0,
-    //     $scale: 1,
-    //   }
-    // },
   ]
 
   return steps

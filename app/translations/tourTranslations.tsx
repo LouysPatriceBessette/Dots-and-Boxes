@@ -1,5 +1,5 @@
  
-import { Apos, Bold, Italic, Quot, Hr, Anchor } from "./translations.components.styled"
+import { Bold, Italic, Apos, Quot, TourBlankLine, Hr, Anchor, RedText } from "./translations.components.styled"
 
 // Édouard Lucas Wikipedia links
 const wikilinks = {
@@ -30,6 +30,76 @@ export const tourTranslations = {
       Make the guided tour to learn about the user interface of this web version of the game and about the game rules.
     </p>,
     'Tour Dialog button': 'Start the tour',
+
+    'Intro 1 title': <div>Pay attention to the <b><RedText>red</RedText></b> arrow.</div>,
+    'Intro 1 description': <>
+      <div>In this case, it refers to the number of potential players currently on the site.</div>
+      <div><TourBlankLine/></div>
+      <div>This number includes you.</div>
+    </>,
+
+
+    'Intro 2 title': <div>Future development...</div>,
+    'Intro 2 description': <>
+      <div>You<Apos/>ll be able to request to play with them.</div>
+      <div><TourBlankLine/></div>
+      <div>But for now, you need to invite one of your friends directly.</div>
+    </>,
+
+
+
+    'Intro 3 title': <div>Let<Apos/>s begin!</div>,
+    'Intro 3 description': <>
+      <div>There must be two players.</div>
+      <div>The player who starts the game is player 1.</div>
+    </>,
+
+    'Player 1 name title': <div>Player 1<Apos/>s name</div>,
+    'Player 1 name description': <>
+          <div>His/her name is on the left.</div>
+          <div>If you create the game, your name will be there.</div>
+        </>,
+
+    'Player 1 score title': <div>Player 1<Apos/>s scoring</div>,
+    'Player 1 score description':  <div>For each box the player closes, one point is awarded.</div>,
+
+    'Player 2 name title': <div>Player 2<Apos/>s name</div>,
+    'Player 2 name description': <div>If you join a game, your name will be on the left.</div>,
+
+    'Player 2 score title': <div>Player 2<Apos/>s Scoring</div>,
+    'Player 2 score description': <div>For each box the player closes, one point is awarded.</div>,
+
+    'Play grid title': <div>Game Grid</div>,
+    'Play grid description': <>
+          <div>The grid is made up of squares.</div>
+          <div><TourBlankLine/></div>
+          <div>This one is a <Bold>2</Bold> x <Bold>2</Bold> grid.</div>
+          <div>It can be of different dimensions.</div>
+          <div>For example: <Bold>6</Bold> x <Bold>8</Bold></div>
+        </>,
+
+    'Controls drawer button title': <div>Controls</div>,
+    'Controls drawer button description': <div>This button opens a control panel.</div>,
+
+    'Create game title': <div>Create</div>,
+    'Create game description': <div>This button opens the game creation form.</div>,
+
+    'Create name input title': <div>Your name.</div>,
+    'Create name input description':  <div>Let<Apos/>s say your name is John...</div>,
+
+
+
+
+
+
+
+
+    'Meeeeh title': <div>Meeeeh...</div>,
+    'Meeeeh description': <>
+      <div>UNDEFINED</div>
+      <div></div>
+      <div></div>
+    </>,
   },
   FR: {
     'Tour Dialog title': `Bienvenue dans Dots and Boxes !`,
@@ -43,6 +113,111 @@ export const tourTranslations = {
       Faites la visite guidée pour découvrir l<Apos/>interface utilisateur de cette version web ainsi que les règles du jeu.
     </p>,
     'Tour Dialog button': 'Commencer le tour',
+
+    'Intro 1 title': <div>Portez attention à la flèche <b><RedText>rouge</RedText></b>.</div>,
+    'Intro 1 description': <>
+      <div>Dans ce cas-ci, il s<Apos/>agit du nombre de joueurs potentiels qui sont actuellement sur le site.</div>
+      <div><TourBlankLine/></div>
+      <div>Ce nombre vous inclus.</div>
+    </>,
+
+    'Intro 2 title': <div>Développement futur...</div>,
+    'Intro 2 description': <>
+          <div>Vous pourrez leur faire une demande pour jouer avec eux. </div>
+          <div><TourBlankLine/></div>
+          <div>Mais pour le moment, il faut inviter un de vos amis directement.</div>
+        </>,
+
+    'Intro 3 title': <div>Débutons!</div>,
+    'Intro 3 description': <>
+          <div>Il doit y avoir deux joueurs.</div>
+          <div>Le joueur qui crée la partie est le joueur 1.</div>
+        </>,
+
+    'Player 1 name title': <div>Nom du joueur 1</div>,
+    'Player 1 name description': <>
+          <div>Son nom est à gauche.</div>
+          <div>Si vous créez la partie, votre nom sera là.</div>
+        </>,
+
+    'Player 1 score title': <div>Pointage du joueur 1</div>,
+    'Player 1 score description':  <div>Pour chaque boîte que le joueur ferme, un point lui est attribué.</div>,
+
+    'Player 2 name title': <div>Nom du joueur 2</div>,
+    'Player 2 name description': <div>Si vous rejoignez une partie, votre nom sera à gauche.</div>,
+
+    'Player 2 score title': <div>Pointage du Joueur 2</div>,
+    'Player 2 score description': <div>Pour chaque boîte que le joueur ferme, un point lui est attribué.</div>,
+
+    'Play grid title': <div>Grille de jeu</div>,
+    'Play grid description': <>
+          <div>La grille est composée de boites.</div>
+          <div><TourBlankLine/></div>
+          <div>Ici, il s<Apos/>agit d<Apos/>une grille de <Bold>2</Bold> x <Bold>2</Bold>.</div>
+          <div>Elle peut être de dimensions différente.</div>
+          <div>Par exemple: <Bold>6</Bold> x <Bold>8</Bold></div>
+        </>,
+
+    'Controls drawer button title': <div>Contrôles</div>,
+    'Controls drawer button description': <div>Ce boutton ouvre un panneau de contrôle.</div>,
+
+    'Create game title': <div>Créer</div>,
+    'Create game description': <div>Ce boutton ouvre un le formulaire de création de partie.</div>,
+
+    'Create name input title': <div>Votre nom</div>,
+    'Create name input description': <div>Disons que votre nom est John...</div>,
+
+
+
+
+
+
+
+
+
+
+
+    'Meeeeh title': <div>Meeeeh...</div>,
+    'Meeeeh description': <>
+      <div>INDÉFINI</div>
+      <div></div>
+      <div></div>
+    </>,
+
+    // 'Meeeeh title': <div>Meeeeh...</div>,
+    // 'Meeeeh description': <>
+    //   <div>UNDEFINED</div>
+    //   <div></div>
+    //   <div></div>
+    // </>,
+    // 'Meeeeh title': <div>Meeeeh...</div>,
+    // 'Meeeeh description': <>
+    //   <div>UNDEFINED</div>
+    //   <div></div>
+    //   <div></div>
+    // </>,
+
+    // 'Meeeeh title': <div>Meeeeh...</div>,
+    // 'Meeeeh description': <>
+    //   <div>UNDEFINED</div>
+    //   <div></div>
+    //   <div></div>
+    // </>,
+
+    // 'Meeeeh title': <div>Meeeeh...</div>,
+    // 'Meeeeh description': <>
+    //   <div>UNDEFINED</div>
+    //   <div></div>
+    //   <div></div>
+    // </>,
+
+    // 'Meeeeh title': <div>Meeeeh...</div>,
+    // 'Meeeeh description': <>
+    //   <div>UNDEFINED</div>
+    //   <div></div>
+    //   <div></div>
+    // </>,
+
   },
   ES: {
     'Tour Dialog title': `¡Bienvenido a Dots and Boxes!`,
