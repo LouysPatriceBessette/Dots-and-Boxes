@@ -1,5 +1,5 @@
  
-import { Bold, Italic, Apos, Quot, TourBlankLine, Hr, Anchor, RedText } from "./translations.components.styled"
+import { Bold, Italic, Apos, Quot, TourBlankLine, Hr, Anchor, RedText } from './translations.components.styled'
 
 // Édouard Lucas Wikipedia links
 const wikilinks = {
@@ -19,15 +19,15 @@ const wikilinks = {
 
 export const tourTranslations = {
   EN: {
-    'Tour Dialog title': `Welcome to Dots and Boxes!`,
+    'Tour Dialog title': 'Welcome to Dots and Boxes!',
     'Tour Dialog P1': <>
       <p>
-        This game was described created by <Anchor href={wikilinks['EN']}><Bold>Édouard Lucas</Bold></Anchor>, a renowned French mathematician, in his book <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/>. He died two years later, on October 3, 1991, at the age of 49.
+        This game was described by <Anchor href={wikilinks['EN']}><Bold>Édouard Lucas</Bold></Anchor>, a renowned French mathematician, in his book <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Scientific Games to Serve History). He passed away two years later, on October 3, 1991, at the age of 49.
       </p>
       <Hr/>
     </>,
     'Tour Dialog P2': <p>
-      Make the guided tour to learn about the user interface of this web version of the game and about the game rules.
+      Take the guided tour to discover the user interface of this web version as well as the rules of the game.
     </p>,
     'Tour Dialog button': 'Start the tour',
 
@@ -38,45 +38,42 @@ export const tourTranslations = {
       <div>This number includes you.</div>
     </>,
 
-
-    'Intro 2 title': <div>Future development...</div>,
+    'Intro 2 title': <div>Future Development...</div>,
     'Intro 2 description': <>
-      <div>You<Apos/>ll be able to request to play with them.</div>
+      <div>You can request to play with them.</div>
       <div><TourBlankLine/></div>
       <div>But for now, you need to invite one of your friends directly.</div>
     </>,
 
-
-
-    'Intro 3 title': <div>Let<Apos/>s begin!</div>,
+    'Intro 3 title': <div>Let<Apos/>s get started!</div>,
     'Intro 3 description': <>
       <div>There must be two players.</div>
-      <div>The player who starts the game is player 1.</div>
+      <div>Player 1 creates the game.</div>
     </>,
 
-    'Player 1 name title': <div>Player 1<Apos/>s name</div>,
+    'Player 1 name title': <div>Player 1 Name</div>,
     'Player 1 name description': <>
-          <div>His/her name is on the left.</div>
-          <div>If you create the game, your name will be there.</div>
-        </>,
+      <div>Their name is on the left.</div>
+      <div>If you create the game, your name will be there.</div>
+    </>,
 
-    'Player 1 score title': <div>Player 1<Apos/>s scoring</div>,
-    'Player 1 score description':  <div>For each box the player closes, one point is awarded.</div>,
+    'Player 1 score title': <div>Player 1 Score</div>,
+    'Player 1 score description': <div>For each box that Player 1 closes, one point is awarded to them.</div>,
 
-    'Player 2 name title': <div>Player 2<Apos/>s name</div>,
+    'Player 2 name title': <div>Player 2 Name</div>,
     'Player 2 name description': <div>If you join a game, your name will be on the left.</div>,
 
-    'Player 2 score title': <div>Player 2<Apos/>s Scoring</div>,
-    'Player 2 score description': <div>For each box the player closes, one point is awarded.</div>,
+    'Player 2 score title': <div>Player 2 Score</div>,
+    'Player 2 score description': <div>For each box that Player 2 closes, one point is awarded to them.</div>,
 
-    'Play grid title': <div>Game Grid</div>,
+    'Play grid title': <div>Play Grid</div>,
     'Play grid description': <>
-          <div>The grid is made up of squares.</div>
-          <div><TourBlankLine/></div>
-          <div>This one is a <Bold>2</Bold> x <Bold>2</Bold> grid.</div>
-          <div>It can be of different dimensions.</div>
-          <div>For example: <Bold>6</Bold> x <Bold>8</Bold></div>
-        </>,
+      <div>The grid is made up of boxes.</div>
+      <div><TourBlankLine/></div>
+      <div>In this case, it is a <Bold>2</Bold> x <Bold>2</Bold> grid.</div>
+      <div>It can be of different dimensions.</div>
+      <div>For example: <Bold>6</Bold> x <Bold>8</Bold></div>
+    </>,
 
     'Controls drawer button title': <div>Controls</div>,
     'Controls drawer button description': <div>This button opens a control panel.</div>,
@@ -84,27 +81,80 @@ export const tourTranslations = {
     'Create game title': <div>Create</div>,
     'Create game description': <div>This button opens the game creation form.</div>,
 
-    'Create name input title': <div>Your name.</div>,
-    'Create name input description':  <div>Let<Apos/>s say your name is Bertha...</div>,
+    'Create name input title': <div>Your Name</div>,
+    'Create name input description': <div>Let<Apos/>s say your name is Bertha...</div>,
 
-    'Create game grid title': <div>Adjust the dimensions</div>,
-    'Create game grid description':  <>
-      <div>Use the sliders. The grid will adjust and give you a visual idea of ​​the result.</div>
+    'Create game grid title': <div>Adjust the Dimensions</div>,
+    'Create game grid description': <>
+      <div>Use the sliders. The grid will adjust and give you a visual idea of the result.</div>
       <div><TourBlankLine/></div>
-      <div>Note that on mobile, a width of more than <Bold>6</Bold> is displayed less well.</div>
+      <div>Note that on a mobile device, a width of more than <Bold>6</Bold> forces the user to use a <Quot/>Pinch Zoom<Quot/> to see the entire grid.</div>
+    </>,
+    
+    'Join game title': <div>Join</div>,
+    'Join game description': <div>This button opens the form to join a game.</div>,
+
+    'Join game input title': <div>Your Friend<Apos/>s Name</div>,
+    'Join game input description': <div>Let<Apos/>s say your name is Horacio...</div>,
+
+    'Join game pin title': <div>Game Number</div>,
+    'Join game pin description': <div>Your friend must enter the number you provided to them.</div>,
+
+    'Leave/Delete game title': <div>Leave / Delete</div>,
+    'Leave/Delete game description': <>
+      <div>This button allows you to leave a game.</div>
+      <div><TourBlankLine/></div>
+      <div>If there is only one player, the game is deleted.</div>
+    </>,
+    'More title': <div>More</div>,
+    'More description': <div>This button reveals more options.</div>,
+
+    'Less title': <div>Less</div>,
+    'Less description': <div>This button returns to the initial options.</div>,
+
+    'Tour title': <div>Guided Tour</div>,
+    'Tour description': <div>You know what this button does!</div>,
+
+    'Language title': <div>Languages</div>,
+    'Language description': <div>To choose another translation.</div>,
+
+    'Chat title': <div>Chat Button</div>,
+    'Chat description': <>
+      <div>This button opens the chat panel.</div>
+      <div>It is only available when there is another player in the game.</div>
+      <div><TourBlankLine/></div>
+      <div>Even if they are offline.</div>
     </>,
 
-
-
-
-
-
-    'Meeeeh title': <div>Meeeeh...</div>,
-    'Meeeeh description': <>
-      <div>UNDEFINED</div>
-      <div></div>
-      <div></div>
+    'Chat drawer title': <div>Chat Panel</div>,
+    'Chat drawer description': <>
+      <div>Chat in real-time!</div>
+      <div><TourBlankLine/></div>
+      <div>
+        Like on a social network, except the other person won<Apos/>t receive a notification.
+        If they are offline, they will see their messages upon their next login.
+      </div>
     </>,
+
+    'Chat messages title': <div>Messages</div>,
+    'Chat messages description': <>
+      <div>Messages appear here.</div>
+      <div>The name of the person appears before the message.</div>
+    </>,
+
+    'Chat input title': <div>Message Input</div>,
+    'Chat input description': <>
+      <div>Type here.</div>
+      <div><TourBlankLine/></div>
+      <div>If the other person is online and they have closed their chat panel, it will automatically reopen.</div>
+    </>,
+
+    'Game over title': <div>Game Over</div>,
+    'Game over description': <>
+      <div>You can start a new game with the same player.</div>
+      <div><TourBlankLine/></div>
+      <div>The grid will be the same size.</div>
+    </>
   },
   FR: {
     'Tour Dialog title': `Bienvenue dans Dots and Boxes !`,
@@ -243,20 +293,144 @@ export const tourTranslations = {
       <div><TourBlankLine/></div>
       <div>La grille sera de la même dimension.</div>
     </>,
-
   },
   ES: {
-    'Tour Dialog title': `¡Bienvenido a Dots and Boxes!`,
-    'Tour Dialog P1': <>
+    "Tour Dialog title": "¡Bienvenido a Dots and Boxes!",
+    "Tour Dialog P1": <>
       <p>
-        Este juego fue descrito por <Anchor href={wikilinks['ES']}><Bold>Édouard Lucas</Bold></Anchor>, un renombrado matemático francés, en su libro <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/>. Murió dos años después, el 3 de octubre de 1991, a la edad de 49 años.
+        Este juego fue descrito por <Anchor href={wikilinks['ES']}><Bold>Édouard Lucas</Bold></Anchor>, un renombrado matemático francés, en su libro <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Juegos Científicos para Servir a la Historia). Falleció dos años después, el 3 de octubre de 1991, a la edad de 49 años.
       </p>
       <Hr/>
     </>,
-    'Tour Dialog P2': <p>
-      Realiza la visita guiada para aprender sobre la interfaz de usuario de esta versión web del juego y sobre las reglas del juego.
+    "Tour Dialog P2": <p>
+      Realiza el tour guiado para descubrir la interfaz de usuario de esta versión web y las reglas del juego.
     </p>,
-    'Tour Dialog button': 'Iniciar el tour',
+    "Tour Dialog button": "Iniciar el tour",
+
+    "Intro 1 title": <div>Presta atención a la flecha <b><RedText>roja</RedText></b>.</div>,
+    "Intro 1 description": <>
+      <div>En este caso, se refiere al número de jugador·es potenciales que están actualmente en el sitio.</div>
+      <div><TourBlankLine/></div>
+      <div>Este número te incluye.</div>
+    </>,
+
+    "Intro 2 title": <div>Desarrollo futuro...</div>,
+    "Intro 2 description": <>
+      <div>Puedes solicitar jugar con ell·as.</div>
+      <div><TourBlankLine/></div>
+      <div>Pero por ahora, necesitas invitar a uno de tus amig·as directamente.</div>
+    </>,
+
+    "Intro 3 title": <div>¡Empecemos!</div>,
+    "Intro 3 description": <>
+      <div>Debe haber dos jugador·es.</div>
+      <div>Jugador·a 1 crea el juego.</div>
+    </>,
+
+    "Player 1 name title": <div>Nombre de Jugador·a 1</div>,
+    "Player 1 name description": <>
+      <div>Su nombre está a la izquierda.</div>
+      <div>Si creas el juego, tu nombre estará allí.</div>
+    </>,
+
+    "Player 1 score title": <div>Puntuación de Jugador·a 1</div>,
+    "Player 1 score description": <div>Por cada caja que cierra el Jugador·a 1, se le otorga un punto.</div>,
+
+    "Player 2 name title": <div>Nombre de Jugador·a 2</div>,
+    "Player 2 name description": <div>Si te unes a un juego, tu nombre estará a la izquierda.</div>,
+
+    "Player 2 score title": <div>Puntuación de Jugador·a 2</div>,
+    "Player 2 score description": <div>Por cada caja que cierra el Jugador·a 2, se le otorga un punto.</div>,
+
+    "Play grid title": <div>Grilla de juego</div>,
+    "Play grid description": <>
+      <div>La grilla está compuesta de cajas.</div>
+      <div><TourBlankLine/></div>
+      <div>En este caso, es una grilla de <Bold>2</Bold> x <Bold>2</Bold>.</div>
+      <div>Puede tener dimensiones diferentes.</div>
+      <div>Por ejemplo: <Bold>6</Bold> x <Bold>8</Bold></div>
+    </>,
+
+    "Controls drawer button title": <div>Controles</div>,
+    "Controls drawer button description": <div>Este botón abre un panel de control.</div>,
+
+    "Create game title": <div>Crear</div>,
+    "Create game description": <div>Este botón abre el formulario de creación de juego.</div>,
+
+    "Create name input title": <div>Tu Nombre</div>,
+    "Create name input description": <div>Supongamos que tu nombre es Bertha...</div>,
+
+    "Create game grid title": <div>Ajusta las Dimensiones</div>,
+    "Create game grid description": <>
+      <div>Usa los controles deslizantes. La grilla se ajustará y te dará una idea visual del resultado.</div>
+      <div><TourBlankLine/></div>
+      <div>Ten en cuenta que en un dispositivo móvil, un ancho de más de <Bold>6</Bold> obliga al usuario·a a hacer <Quot/>Zoom con pellizco<Quot/> para ver toda la grilla.</div>
+    </>,
+
+    "Join game title": <div>Unirse</div>,
+    "Join game description": <div>Este botón abre el formulario para unirse a un juego.</div>,
+
+    "Join game input title": <div>Nombre de tu amigo·a</div>,
+    "Join game input description": <div>Supongamos que tu nombre es Horacio...</div>,
+
+    "Join game pin title": <div>Número de juego</div>,
+    "Join game pin description": <div>Tu amigo·a debe ingresar el número que le proporcionaste.</div>,
+
+    "Leave/Delete game title": <div>Salir / Eliminar</div>,
+    "Leave/Delete game description": <>
+      <div>Este botón permite salir de un juego.</div>
+      <div><TourBlankLine/></div>
+      <div>Si solo hay un·a jugador·a, el juego se eliminará.</div>
+    </>,
+    "More title": <div>Más</div>,
+    "More description": <div>Este botón revela más opciones.</div>,
+
+    "Less title": <div>Menos</div>,
+    "Less description": <div>Este botón vuelve a las opciones iniciales.</div>,
+
+    "Tour title": <div>Tour guiado</div>,
+    "Tour description": <div>¡Sabes lo que hace este botón!</div>,
+
+    "Language title": <div>Idiomas</div>,
+    "Language description": <div>Para elegir otra traducción.</div>,
+
+    "Chat title": <div>Botón de chat</div>,
+    "Chat description": <>
+      <div>Este botón abre el panel de chat.</div>
+      <div>Solo está disponible cuando hay otro jugador·a en el juego.</div>
+      <div><TourBlankLine/></div>
+      <div>Y aunque esté fuera de línea.</div>
+    </>,
+
+    "Chat drawer title": <div>Panel de chat</div>,
+    "Chat drawer description": <>
+      <div>¡Chatea en tiempo real!</div>
+      <div><TourBlankLine/></div>
+      <div>
+        Como en una red social, excepto que la otra persona no recibirá notificaciones.
+        Si está fuera de línea, verá sus mensajes en su próxima conexión.
+      </div>
+    </>,
+
+    "Chat messages title": <div>Mensajes</div>,
+    "Chat messages description": <>
+      <div>Los mensajes aparecen aquí.</div>
+      <div>El nombre de la persona aparece antes del mensaje.</div>
+    </>,
+
+    "Chat input title": <div>Entrada de mensaje</div>,
+    "Chat input description": <>
+      <div>Escribe aquí.</div>
+      <div><TourBlankLine/></div>
+      <div>Si la otra persona está en línea y ha cerrado su panel de chat, se abrirá automáticamente.</div>
+    </>,
+
+    "Game over title": <div>Juego terminado</div>,
+    "Game over description": <>
+      <div>Puedes iniciar un nuevo juego con el·la misma jugador·a.</div>
+      <div><TourBlankLine/></div>
+      <div>La grilla será del mismo tamaño.</div>
+    </>
   },
   DE: {
     'Tour Dialog title': `Willkommen bei Dots and Boxes!`,

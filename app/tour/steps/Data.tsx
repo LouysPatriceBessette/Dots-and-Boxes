@@ -459,6 +459,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $visible: true,
         $title: t[language]['Chat drawer title'],
         $description: t[language]['Chat drawer description'],
+        $definedPosition: 'A2',
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
@@ -519,6 +520,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $visible: true,
         $title: t[language]['Game over title'],
         $description: t[language]['Game over description'],
+        $definedPosition: 'C2',
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
@@ -526,9 +528,9 @@ export const TourStepsData = (props: TourStepsDataType) => {
       arrow: {
         $visible: true,
         $selector: '#gameover-body',
-        $direction: 'right',
+        $direction: 'up',
         $length: 40,
-        $distance: 30,
+        $distance: 110,
         $scale: 1,
       }
     },

@@ -192,7 +192,7 @@ export const Tour = ({
 
           
           case 'C2':
-            rectPosition.$dialogTop = 460
+            rectPosition.$dialogTop = 380
             // rectPosition.$dialogLeft = 0
             break;
 
