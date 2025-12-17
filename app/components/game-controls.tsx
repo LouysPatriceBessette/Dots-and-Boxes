@@ -37,7 +37,6 @@ export const GameControls = ({
   setJoinGameDialogOpen,
   setControlsDrawerOpen,
   tourActive,
-  tourEnabledButton,
 
   more,
   setMore,
@@ -52,7 +51,6 @@ export const GameControls = ({
 
   setControlsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>,
   tourActive: boolean,
-  tourEnabledButton: string,
 
   more: boolean
   setMore: React.Dispatch<React.SetStateAction<boolean>>,
@@ -67,8 +65,6 @@ export const GameControls = ({
   const remoteHasLeft = useSocketRemoteHasLeft()
   const dispatch = useDispatch()
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [disabledInput, setDisabledInput] = useState(tourActive)
   const nameInput = useRef(null)
 
   const [playerName, setPlayerName] = useState(localStorage.getItem('myName') || '')
@@ -149,12 +145,12 @@ export const GameControls = ({
       placeholder={t[language]['Your name']}
       value={playerName}
       setValue={setPlayerName}
-      disabled={disabledInput}
+      // disabled={disabledInput}
     />
 
     <DialogLabelStyled>{t[language]['Dimensions']}: {x} x {y}</DialogLabelStyled>
 
-    <DialogGrid>
+    <DialogGrid id='create-game-grid'>
       <div>
         <Chakra.Slider
           size='sm'
@@ -220,19 +216,20 @@ export const GameControls = ({
 
   const JoinForm = <>
     <Chakra.Input
-      id='joint-input'
+      id='join-input'
       ref={nameInput}
       label={t[language]['Your name']}
       placeholder={t[language]['Your name']}
       minLength={1}
       value={playerName}
       setValue={setPlayerName}
-      disabled={disabledInput}
+      // disabled={disabledInput}
     />
 
     <DialogLabelStyled>{t[language]['Game number']}</DialogLabelStyled>
 
     <Chakra.PinInput
+      id='join-pin'
       pinLength={pinLength}
       getPin={setPinString}
       lastPin={localStorage.getItem('LastGameNumberUsed') ?? ''}
@@ -267,18 +264,26 @@ export const GameControls = ({
 
   // ==== For the tour
   useEffect(() => {
-    const names = ['John', 'Raoul']
+    const names = ['Randall', 'Chuck']
 
-    if((createGameDialogOpen || joinGameDialogOpen) && tourActive){
+    if(
+      (createGameDialogOpen || joinGameDialogOpen) &&
+      tourActive &&
+      (!localStorage.getItem('tourName1') || !localStorage.getItem('tourName2') )
+    ){
       const letters = createGameDialogOpen ? names[0].split('') : names[1].split('')
       letters.forEach((letter, loopIndex) => {
         setTimeout(() => {
-          // @ts-expect-error Come on TS!
-          nameInput.current.value += letter
-        }, 2000 + (loopIndex * 600))
+          setPlayerName((prev) => prev + letter)
+        }, 1000 + (loopIndex * 600))
+        if(createGameDialogOpen){
+          localStorage.setItem('tourName1', names[0])
+        } else {
+          localStorage.setItem('tourName2', names[1])
+        }
       })
     }
-  }, [createGameDialogOpen, joinGameDialogOpen, tourActive, nameInput])
+  }, [createGameDialogOpen, joinGameDialogOpen, tourActive])
 
   return (<>
     {DEBUG_LOCAL_STORAGE && <div>
@@ -312,7 +317,7 @@ export const GameControls = ({
 
           openButtonText={t[language]['Create']}
           openButtonColor='green'
-          openButtonDisabled={gameId !== -1 || (tourActive && tourEnabledButton === '') || (tourActive && tourEnabledButton !== 'createGame')}
+          openButtonDisabled={gameId !== -1}
 
           saveButtonText={t[language]['Save']}
           saveButtonCallback={() => createGameCallback()}
@@ -341,7 +346,7 @@ export const GameControls = ({
 
           openButtonText={t[language]['Join']}
           openButtonColor='orange'
-          openButtonDisabled={gameId !== -1 || (tourActive && tourEnabledButton === '') || (tourActive && tourEnabledButton !== 'joinGame')}
+          openButtonDisabled={gameId !== -1}
 
           saveButtonText={t[language]['Save']}
           saveButtonCallback={() => joinGameCallback()}
@@ -354,7 +359,7 @@ export const GameControls = ({
         />
 
         <Chakra.Button
-          id='destroy-leaveGame'
+          id='leaveDeleteGame'
           onClick={() => {
             if(remoteHasLeft){
               destroyGame()
@@ -365,7 +370,7 @@ export const GameControls = ({
           text={remoteHasLeft ? t[language]['Delete'] : t[language]['Leave']}
           customVariant='red'
           
-          disabled={gameId === -1 || gameId === '' || (tourActive && tourEnabledButton === '') || (tourActive && tourEnabledButton !== 'destroy-leaveGame')}
+          disabled={gameId === -1 || gameId === ''}
         />
 
         <Chakra.Button
@@ -373,8 +378,6 @@ export const GameControls = ({
           onClick={() => setMore(!more)}
           text={<LuChevronRight/>}
           customVariant='grey'
-
-          disabled={(tourActive && tourEnabledButton === '') || (tourActive && tourEnabledButton !== 'more')}
         />
       </>}
 
@@ -384,8 +387,6 @@ export const GameControls = ({
           onClick={() => setMore(!more)}
           text={<LuChevronLeft/>}
           customVariant='grey'
-
-          disabled={(tourActive && tourEnabledButton === '') || (tourActive && tourEnabledButton !== 'less')}
         />
 
         <Chakra.Button
@@ -398,13 +399,12 @@ export const GameControls = ({
           text={t[language]['Tour']}
           customVariant='orange'
 
-          disabled={gameId !== -1 || gameId === '' || tourActive}
+          disabled={gameId !== -1 || gameId === ''}
         />
 
         <Chakra.Menu
           id='language'
           buttonTitle={<LuLanguages/>}
-          buttonDisabled={tourActive}
 
           items={languageItems}
           onSelect={

@@ -85,9 +85,14 @@ export const tourTranslations = {
     'Create game description': <div>This button opens the game creation form.</div>,
 
     'Create name input title': <div>Your name.</div>,
-    'Create name input description':  <div>Let<Apos/>s say your name is John...</div>,
+    'Create name input description':  <div>Let<Apos/>s say your name is Randall...</div>,
 
-
+    'Create game grid title': <div>Adjust the dimensions</div>,
+    'Create game grid description':  <>
+      <div>Use the sliders. The grid will adjust and give you a visual idea of ​​the result.</div>
+      <div><TourBlankLine/></div>
+      <div>Note that on mobile, a width of more than <Bold>6</Bold> is displayed less well.</div>
+    </>,
 
 
 
@@ -116,38 +121,38 @@ export const tourTranslations = {
 
     'Intro 1 title': <div>Portez attention à la flèche <b><RedText>rouge</RedText></b>.</div>,
     'Intro 1 description': <>
-      <div>Dans ce cas-ci, il s<Apos/>agit du nombre de joueurs potentiels qui sont actuellement sur le site.</div>
+      <div>Dans ce cas-ci, il s<Apos/>agit du nombre de joueur·euses potentiels qui sont actuellement sur le site.</div>
       <div><TourBlankLine/></div>
       <div>Ce nombre vous inclus.</div>
     </>,
 
     'Intro 2 title': <div>Développement futur...</div>,
     'Intro 2 description': <>
-          <div>Vous pourrez leur faire une demande pour jouer avec eux. </div>
+          <div>Vous pourrez leur faire une demande pour jouer avec iels. </div>
           <div><TourBlankLine/></div>
-          <div>Mais pour le moment, il faut inviter un de vos amis directement.</div>
+          <div>Mais pour le moment, il faut inviter un·e de vos ami.es directement.</div>
         </>,
 
     'Intro 3 title': <div>Débutons!</div>,
     'Intro 3 description': <>
-          <div>Il doit y avoir deux joueurs.</div>
-          <div>Le joueur qui crée la partie est le joueur 1.</div>
+          <div>Il doit y avoir deux joueur·euses.</div>
+          <div>Joueur·euse 1 crée la partie.</div>
         </>,
 
-    'Player 1 name title': <div>Nom du joueur 1</div>,
+    'Player 1 name title': <div>Nom de Joueur·euse 1</div>,
     'Player 1 name description': <>
           <div>Son nom est à gauche.</div>
           <div>Si vous créez la partie, votre nom sera là.</div>
         </>,
 
-    'Player 1 score title': <div>Pointage du joueur 1</div>,
-    'Player 1 score description':  <div>Pour chaque boîte que le joueur ferme, un point lui est attribué.</div>,
+    'Player 1 score title': <div>Pointage de Joueur·euse 1</div>,
+    'Player 1 score description':  <div>Pour chaque boîte que Joueur·euse 1 ferme, un point lui est attribué.</div>,
 
-    'Player 2 name title': <div>Nom du joueur 2</div>,
+    'Player 2 name title': <div>Nom de Joueur·euse 2</div>,
     'Player 2 name description': <div>Si vous rejoignez une partie, votre nom sera à gauche.</div>,
 
-    'Player 2 score title': <div>Pointage du Joueur 2</div>,
-    'Player 2 score description': <div>Pour chaque boîte que le joueur ferme, un point lui est attribué.</div>,
+    'Player 2 score title': <div>Pointage de Joueur·euse 2</div>,
+    'Player 2 score description': <div>Pour chaque boîte que Joueur·euse 2 ferme, un point lui est attribué.</div>,
 
     'Play grid title': <div>Grille de jeu</div>,
     'Play grid description': <>
@@ -159,64 +164,83 @@ export const tourTranslations = {
         </>,
 
     'Controls drawer button title': <div>Contrôles</div>,
-    'Controls drawer button description': <div>Ce boutton ouvre un panneau de contrôle.</div>,
+    'Controls drawer button description': <div>Ce bouton ouvre un panneau de contrôle.</div>,
 
     'Create game title': <div>Créer</div>,
-    'Create game description': <div>Ce boutton ouvre un le formulaire de création de partie.</div>,
+    'Create game description': <div>Ce bouton ouvre le formulaire de création de partie.</div>,
 
     'Create name input title': <div>Votre nom</div>,
-    'Create name input description': <div>Disons que votre nom est John...</div>,
+    'Create name input description': <div>Disons que votre nom est Randall...</div>,
 
+    'Create game grid title': <div>Ajustez les dimensions</div>,
+    'Create game grid description':  <>
+      <div>Utilisez les curseurs. La grille s<Apos/>ajustera vous donnera une idée visuelle du résultat.</div>
+      <div><TourBlankLine/></div>
+      <div>À noter que sur mobile, une largeur de plus de <Bold>6</Bold> s<Apos/>affiche moins bien.</div>
+    </>,
 
+    'Join game title': <div>Joindre</div>,
+    'Join game description': <div>Ce bouton ouvre le formulaire pour joindre une partie.</div>,
 
+    'Join game input title': <div>Nom de votre ami.e</div>,
+    'Join game input description': <div>Disons que votre nom est Chuck...</div>,
 
+    'Join game pin title': <div>Game number</div>,
+    'Join game pin description': <div>Votre ami.e doit entrer le numéro que vous lui avez donné.</div>,
 
+    'Leave/Delete game title': <div>Quitter / Supprimer</div>,
+    'Leave/Delete game description': <>
+      <div>Ce bouton permet de quitter une partie.</div>
+      <div><TourBlankLine/></div>
+      <div>S<Apos/>il n<Apos/>y a qu<Apos/>un.e seul.e joueur·euse, la partie est supprimée.</div>
+    </>,
+    'More title': <div>More</div>,
+    'More description':  <div>Ce bouton révèle plus de boutons.</div>,
 
+    'Less title': <div>Less</div>,
+    'Less description': <div>Ce bouton revient vers les premiers boutons.</div>,
 
+    'Tour title': <div>Visite guidée</div>,
+    'Tour description': <div>Vous savez ce que ce bouton fait!</div>,
 
+    'Language title': <div>Language</div>,
+    'Language description': <div>Pour choisir une autre traduction.</div>,
 
+    'Chat title': <div>Chat</div>,
+    'Chat description': <>
+      <div>Ce bouton ouvre le panneau de discussion.</div>
+      <div>Il n<Apos/>est disponible que lorsqu<Apos/>il y a un·e autre joueur·euse dans la partie.</div>
+      <div><TourBlankLine/></div>
+      <div>Et ce, même s<Apos/>iel est hors-ligne.</div>
+    </>,
 
-
-    'Meeeeh title': <div>Meeeeh...</div>,
-    'Meeeeh description': <>
-      <div>INDÉFINI</div>
+    'Chat drawer title': <div>Chat drawer</div>,
+    'Chat drawer description': <>
+      <div>UNDEFINED</div>
       <div></div>
       <div></div>
     </>,
 
-    // 'Meeeeh title': <div>Meeeeh...</div>,
-    // 'Meeeeh description': <>
-    //   <div>UNDEFINED</div>
-    //   <div></div>
-    //   <div></div>
-    // </>,
-    // 'Meeeeh title': <div>Meeeeh...</div>,
-    // 'Meeeeh description': <>
-    //   <div>UNDEFINED</div>
-    //   <div></div>
-    //   <div></div>
-    // </>,
+    'Chat messages title': <div>Chat messages.</div>,
+    'Chat messages description': <>
+      <div>UNDEFINED</div>
+      <div></div>
+      <div></div>
+    </>,
 
-    // 'Meeeeh title': <div>Meeeeh...</div>,
-    // 'Meeeeh description': <>
-    //   <div>UNDEFINED</div>
-    //   <div></div>
-    //   <div></div>
-    // </>,
+    'Chat input title': <div>Chat input</div>,
+    'Chat input description': <>
+      <div>UNDEFINED</div>
+      <div></div>
+      <div></div>
+    </>,
 
-    // 'Meeeeh title': <div>Meeeeh...</div>,
-    // 'Meeeeh description': <>
-    //   <div>UNDEFINED</div>
-    //   <div></div>
-    //   <div></div>
-    // </>,
-
-    // 'Meeeeh title': <div>Meeeeh...</div>,
-    // 'Meeeeh description': <>
-    //   <div>UNDEFINED</div>
-    //   <div></div>
-    //   <div></div>
-    // </>,
+    'Game over  title': <div>Game over </div>,
+    'Game over  description': <>
+      <div>UNDEFINED</div>
+      <div></div>
+      <div></div>
+    </>,
 
   },
   ES: {

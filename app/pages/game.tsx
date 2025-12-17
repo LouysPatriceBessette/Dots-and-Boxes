@@ -135,7 +135,6 @@ export const Game = () => {
   
   const [welcomeDialogOpen, setWelcomeDialogOpen] = useState(false)
   const [tourActive, setTourActive] = useState(false)
-  const [tourEnabledButton, setControlsEnabledButtonForTour] = useState('')
 
   useEffect(() => {
     if(gameover || (!gameover && gameIdChanged)) {
@@ -232,7 +231,6 @@ export const Game = () => {
               setMore={setMore}
 
               tourActive={tourActive}
-              tourEnabledButton={tourEnabledButton}
             />
           </Chakra.Drawer>
 
@@ -442,7 +440,6 @@ export const Game = () => {
           tourActive={tourActive}
 
           setControlsDrawerOpen={setControlsDrawerOpen}
-          setControlsEnabledButtonForTour={setControlsEnabledButtonForTour}
           setMore={setMore}
 
           setCreateGameDialogOpen={setCreateGameDialogOpen}

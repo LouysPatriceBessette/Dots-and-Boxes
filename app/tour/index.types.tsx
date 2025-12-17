@@ -13,7 +13,6 @@ export type TourMain = {
   tourActive: boolean,
   
   setControlsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setControlsEnabledButtonForTour: React.Dispatch<React.SetStateAction<string>>,
   setMore: React.Dispatch<React.SetStateAction<boolean>>,
 
   setCreateGameDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,

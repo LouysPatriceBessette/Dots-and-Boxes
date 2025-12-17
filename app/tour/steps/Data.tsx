@@ -17,14 +17,13 @@ export const TourStepsData = (props: TourStepsDataType) => {
     // setCurrentStep,
 
     setControlsDrawerOpen,
-    setControlsEnabledButtonForTour,
-    // setMore,
+    setMore,
 
     setCreateGameDialogOpen,
-    // setJoinGameDialogOpen,
-    // setGameoverDialogOpen,
+    setJoinGameDialogOpen,
+    setGameoverDialogOpen,
 
-    // setChatDrawerOpen,
+    setChatDrawerOpen,
   } = props
   
 
@@ -199,7 +198,6 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $prevCallback: () => {},
         $nextCallback: () => {
           setControlsDrawerOpen(true)
-          setControlsEnabledButtonForTour('createGame')
         },
       },
   
@@ -220,10 +218,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Create game title'],
         $description: t[language]['Create game description'],
         $prevCallback: () => {
-          setControlsDrawerOpen(false)
-          setControlsEnabledButtonForTour('')
+          // setControlsDrawerOpen(false)
         },
-        // $currCallback: () => {},
         $nextCallback: () => {
           setCreateGameDialogOpen(true)
         },
@@ -232,23 +228,34 @@ export const TourStepsData = (props: TourStepsDataType) => {
       arrow: {
         $visible: true,
         $selector: '#createGame',
-        $direction: 'right',
+        $direction: 'up',
         $length: 40,
         $distance: 0,
         $scale: 1,
       }
     },
 
-    // ================================================== Create player name
+    // ================================================== Create input
     {
       dialog: {
         $visible: true,
         $title: t[language]['Create name input title'],
         $description: t[language]['Create name input description'],
         $prevCallback: () => {
-          setCreateGameDialogOpen(false)
+          // setControlsDrawerOpen(false)
         },
-        $nextCallback: () => {},
+        $nextCallback: () => {
+          localStorage.removeItem('myName')// Should keep when all works fine.
+
+          // TODO: fix closing Drawer/Dialod
+          setTimeout(() => {
+            setControlsDrawerOpen(true)
+          }, 800)
+
+          setTimeout(() => {
+            setCreateGameDialogOpen(true)
+          }, 1600)
+        },
       },
   
       arrow: {
@@ -261,133 +268,195 @@ export const TourStepsData = (props: TourStepsDataType) => {
       }
     },
 
-    // ================================================== 
-    // {
-    //   dialog: {
-    //     $visible: true,
-    //     $title: t[language]['Meeeeh input title'],
-    //     $description: <>
-    //       <div></div>
-    //       <div></div>
-    //       <div></div>
-    //     </>,
-    //     $prevCallback: () => {},
-    //     $nextCallback: () => {},
-    //   },
-  
-    //   arrow: {
-    //     $visible: true,
-    //     $selector: '#unknown',
-    //     $direction: 'right',
-    //     $length: 40,
-    //     $distance: 0,
-    //     $scale: 1,
-    //   }
-    // },
-
-    // ================================================== 
+    // ================================================== Create game grid
     {
       dialog: {
         $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
+        $title: t[language]['Create game grid title'],
+        $description: t[language]['Create game grid description'],
+        $definedPosition: 'C2',
         $prevCallback: () => {},
-        $nextCallback: () => {},
+        $nextCallback: () => {
+          // TODO: fix closing Drawer/Dialod
+          setTimeout(() => {
+            setControlsDrawerOpen(true)
+          }, 800)
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#create-game-grid',
+        $direction: 'down',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== Join game button
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Join game title'],
+        $description: t[language]['Join game description'],
+        $prevCallback: () => {},
+        $nextCallback: () => {
+            // setControlsDrawerOpen(true)
+            setJoinGameDialogOpen(true)
+        },
       },
   
       arrow: {
         $visible: true,
         $selector: '#joinGame',
-        $direction: 'right',
-        $length: 40,
-        $distance: 0,
-        $scale: 1,
-      }
-    },
-    // ================================================== 
-    {
-      dialog: {
-        $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
-        $prevCallback: () => {},
-        $nextCallback: () => {},
-      },
-  
-      arrow: {
-        $visible: true,
-        $selector: '#destroy-leaveGame',
-        $direction: 'right',
-        $length: 40,
-        $distance: 0,
-        $scale: 1,
-      }
-    },
-    // ================================================== 
-    {
-      dialog: {
-        $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
-        $prevCallback: () => {},
-        $nextCallback: () => {},
-      },
-  
-      arrow: {
-        $visible: true,
-        $selector: '#more',
-        $direction: 'right',
-        $length: 40,
-        $distance: 0,
-        $scale: 1,
-      }
-    },
-    // ================================================== 
-    {
-      dialog: {
-        $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
-        $prevCallback: () => {},
-        $nextCallback: () => {},
-      },
-  
-      arrow: {
-        $visible: true,
-        $selector: '#less',
-        $direction: 'right',
+        $direction: 'up',
         $length: 40,
         $distance: 0,
         $scale: 1,
       }
     },
 
-    // ================================================== 
+    // ================================================== Join input
     {
       dialog: {
         $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
+        $title: t[language]['Join game input title'],
+        $description: t[language]['Join game input description'],
+        $prevCallback: () => {},
+        $nextCallback: () => {
+          // TODO: fix closing Drawer/Dialod
+          setTimeout(() => {
+            setControlsDrawerOpen(true)
+          }, 800)
+
+          setTimeout(() => {
+            setJoinGameDialogOpen(true)
+          }, 800)
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#join-input',
+        $direction: 'down',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== Join Pin (game number)
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Join game pin title'],
+        $description: t[language]['Join game pin description'],
+        $definedPosition: 'C2',
+        $prevCallback: () => {},
+        $nextCallback: () => {
+          setJoinGameDialogOpen(false)
+
+          // TODO: fix closing Drawer/Dialod
+          // setTimeout(() => {
+          //   setControlsDrawerOpen(true) // Pas de prob ici ?
+          // }, 800)
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#join-pin',
+        $direction: 'down',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== Leave/Delete
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Leave/Delete game title'],
+        $description: t[language]['Leave/Delete game description'],
+        $prevCallback: () => {},
+        $nextCallback: () => {
+          // TODO: fix closing Drawer/Dialod
+          setTimeout(() => {
+            setControlsDrawerOpen(true) // Pas de prob ici ?
+          }, 800)
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#leaveDeleteGame',
+        $direction: 'up',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== More
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['More title'],
+        $description: t[language]['More description'],
+        $prevCallback: () => {},
+        $nextCallback: () => {
+          // TODO: fix closing Drawer/Dialod    // Pas de prob ici ?
+          // setTimeout(() => {
+          //   setControlsDrawerOpen(true)
+          // }, 800)
+
+          setMore(true)
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#more',
+        $direction: 'up',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== Less
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['LEss title'],
+        $description:t[language]['Less description'],
+        $prevCallback: () => {},
+        $nextCallback: () => {
+          // TODO: fix closing Drawer/Dialod
+          setTimeout(() => {
+            setControlsDrawerOpen(true) // Pas de prob ici ?
+          }, 800)
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#less',
+        $direction: 'up',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== Tour button in controls
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Tour title'],
+        $description: t[language]['Tour description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
@@ -395,23 +464,24 @@ export const TourStepsData = (props: TourStepsDataType) => {
       arrow: {
         $visible: true,
         $selector: '#welcome',
-        $direction: 'right',
+        $direction: 'up',
         $length: 40,
         $distance: 0,
         $scale: 1,
       }
     },
 
-    // ================================================== 
+    // ================================================== Language
     {
       dialog: {
         $visible: true,
-        $title: <div>{t[language]['Meeeeh title']}</div>,
-        $description: <>
-          {t[language]['Meeeeh description']}
-        </>,
+        $title: t[language]['Language title'],
+        $description: t[language]['Language description'],
         $prevCallback: () => {},
-        $nextCallback: () => {},
+        $nextCallback: () => {
+          setMore(false)
+          setControlsDrawerOpen(false)
+        },
       },
 
       arrow: {
@@ -424,18 +494,16 @@ export const TourStepsData = (props: TourStepsDataType) => {
       }
     },
 
-    // ================================================== 
+    // ================================================== Chat button
     {
       dialog: {
         $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
+        $title: t[language]['Chat title'],
+        $description: t[language]['Chat description'],
         $prevCallback: () => {},
-        $nextCallback: () => {},
+        $nextCallback: () => {
+          setChatDrawerOpen(true)
+        },
       },
   
       arrow: {
@@ -448,23 +516,19 @@ export const TourStepsData = (props: TourStepsDataType) => {
       }
     },
 
-    // ================================================== 
+    // ================================================== Chat drawer
     {
       dialog: {
         $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
+        $title: t[language]['Chat drawer title'],
+        $description: t[language]['Chat drawer description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
   
       arrow: {
         $visible: true,
-        $selector: '#joint-input',
+        $selector: '#chat-drawer', // Arrow did not move to it
         $direction: 'right',
         $length: 40,
         $distance: 0,
@@ -472,66 +536,12 @@ export const TourStepsData = (props: TourStepsDataType) => {
       }
     },
 
-    // ================================================== 
-    // {
-    //   dialog: {
-    //     $visible: true,
-    //     $title: t[language]['Meeeeh input title'],
-    //     $description: <>
-    //       <div></div>
-    //       <div></div>
-    //       <div></div>
-    //     </>,
-    //     $prevCallback: () => {},
-    //     $nextCallback: () => {},
-    //   },
-  
-    //   arrow: {
-    //     $visible: true,
-    //     $selector: '#unknown',
-    //     $direction: 'right',
-    //     $length: 40,
-    //     $distance: 0,
-    //     $scale: 1,
-    //   }
-    // },
-
-
-
-    // ================================================== 
+    // ================================================== Chat messages
     {
       dialog: {
         $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
-        $prevCallback: () => {},
-        $nextCallback: () => {},
-      },
-  
-      arrow: {
-        $visible: true,
-        $selector: '#chat-drawer',
-        $direction: 'right',
-        $length: 40,
-        $distance: 0,
-        $scale: 1,
-      }
-    },
-
-    // ================================================== 
-    {
-      dialog: {
-        $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
+        $title: t[language]['Chat messages title'],
+        $description: t[language]['Chat messages description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
@@ -546,18 +556,17 @@ export const TourStepsData = (props: TourStepsDataType) => {
       }
     },
 
-    // ================================================== 
+    // ================================================== Chat input
     {
       dialog: {
         $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
+        $title: t[language]['Chat input title'],
+        $description: t[language]['Chat input description'],
         $prevCallback: () => {},
-        $nextCallback: () => {},
+        $nextCallback: () => {
+          setChatDrawerOpen(false)
+          setGameoverDialogOpen(true)
+        },
       },
   
       arrow: {
@@ -565,21 +574,17 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $selector: '#chat-input',
         $direction: 'right',
         $length: 40,
-        $distance: 0,
+        $distance: -200,  //??????
         $scale: 1,
       }
     },
 
-    // ================================================== 
+    // ================================================== Game over
     {
       dialog: {
         $visible: true,
-        $title: t[language]['Meeeeh input title'],
-        $description: <>
-          <div></div>
-          <div></div>
-          <div></div>
-        </>,
+        $title: t[language]['Game over title'],
+        $description: t[language]['Game over description'],
         $prevCallback: () => {},
         $nextCallback: () => {},
       },
@@ -589,15 +594,10 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $selector: '#gameover-body',
         $direction: 'right',
         $length: 40,
-        $distance: 0,
+        $distance: 30,
         $scale: 1,
       }
     },
-
-
-
-
-
   ]
 
   return steps

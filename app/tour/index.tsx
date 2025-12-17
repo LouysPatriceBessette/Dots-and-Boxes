@@ -30,7 +30,6 @@ export const Tour = ({
     tourActive,
 
     setControlsDrawerOpen,
-    setControlsEnabledButtonForTour,
     setMore,
 
     setCreateGameDialogOpen,
@@ -45,14 +44,13 @@ export const Tour = ({
   const dispatch = useDispatch()
   const isLoaded = useIsLoaded()
   const [currentStep, setCurrentStep] = useState(0)
-  const [inputtingStep, setInputtingStep] = useState('0')
+  const [inputtingStep, setInputtingStep] = useState('')
 
   // Steps data
   const tourSteps = TourStepsData({
     setCurrentStep,
 
     setControlsDrawerOpen,
-    setControlsEnabledButtonForTour,
     setMore,
 
     setCreateGameDialogOpen,
@@ -317,7 +315,6 @@ export const Tour = ({
                   event?.target.select()
                 }}
                 onKeyUp={(event) => {
-                  console.log(event.key)
                   if(['Backspace'].indexOf(event.key) !== -1){
                     setInputtingStep('')
                     // @ts-expect-error Noe error here

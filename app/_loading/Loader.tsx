@@ -3,7 +3,7 @@ import { useIsLoaded } from '../store/selectors';
 import { AppLoaderStyled as AppLoader } from './AppLoader.styled';
 import { TourStepsProps } from '../tour/index.types';
 
-interface Loader extends Omit<TourStepsProps, 'setControlsEnabledButtonForTour'>{
+interface Loader extends TourStepsProps{
   setTourActive: React.Dispatch<React.SetStateAction<boolean>>,
 }
 export const Loader = (props: Loader) => {
@@ -79,6 +79,12 @@ export const Loader = (props: Loader) => {
         {f: setChatDrawerOpen, s: false},
 
         {f: setTourActive, s: false},
+
+        {f: () => {
+          localStorage.removeItem('tourName1')
+          localStorage.removeItem('tourName2')
+          }, s: false
+        }
       ]
 
       // Setters names for console.log
@@ -104,6 +110,8 @@ export const Loader = (props: Loader) => {
         'setChatDrawerOpen',
 
         'setTourActive',
+
+        'localStorage clean',
       ]
 
       if(EDITING_STEPS){

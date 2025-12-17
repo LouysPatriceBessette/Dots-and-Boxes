@@ -2,11 +2,14 @@ import {useState, useEffect} from 'react'
 import { PinInput, For } from '@chakra-ui/react'
 import { deepCopy, randomReactKey } from '../../basics/utils'
 
-export const ChakraPinInput = ({
-  pinLength=6,
-  getPin=(pin)=>{console.log(`The pin is ${pin} digits long.`)},
-  lastPin='',
-}) => {
+export const ChakraPinInput = (props) => {
+
+  const {
+    id,
+    pinLength=6,
+    getPin=(pin)=>{console.log(`The pin is ${pin} digits long.`)},
+    lastPin='',
+  } = props
 
   const [values, setValues] = useState(Array(pinLength).fill(''))
 
@@ -33,7 +36,7 @@ export const ChakraPinInput = ({
   return (
     <PinInput.Root>
       <PinInput.HiddenInput />
-      <PinInput.Control>
+      <PinInput.Control id={id}>
         <For each={Array(pinLength).fill(0).map((_, index) => index)}>
           {(index) => <PinInput.Input
             key={randomReactKey()}
