@@ -206,9 +206,6 @@ export const Game = () => {
           <Chakra.Drawer
             open={controlsDrawerOpen}
             setOpen={setControlsDrawerOpen}
-            onOpenChange={(state: {open:boolean}) => {
-              setControlsDrawerOpen(state.open)
-            }}
 
             buttonId='controls-button'
             buttonText={<LuSettings/>}

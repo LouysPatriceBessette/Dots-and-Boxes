@@ -196,9 +196,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Controls drawer button title'],
         $description: t[language]['Controls drawer button description'],
         $prevCallback: () => {},
-        $nextCallback: () => {
-          setControlsDrawerOpen(true)
-        },
+        $nextCallback: () => { setControlsDrawerOpen(true) },
       },
   
       arrow: {
@@ -220,9 +218,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $prevCallback: () => {
           // setControlsDrawerOpen(false)
         },
-        $nextCallback: () => {
-          setCreateGameDialogOpen(true)
-        },
+        $nextCallback: () => { setCreateGameDialogOpen(true) },
       },
   
       arrow: {
@@ -230,7 +226,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $selector: '#createGame',
         $direction: 'up',
         $length: 40,
-        $distance: 0,
+        $distance: 12,
         $scale: 1,
       }
     },
@@ -241,21 +237,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $visible: true,
         $title: t[language]['Create name input title'],
         $description: t[language]['Create name input description'],
-        $prevCallback: () => {
-          // setControlsDrawerOpen(false)
-        },
-        $nextCallback: () => {
-          localStorage.removeItem('myName')// Should keep when all works fine.
-
-          // TODO: fix closing Drawer/Dialod
-          setTimeout(() => {
-            setControlsDrawerOpen(true)
-          }, 800)
-
-          setTimeout(() => {
-            setCreateGameDialogOpen(true)
-          }, 1600)
-        },
+        $prevCallback: () => {},
+        $nextCallback: () => {},
       },
   
       arrow: {
@@ -276,12 +259,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $description: t[language]['Create game grid description'],
         $definedPosition: 'C2',
         $prevCallback: () => {},
-        $nextCallback: () => {
-          // TODO: fix closing Drawer/Dialod
-          setTimeout(() => {
-            setControlsDrawerOpen(true)
-          }, 800)
-        },
+        $nextCallback: () => { setCreateGameDialogOpen(false) },
       },
   
       arrow: {
@@ -301,10 +279,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Join game title'],
         $description: t[language]['Join game description'],
         $prevCallback: () => {},
-        $nextCallback: () => {
-            // setControlsDrawerOpen(true)
-            setJoinGameDialogOpen(true)
-        },
+        $nextCallback: () => { setJoinGameDialogOpen(true) },
       },
   
       arrow: {
@@ -312,7 +287,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $selector: '#joinGame',
         $direction: 'up',
         $length: 40,
-        $distance: 0,
+        $distance: 12,
         $scale: 1,
       }
     },
@@ -324,16 +299,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Join game input title'],
         $description: t[language]['Join game input description'],
         $prevCallback: () => {},
-        $nextCallback: () => {
-          // TODO: fix closing Drawer/Dialod
-          setTimeout(() => {
-            setControlsDrawerOpen(true)
-          }, 800)
-
-          setTimeout(() => {
-            setJoinGameDialogOpen(true)
-          }, 800)
-        },
+        $nextCallback: () => {},
       },
   
       arrow: {
@@ -354,14 +320,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $description: t[language]['Join game pin description'],
         $definedPosition: 'C2',
         $prevCallback: () => {},
-        $nextCallback: () => {
-          setJoinGameDialogOpen(false)
-
-          // TODO: fix closing Drawer/Dialod
-          // setTimeout(() => {
-          //   setControlsDrawerOpen(true) // Pas de prob ici ?
-          // }, 800)
-        },
+        $nextCallback: () => { setJoinGameDialogOpen(false)},
       },
   
       arrow: {
@@ -381,12 +340,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Leave/Delete game title'],
         $description: t[language]['Leave/Delete game description'],
         $prevCallback: () => {},
-        $nextCallback: () => {
-          // TODO: fix closing Drawer/Dialod
-          setTimeout(() => {
-            setControlsDrawerOpen(true) // Pas de prob ici ?
-          }, 800)
-        },
+        $nextCallback: () => {},
       },
   
       arrow: {
@@ -394,7 +348,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $selector: '#leaveDeleteGame',
         $direction: 'up',
         $length: 40,
-        $distance: 0,
+        $distance: 12,
         $scale: 1,
       }
     },
@@ -406,14 +360,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['More title'],
         $description: t[language]['More description'],
         $prevCallback: () => {},
-        $nextCallback: () => {
-          // TODO: fix closing Drawer/Dialod    // Pas de prob ici ?
-          // setTimeout(() => {
-          //   setControlsDrawerOpen(true)
-          // }, 800)
-
-          setMore(true)
-        },
+        $nextCallback: () => { setMore(true) },
       },
   
       arrow: {
@@ -421,7 +368,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $selector: '#more',
         $direction: 'up',
         $length: 40,
-        $distance: 0,
+        $distance: 12,
         $scale: 1,
       }
     },
@@ -430,15 +377,10 @@ export const TourStepsData = (props: TourStepsDataType) => {
     {
       dialog: {
         $visible: true,
-        $title: t[language]['LEss title'],
+        $title: t[language]['Less title'],
         $description:t[language]['Less description'],
         $prevCallback: () => {},
-        $nextCallback: () => {
-          // TODO: fix closing Drawer/Dialod
-          setTimeout(() => {
-            setControlsDrawerOpen(true) // Pas de prob ici ?
-          }, 800)
-        },
+        $nextCallback: () => {},
       },
   
       arrow: {
@@ -446,7 +388,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $selector: '#less',
         $direction: 'up',
         $length: 40,
-        $distance: 0,
+        $distance: 12,
         $scale: 1,
       }
     },
@@ -466,7 +408,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $selector: '#welcome',
         $direction: 'up',
         $length: 40,
-        $distance: 0,
+        $distance: 12,
         $scale: 1,
       }
     },
@@ -478,10 +420,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Language title'],
         $description: t[language]['Language description'],
         $prevCallback: () => {},
-        $nextCallback: () => {
-          setMore(false)
-          setControlsDrawerOpen(false)
-        },
+        $nextCallback: () => { setMore(false); setControlsDrawerOpen(false) },
       },
 
       arrow: {
@@ -489,7 +428,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $selector: '#language',
         $direction: 'up',
         $length: 40,
-        $distance: 0,
+        $distance: 12,
         $scale: 1,
       }
     },
@@ -501,9 +440,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Chat title'],
         $description: t[language]['Chat description'],
         $prevCallback: () => {},
-        $nextCallback: () => {
-          setChatDrawerOpen(true)
-        },
+        $nextCallback: () => { setChatDrawerOpen(true) },
       },
   
       arrow: {
@@ -528,10 +465,10 @@ export const TourStepsData = (props: TourStepsDataType) => {
   
       arrow: {
         $visible: true,
-        $selector: '#chat-drawer', // Arrow did not move to it
-        $direction: 'right',
+        $selector: '#chat-drawer-title',
+        $direction: 'down',
         $length: 40,
-        $distance: 0,
+        $distance: 30,
         $scale: 1,
       }
     },
@@ -549,7 +486,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
       arrow: {
         $visible: true,
         $selector: '#chat-messages',
-        $direction: 'right',
+        $direction: 'down',
         $length: 40,
         $distance: 0,
         $scale: 1,
@@ -563,18 +500,15 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Chat input title'],
         $description: t[language]['Chat input description'],
         $prevCallback: () => {},
-        $nextCallback: () => {
-          setChatDrawerOpen(false)
-          setGameoverDialogOpen(true)
-        },
+        $nextCallback: () => { setChatDrawerOpen(false); setGameoverDialogOpen(true) },
       },
   
       arrow: {
         $visible: true,
         $selector: '#chat-input',
-        $direction: 'right',
+        $direction: 'down',
         $length: 40,
-        $distance: -200,  //??????
+        $distance: 0,
         $scale: 1,
       }
     },

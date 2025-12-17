@@ -260,8 +260,6 @@ export const GameControls = ({
     socket.emit('message', JSON.stringify(request))
   }
 
-  const TIME_OUT_DELAY=500
-
   // ==== For the tour
   useEffect(() => {
     const names = ['Randall', 'Chuck']
@@ -308,13 +306,6 @@ export const GameControls = ({
           open={createGameDialogOpen}
           setOpen={setCreateGameDialogOpen}
 
-          onOpenChange={(state: {open:boolean}) => {
-            setTimeout(() => {
-              console.log('DIALOG IS OPEN', state)
-              setCreateGameDialogOpen(state.open)
-            }, TIME_OUT_DELAY)
-          }}
-
           openButtonText={t[language]['Create']}
           openButtonColor='green'
           openButtonDisabled={gameId !== -1}
@@ -336,13 +327,6 @@ export const GameControls = ({
 
           open={joinGameDialogOpen}
           setOpen={setJoinGameDialogOpen}
-
-          onOpenChange={(state: {open:boolean}) => {
-            setTimeout(() => {
-              console.log('DIALOG IS OPEN', state)
-              setJoinGameDialogOpen(state.open)
-            }, TIME_OUT_DELAY)
-          }}
 
           openButtonText={t[language]['Join']}
           openButtonColor='orange'
