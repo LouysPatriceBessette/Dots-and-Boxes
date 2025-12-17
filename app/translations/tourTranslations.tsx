@@ -85,7 +85,7 @@ export const tourTranslations = {
     'Create game description': <div>This button opens the game creation form.</div>,
 
     'Create name input title': <div>Your name.</div>,
-    'Create name input description':  <div>Let<Apos/>s say your name is Randall...</div>,
+    'Create name input description':  <div>Let<Apos/>s say your name is Bertha...</div>,
 
     'Create game grid title': <div>Adjust the dimensions</div>,
     'Create game grid description':  <>
@@ -170,20 +170,20 @@ export const tourTranslations = {
     'Create game description': <div>Ce bouton ouvre le formulaire de création de partie.</div>,
 
     'Create name input title': <div>Votre nom</div>,
-    'Create name input description': <div>Disons que votre nom est Randall...</div>,
+    'Create name input description': <div>Disons que votre nom est Bertha...</div>,
 
     'Create game grid title': <div>Ajustez les dimensions</div>,
     'Create game grid description':  <>
       <div>Utilisez les curseurs. La grille s<Apos/>ajustera vous donnera une idée visuelle du résultat.</div>
       <div><TourBlankLine/></div>
-      <div>À noter que sur mobile, une largeur de plus de <Bold>6</Bold> s<Apos/>affiche moins bien.</div>
+      <div>À noter que sur un appareil mobile, une largeur de plus de <Bold>6</Bold> force l<Apos/>utilisateur·euse à faire un <Quot/>Zoom par pincement<Quot/> pour voir l<Apos/>ensemble de la grille.</div>
     </>,
 
     'Join game title': <div>Joindre</div>,
     'Join game description': <div>Ce bouton ouvre le formulaire pour joindre une partie.</div>,
 
     'Join game input title': <div>Nom de votre ami.e</div>,
-    'Join game input description': <div>Disons que votre nom est Chuck...</div>,
+    'Join game input description': <div>Disons que votre nom est Horacio...</div>,
 
     'Join game pin title': <div>Game number</div>,
     'Join game pin description': <div>Votre ami.e doit entrer le numéro que vous lui avez donné.</div>,
@@ -192,21 +192,21 @@ export const tourTranslations = {
     'Leave/Delete game description': <>
       <div>Ce bouton permet de quitter une partie.</div>
       <div><TourBlankLine/></div>
-      <div>S<Apos/>il n<Apos/>y a qu<Apos/>un.e seul.e joueur·euse, la partie est supprimée.</div>
+      <div>S<Apos/>il n<Apos/>y a qu<Apos/>un·e seul·e joueur·euse, la partie est supprimée.</div>
     </>,
-    'More title': <div>More</div>,
+    'More title': <div>Plus</div>,
     'More description':  <div>Ce bouton révèle plus de boutons.</div>,
 
-    'Less title': <div>Less</div>,
+    'Less title': <div>Moins</div>,
     'Less description': <div>Ce bouton revient vers les premiers boutons.</div>,
 
     'Tour title': <div>Visite guidée</div>,
     'Tour description': <div>Vous savez ce que ce bouton fait!</div>,
 
-    'Language title': <div>Language</div>,
+    'Language title': <div>Langues</div>,
     'Language description': <div>Pour choisir une autre traduction.</div>,
 
-    'Chat title': <div>Chat</div>,
+    'Chat title': <div>Bouton de discussion</div>,
     'Chat description': <>
       <div>Ce bouton ouvre le panneau de discussion.</div>
       <div>Il n<Apos/>est disponible que lorsqu<Apos/>il y a un·e autre joueur·euse dans la partie.</div>
@@ -214,32 +214,34 @@ export const tourTranslations = {
       <div>Et ce, même s<Apos/>iel est hors-ligne.</div>
     </>,
 
-    'Chat drawer title': <div>Chat drawer</div>,
+    'Chat drawer title': <div>Panneau de dicussion</div>,
     'Chat drawer description': <>
-      <div>UNDEFINED</div>
-      <div></div>
-      <div></div>
+      <div>Discutez en temps réel!</div>
+      <div><TourBlankLine/></div>
+      <div>
+        Comme sur un réseau social, sauf que l<Apos/>autre personne ne recevra pas de notification.
+        s<Apos/>iel est hors ligne, iel verra ses messages à sa prochaine connexion.
+      </div>
     </>,
 
-    'Chat messages title': <div>Chat messages.</div>,
+    'Chat messages title': <div>Messages</div>,
     'Chat messages description': <>
-      <div>UNDEFINED</div>
-      <div></div>
-      <div></div>
+      <div>Les messages apparaîssent ici.</div>
+      <div>Le nom de la personne apparaît devant le message.</div>
     </>,
 
-    'Chat input title': <div>Chat input</div>,
+    'Chat input title': <div>Saisie de message</div>,
     'Chat input description': <>
-      <div>UNDEFINED</div>
-      <div></div>
-      <div></div>
+      <div>Écrivez ici.</div>
+      <div><TourBlankLine/></div>
+      <div>Si l<Apos/>autre personne est en ligne et q<Apos/>uiel a fermé son panneau de discussion, il s<Apos/>ouvrira automatiquement.</div>
     </>,
 
-    'Game over  title': <div>Game over </div>,
-    'Game over  description': <>
-      <div>UNDEFINED</div>
-      <div></div>
-      <div></div>
+    'Game over title': <div>Partie terminée</div>,
+    'Game over description': <>
+      <div>Vous pouvez démarrer une nouvelle partie avec le·la même joueur·euse.</div>
+      <div><TourBlankLine/></div>
+      <div>La grille sera de la même dimension.</div>
     </>,
 
   },

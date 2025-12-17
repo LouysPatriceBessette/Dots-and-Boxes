@@ -256,7 +256,7 @@ export const Game = () => {
               buttonId='chat-button'
               buttonText={<LuMessagesSquare/>}
 
-              title={t[language]['Chat with the other player']}
+              title={<div id='chat-drawer-title'>{t[language]['Chat with the other player']}</div>}
               placement="bottom"
               disableOverlayClick={false}
             >

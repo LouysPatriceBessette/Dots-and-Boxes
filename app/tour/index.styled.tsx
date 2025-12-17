@@ -45,6 +45,7 @@ export const ArrowPositionner = styled.div<StepArrowProps>`
 
   top: ${(props) => props.$translation.y ? (props.$arrowTop ?? 0) - props.$translation.y : (props.$arrowTop ?? 0)}px;
   left: ${(props) => props.$translation.x ? (props.$arrowLeft ?? 0) - props.$translation.x : (props.$arrowLeft ?? 0)}px;
+  
   transform: translate(${(props) => props.$translation?.x ?? 0}px, ${(props) => props.$translation?.y ?? 0}px);
   transition: all 0.5s ease-in-out;
 `
@@ -167,6 +168,7 @@ export const StepStyled = styled.div<StyledStepProps>`
 
   @media (min-width: 480px) {
     min-width: 480px;
+    max-width: 800px;
   }
 `
 

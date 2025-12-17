@@ -262,7 +262,7 @@ export const GameControls = ({
 
   // ==== For the tour
   useEffect(() => {
-    const names = ['Randall', 'Chuck']
+    const names = ['Bertha', 'Horacio']
 
     if(
       (createGameDialogOpen || joinGameDialogOpen) &&
@@ -271,14 +271,11 @@ export const GameControls = ({
     ){
       const letters = createGameDialogOpen ? names[0].split('') : names[1].split('')
       letters.forEach((letter, loopIndex) => {
-        setTimeout(() => {
-          setPlayerName((prev) => prev + letter)
-        }, 1000 + (loopIndex * 600))
-        if(createGameDialogOpen){
-          localStorage.setItem('tourName1', names[0])
-        } else {
-          localStorage.setItem('tourName2', names[1])
-        }
+        // clear playerName if not empty
+        setPlayerName('')
+
+        // Simulated keystrokes
+        setTimeout(() => setPlayerName((prev) => prev + letter), 1000 + (loopIndex * 600))
       })
     }
   }, [createGameDialogOpen, joinGameDialogOpen, tourActive])

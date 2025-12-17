@@ -4,12 +4,25 @@ import { AppLoaderStyled as AppLoader } from './AppLoader.styled';
 import { TourStepsProps } from '../tour/index.types';
 
 interface Loader extends TourStepsProps{
-  setTourActive: React.Dispatch<React.SetStateAction<boolean>>,
+  setTourActive: (React.Dispatch<React.SetStateAction<boolean>> | ((arg: number) => void)),
 }
 export const Loader = (props: Loader) => {
 
   const EDITING_STEPS = true
   const isLoaded = useIsLoaded()
+
+  const {
+    setTourActive,
+
+    setControlsDrawerOpen,
+    setMore,
+
+    setCreateGameDialogOpen,
+    setJoinGameDialogOpen,
+    setGameoverDialogOpen,
+
+    setChatDrawerOpen,
+  } = props
 
   useEffect(() => {
     if(window){
@@ -38,22 +51,11 @@ export const Loader = (props: Loader) => {
   },[isLoaded])
 
   useEffect(() => {
+    const loadTime_start = performance.now();
+
     if(!!!isLoaded){
-      const {
-        setTourActive,
-
-        setControlsDrawerOpen,
-        setMore,
-
-        setCreateGameDialogOpen,
-        setJoinGameDialogOpen,
-        setGameoverDialogOpen,
-
-        setChatDrawerOpen,
-      } = props
-
       // This is a bit hacky.
-      // We are using existing game states to gater the tour elements rendered positions (used by the arrow).
+      // We are using existing game states to gather the tour elements rendered positions (used by the arrow).
       // This loop runs only once, on page load, while showing the nice animated loader.
 
       // Setter execution order
@@ -80,11 +82,11 @@ export const Loader = (props: Loader) => {
 
         {f: setTourActive, s: false},
 
-        {f: () => {
-          localStorage.removeItem('tourName1')
-          localStorage.removeItem('tourName2')
-          }, s: false
-        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        {f: (loadTime_start: any) => {
+          const loadTime_end = performance.now()
+          console.log(`Loaded in ${((loadTime_end - loadTime_start) / 1000)} seconds`)
+        }, s: loadTime_start}
       ]
 
       // Setters names for console.log
@@ -111,7 +113,7 @@ export const Loader = (props: Loader) => {
 
         'setTourActive',
 
-        'localStorage clean',
+        'loadtime',
       ]
 
       if(EDITING_STEPS){
@@ -119,16 +121,13 @@ export const Loader = (props: Loader) => {
       }
 
       // Setters execution loop
-      let time = 0
       setters.forEach((S,I) => {
-        const delay = parseInt(I.toString()) * (S.s ? 800 : 800)
-
-        time += delay
+        const delay = parseInt(I.toString()) * 800
 
         setTimeout(() => {
 
           if(EDITING_STEPS){
-            console.log(time, '==============================================================', S.s ? "Open" : "close", names[parseInt(I.toString())])
+            console.log( '==============================================================', S.s ? "Open" : "close", names[parseInt(I.toString())])
           }
 
           S.f(S.s)

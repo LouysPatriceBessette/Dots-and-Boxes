@@ -309,6 +309,7 @@ export const Tour = ({
             <div>
               Step:
               <input
+                name='step switcher'
                 value={inputtingStep !== '' ? inputtingStep : currentStep.toString()}
                 onFocus={(event) => {
                   event.preventDefault()
