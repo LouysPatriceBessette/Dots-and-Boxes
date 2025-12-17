@@ -43,6 +43,9 @@ body {
 /* Chakra Menu cheat */
 .chakra-menu__positioner{
   z-index: 9995 !important;
+  top: 80px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 }
 
 /* Chakra Menu cheat */

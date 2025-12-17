@@ -10,8 +10,6 @@ export const TourOverlay = styled.div<{$tourActive: boolean}>`
   left: 0;
   bottom: 0;
   right: 0;
-  // opacity: 0.3;
-  // background-color: ${(props) => props.$tourActive ?  "orange" : "transparent"};
   pointer-events: ${(props) => props.$tourActive ?  "none" : "auto"};
   z-index: ${(props) => props.$tourActive ?  "9998" : "-1"};
 `

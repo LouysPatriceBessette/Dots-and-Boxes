@@ -35,10 +35,8 @@ export const ChakraDrawer = (props) => {
       onClose={() => setOpen(false)}
       open={open}
       setOpen={setOpen}
-      onPointerDownOutside={(event) => {
-        if(disableOverlayClick){
-          event.preventDefault()
-        }
+      onPointerDownOutside={() => {
+        setOpen(disableOverlayClick)
       }}
       onOpenChange={onOpenChange}
     >
