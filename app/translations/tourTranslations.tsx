@@ -19,7 +19,7 @@ const wikilinks = {
 
 export const tourTranslations = {
   EN: {
-    'Tour Dialog title': 'Welcome to Dots and Boxes!',
+    'Tour Dialog title': `Welcome to Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
         This game was described by <Anchor href={wikilinks['EN']}><Bold>Édouard Lucas</Bold></Anchor>, a renowned French mathematician, in his book <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Scientific Games to Serve History). He passed away two years later, on October 3, 1991, at the age of 49.
@@ -27,7 +27,7 @@ export const tourTranslations = {
       <Hr/>
     </>,
     'Tour Dialog P2': <p>
-      Take the guided tour to discover the user interface of this web version as well as the rules of the game.
+      Take the guided tour to discover the user interface of this web version, as well as the rules of the game.
     </p>,
     'Tour Dialog button': 'Start the tour',
 
@@ -40,7 +40,7 @@ export const tourTranslations = {
 
     'Intro 2 title': <div>Future Development...</div>,
     'Intro 2 description': <>
-      <div>You can request to play with them.</div>
+      <div>You will be able to request to play with them.</div>
       <div><TourBlankLine/></div>
       <div>But for now, you need to invite one of your friends directly.</div>
     </>,
@@ -66,12 +66,12 @@ export const tourTranslations = {
     'Player 2 score title': <div>Player 2 Score</div>,
     'Player 2 score description': <div>For each box that Player 2 closes, one point is awarded to them.</div>,
 
-    'Play grid title': <div>Play Grid</div>,
+    'Play grid title': <div>Game Grid</div>,
     'Play grid description': <>
       <div>The grid is made up of boxes.</div>
       <div><TourBlankLine/></div>
       <div>In this case, it is a <Bold>2</Bold> x <Bold>2</Bold> grid.</div>
-      <div>It can be of different dimensions.</div>
+      <div>It can have different dimensions.</div>
       <div>For example: <Bold>6</Bold> x <Bold>8</Bold></div>
     </>,
 
@@ -84,13 +84,13 @@ export const tourTranslations = {
     'Create name input title': <div>Your Name</div>,
     'Create name input description': <div>Let<Apos/>s say your name is Bertha...</div>,
 
-    'Create game grid title': <div>Adjust the Dimensions</div>,
+    'Create game grid title': <div>Adjust Dimensions</div>,
     'Create game grid description': <>
       <div>Use the sliders. The grid will adjust and give you a visual idea of the result.</div>
       <div><TourBlankLine/></div>
-      <div>Note that on a mobile device, a width of more than <Bold>6</Bold> forces the user to use a <Quot/>Pinch Zoom<Quot/> to see the entire grid.</div>
+      <div>Note that on a mobile device, a width of more than <Bold>6</Bold> forces the user to <Quot/>Zoom with pinch<Quot/> to see the entire grid.</div>
     </>,
-    
+
     'Join game title': <div>Join</div>,
     'Join game description': <div>This button opens the form to join a game.</div>,
 
@@ -98,19 +98,20 @@ export const tourTranslations = {
     'Join game input description': <div>Let<Apos/>s say your name is Horacio...</div>,
 
     'Join game pin title': <div>Game Number</div>,
-    'Join game pin description': <div>Your friend must enter the number you provided to them.</div>,
+    'Join game pin description': <div>Your friend must enter the number you gave them.</div>,
 
     'Leave/Delete game title': <div>Leave / Delete</div>,
     'Leave/Delete game description': <>
       <div>This button allows you to leave a game.</div>
       <div><TourBlankLine/></div>
-      <div>If there is only one player, the game is deleted.</div>
+      <div>If there is only one player, the game will be deleted.</div>
     </>,
+
     'More title': <div>More</div>,
     'More description': <div>This button reveals more options.</div>,
 
     'Less title': <div>Less</div>,
-    'Less description': <div>This button returns to the initial options.</div>,
+    'Less description': <div>This button goes back to the initial options.</div>,
 
     'Tour title': <div>Guided Tour</div>,
     'Tour description': <div>You know what this button does!</div>,
@@ -123,7 +124,7 @@ export const tourTranslations = {
       <div>This button opens the chat panel.</div>
       <div>It is only available when there is another player in the game.</div>
       <div><TourBlankLine/></div>
-      <div>Even if they are offline.</div>
+      <div>And even if they are offline.</div>
     </>,
 
     'Chat drawer title': <div>Chat Panel</div>,
@@ -131,22 +132,22 @@ export const tourTranslations = {
       <div>Chat in real-time!</div>
       <div><TourBlankLine/></div>
       <div>
-        Like on a social network, except the other person won<Apos/>t receive a notification.
-        If they are offline, they will see their messages upon their next login.
+        Like on a social network, except the other person will not receive notifications.
+        If they are offline, they will see their messages on their next login.
       </div>
     </>,
 
     'Chat messages title': <div>Messages</div>,
     'Chat messages description': <>
-      <div>Messages appear here.</div>
-      <div>The name of the person appears before the message.</div>
+      <div>The messages appear here.</div>
+      <div>The name of the person appears in front of the message.</div>
     </>,
 
     'Chat input title': <div>Message Input</div>,
     'Chat input description': <>
       <div>Type here.</div>
       <div><TourBlankLine/></div>
-      <div>If the other person is online and they have closed their chat panel, it will automatically reopen.</div>
+      <div>If the other person is online and has closed their chat panel, it will open automatically.</div>
     </>,
 
     'Game over title': <div>Game Over</div>,
@@ -154,7 +155,7 @@ export const tourTranslations = {
       <div>You can start a new game with the same player.</div>
       <div><TourBlankLine/></div>
       <div>The grid will be the same size.</div>
-    </>
+    </>,
   },
   FR: {
     'Tour Dialog title': `Bienvenue dans Dots and Boxes !`,
