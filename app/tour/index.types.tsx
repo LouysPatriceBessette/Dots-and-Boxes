@@ -10,6 +10,7 @@ export type DomElementPositions = {
 }
 
 export type TourMain = {
+  id?: string
   tourNumber: number,
   tourActive: boolean,
   setTourActive: React.Dispatch<React.SetStateAction<boolean>>,
@@ -40,7 +41,9 @@ export type TourSteps = {
   arrow: {
     $visible: boolean,
     $selector: string,
-    $direction: 'up' | 'down' | 'left' | 'right',
+    $direction: 'up' | 'down' | 'left' | 'right' | 'diag'
+    isVLine?: boolean,
+    isVHine?: boolean,
     $length: number,
     $distance: number,
     $scale: number,
@@ -49,6 +52,8 @@ export type TourSteps = {
 
 export interface TourStepsDataType extends TourStepsProps{
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>
+  setIsVLine: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsHLine: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export type StyledStepProps = {
@@ -61,12 +66,15 @@ export type StyledStepProps = {
 }
 
 export type StepArrowProps = {
+  id?: string,
   $visible: boolean,
   $selector: string,
   $arrowTop?: number,
   $arrowLeft?: number,
   $translation: {x: number, y: number},
-  $direction: 'up' | 'down' | 'left' | 'right',
+  $direction: 'up' | 'down' | 'left' | 'right' | 'diag'
+  isVLine?: boolean,
+  isVHine?: boolean,
   $length: number,
   $distance: number,
   $scale: number,

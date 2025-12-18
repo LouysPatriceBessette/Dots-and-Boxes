@@ -50,10 +50,14 @@ export const Tour = ({
 
   const [currentStep, setCurrentStep] = useState(0)
   const [inputtingStep, setInputtingStep] = useState('')
+  const [isVLine, setIsVLine] = useState(false)
+  const [isVHine, setIsHLine] = useState(false)
 
   // Steps data
   const tourSteps = TourStepsData({
     tourNumber,
+    setIsVLine,
+    setIsHLine,
     setCurrentStep,
     setTourActive,
 
@@ -272,18 +276,20 @@ export const Tour = ({
     diff = {x: next.x - prev.x, y: next.y - prev.y}
   }
 
-  return !tourActive ? <></> : <TourMainStyled>
-      <TourInnerStyled>
+  return !tourActive ? <></> : <TourMainStyled id='TOUR-OVERLAY'>
+      <TourInnerStyled id='TOUR-OVERLAY-INNER'>
 
-        <StepArrow
+        <StepArrow id='ARROW'
           data-step={currentStep}
           {...tourSteps[tourNumber][currentStep].arrow}
           $foundElements={foundElements.current}
           $currentStep={currentStep}
           $translation={diff}
+          isVLine={isVLine}
+          isVHine={isVHine}
         />
 
-        <StepStyled
+        <StepStyled id='STEP'
           {...tourSteps[tourNumber][currentStep].dialog}
           $dialogTop={foundElements.current?.[currentStep].$dialogTop ?? 0}
           $dialogLeft={foundElements.current?.[currentStep].$dialogLeft ?? 0}
@@ -326,10 +332,12 @@ export const Tour = ({
 
         {EDITING_STEPS && <>
           <div
+            id='STEP-EDIT-HELPER'
             style={{
               padding: '4px 20px',
               display: 'flex',
               justifyContent: 'space-between',
+              pointerEvents: 'auto',
             }}
           >
             <div>

@@ -40,8 +40,13 @@ export const ArrowPositionner = styled.div<StepArrowProps>`
   width: 0px;
   height: 0px;
 
-  top: ${(props) => props.$translation.y ? (props.$arrowTop ?? 0) - props.$translation.y : (props.$arrowTop ?? 0)}px;
-  left: ${(props) => props.$translation.x ? (props.$arrowLeft ?? 0) - props.$translation.x : (props.$arrowLeft ?? 0)}px;
+  top: ${(props) => props.$translation.y ?
+    (props.$arrowTop ?? 0) - props.$translation.y :
+    (props.$arrowTop ?? 0)}px;
+
+  left: ${(props) => props.$translation.x ?
+    (props.$arrowLeft ?? 0) - props.$translation.x :
+    (props.$arrowLeft ?? 0)}px;
   
   transform: translate(${(props) => props.$translation?.x ?? 0}px, ${(props) => props.$translation?.y ?? 0}px);
   transition: all 0.5s ease-in-out;
@@ -50,7 +55,13 @@ export const ArrowPositionner = styled.div<StepArrowProps>`
 export const ArrowContainer = styled.div<StepArrowProps>`
   transform: scale(${(props) => props.$scale})translateX(-50%);
 
-  animation: ${(props) => props.$direction === 'up' ? 'bounceUp' : props.$direction === 'down' ? 'bounceDown' : props.$direction === 'left' ? 'bounceLeft' : 'bounceRight'} 1s infinite;
+  ${(props) => props.$direction === 'up' ?
+    'animation: bounceUp' : props.$direction === 'down' ?
+    'animation: bounceDown' : props.$direction === 'left' ?
+    'animation: bounceLeft' : 'bounceRight'} 1s infinite;
+
+  ${(props) => props.isVLine ? 'top: 17px; left: -3px; position: absolute;' : ''}
+  ${(props) => props.isVHine ? 'left: 17px; position: absolute;' : ''}
 
   @keyframes bounceDown {
     0%, 20%, 50%, 80%, 100% {
@@ -109,7 +120,10 @@ export const ArrowRotator = styled.div<StepArrowProps>`
 
   transform: rotate(${(props) => props.$direction === 'up' ? 0 :
     props.$direction === 'down' ? 180 :
-    props.$direction === 'left' ? 270 : 90}deg);
+    props.$direction === 'left' ? 270 :
+    props.$direction === 'diag' && !props.isVLine ? 160 :
+    props.$direction === 'diag' && props.isVLine ? 75 :
+     90}deg);
   transform-origin: top center;
 `
 

@@ -42,7 +42,7 @@ export const Square = ({identifier}: {identifier: number}) => {
   const wasFencedBy = wasFencedByP1 ? 1 : wasFencedByP2 ? 2 : 0
 
   return (
-    <SquareStyled $wasFencedBy={wasFencedBy}/>
+    <SquareStyled data-box={identifier} $wasFencedBy={wasFencedBy}/>
   );
 }
 
@@ -217,6 +217,7 @@ export const Dot = ({identifier}:{identifier: number}) => {
 
   return (
     <DotStyled
+      data-dot={identifier}
       onClick={dotClickHandler}
       $isOrigin={origin === identifier}
       $isFriend={canConnectWith.includes(identifier)}
@@ -233,7 +234,7 @@ export const Vline = ({identifier}: {identifier: number}) => {
   const isUsedBy = isUsed ? usedFencesP1.includes(`V-${identifier}`) ? 1 : 0 : 1
 
   return (
-    <VlineStyled $isUsed={isUsed} $isUsedBy={isUsedBy} />
+    <VlineStyled data-vline={identifier} $isUsed={isUsed} $isUsedBy={isUsedBy} />
   );
 }
 
@@ -245,6 +246,6 @@ export const Hline = ({identifier}: {identifier: number,}) => {
   const isUsedBy = isUsed ? usedFencesP1.includes(`H-${identifier}`) ? 1 : 0 : 1
 
   return (
-    <HlineStyled $isUsed={isUsed} $isUsedBy={isUsedBy} />
+    <HlineStyled data-hline={identifier} $isUsed={isUsed} $isUsedBy={isUsedBy} />
   );
 }

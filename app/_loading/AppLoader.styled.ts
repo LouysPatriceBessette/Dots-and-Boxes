@@ -1,9 +1,10 @@
 import { styled } from "styled-components";
 
 export const AppLoaderStyled = styled.div`
+  
 
   & > div:nth-child(1){
-    transform: translateX(50%);
+    transform: translateY(-24px);
     padding: 0.4em 0;
     margin-top: 2em;
   }
@@ -18,6 +19,7 @@ export const AppLoaderStyled = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: white;
@@ -33,7 +35,7 @@ export const AppLoaderStyled = styled.div`
       19px -19px 0 0px, 38px -19px 0 0px, 57px -19px 0 0px,
       19px 0     0 5px, 38px 0     0 5px, 57px 0     0 5px,
       19px 19px  0 0px, 38px 19px  0 0px, 57px 19px  0 0px;
-    transform: translate(-38px, -38px);
+    transform: translate(-38px, -100px);
     animation: l26 1.6s infinite linear;
   }
 

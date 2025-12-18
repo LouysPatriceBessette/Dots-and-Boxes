@@ -197,8 +197,8 @@ export const Game = () => {
   }
 
   return <>
-    <LoadingWrapper $isLoading={isLoading}>
-      <PageContainer>
+    <LoadingWrapper id='LOADINGWRAPPER' $isLoading={isLoading}>
+      <PageContainer id='GAME'>
         <ConnectedPlayersContainer id='connectedPlayers'>
           <span>{clientsCount}</span> {`${clientsCount >  1 ? t[language]['players'] : t[language]['player']} ${t[language]['online']}`}
         </ConnectedPlayersContainer>
@@ -239,14 +239,15 @@ export const Game = () => {
             </div>
           </>}
 
-          {gameId !== -1 && <GameNumberStyled>
+          <GameNumberStyled id='gameId'>
             <div>
-              {gameIdString}
+              {!tourActive && gameId !== -1 && gameIdString}
+              {tourActive && '377598'}
             </div>
             <div>
               {t[language]['Number to share']}
             </div>
-          </GameNumberStyled>}
+          </GameNumberStyled>
 
           {/* Chat drawer */}
           {(gameId !== -1 || tourActive) && <div id='chat-drawer'>
@@ -270,13 +271,17 @@ export const Game = () => {
         <PlayersNameHeader>
           <Player>
             <PlayerNameContainer id='player1Name'>
-              <PlayerOnlineIndicator $online={iamPlayer === 1 || remoteIsOnline} /> {player1Name}
+              <PlayerOnlineIndicator $online={iamPlayer === 1 || remoteIsOnline} />&nbsp;
+                {!tourActive && player1Name}
+                {tourActive && 'Bertha'}
             </PlayerNameContainer>
           </Player>
 
           <Player>
             <PlayerNameContainer id='player2Name'>
-              <PlayerOnlineIndicator $online={iamPlayer === 2 || remoteIsOnline} /> {player2Name}
+              <PlayerOnlineIndicator $online={iamPlayer === 2 || remoteIsOnline || tourActive} />&nbsp;
+                {!tourActive && player2Name}
+                {tourActive && 'Horacio'}
             </PlayerNameContainer>
           </Player>
         </PlayersNameHeader>
@@ -286,7 +291,7 @@ export const Game = () => {
             {fencedByP1.length}
           </PlayerScore>
 
-          {gameId !== -1 && <CurrentTurn $hidden={!remoteIsOnline || gameover}>
+          {(gameId !== -1 || tourActive) && <CurrentTurn id='currentTurn' $hidden={!remoteIsOnline || gameover}>
             { currentPlayer === 1 ? <span>&larr;</span> : <span>&rarr;</span> }
           </CurrentTurn>}
 
@@ -422,7 +427,7 @@ export const Game = () => {
         </GameOver>
       </PageContainer>
 
-      <Footer>
+      <Footer id='FOOTER'>
         <div><LuCopyright/> <span>2025 - Louys Patrice Bessette</span></div>
         <div><Chakra.Dialog
             title={<LuInfo/>}
@@ -446,7 +451,7 @@ export const Game = () => {
           /></div>
       </Footer>
       
-      <TourOverlay $tourActive={tourActive}>
+      <TourOverlay id='TOUR' $tourActive={tourActive}>
         <Tour
           tourNumber={tourNumber}
           tourActive={tourActive}
@@ -465,7 +470,7 @@ export const Game = () => {
       </TourOverlay>
     </LoadingWrapper>
 
-    <Loader
+    <Loader id='LOADER'
       tourNumber={tourNumber}
       setTourActive={setTourActive}
 

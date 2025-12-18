@@ -1,5 +1,14 @@
 import { TourSteps } from "../index.types"
 import { useLanguage } from '../../store/selectors'
+import {
+  setOrigin,
+  setUsedFences,
+  setUsedFencesP1,
+  setUsedFencesP2,
+  setCanConnectWith,
+  toggleCurrentPlayer,
+} from '../../store/actions'
+import { useDispatch } from 'react-redux'
 
 import { TourStepsDataType } from '../../tour/index.types'
 
@@ -7,8 +16,11 @@ import t from '../../translations'
 
 export const TourStepsData = (props: TourStepsDataType) => {
   const language = useLanguage()
+  const dispatch = useDispatch()
 
   const {
+    setIsVLine,
+    setIsHLine,
     setControlsDrawerOpen,
     setMore,
 
@@ -20,6 +32,15 @@ export const TourStepsData = (props: TourStepsDataType) => {
   } = props
   
 
+  // Grid element selector
+  const dot_s = (n :number) => `[data-dot="${n}"]`
+  const box_s = (n :number) => `[data-box="${n}"]`
+  const vl_s = (n :number) => `[data-vline="${n}"]`
+  const hl_s = (n :number) => `[data-hline="${n}"]`
+
+  //
+  // Interface tour
+  //
   const interfaceSteps: TourSteps[] = [
     // ================================================== Intro 1
     {
@@ -527,6 +548,9 @@ export const TourStepsData = (props: TourStepsDataType) => {
     },
   ]
 
+  //
+  // How to play tour
+  //
   const playSteps: TourSteps[] = [
     // ================================================== Intro 1
     {
@@ -535,13 +559,313 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Start play tour title'],
         $description: t[language]['Start play tour description'],
         $prevCallback: () => {},
+        $nextCallback: () => {
+          dispatch(toggleCurrentPlayer(1))
+        },
+      },
+  
+      arrow: {
+        $visible: false,
+        $selector: '#gameId',
+        $direction: 'down',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game start title'],
+        $description: t[language]['Simulated game start description'],
+        $prevCallback: () => {},
         $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#gameId',
+        $direction: 'up',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #1 title'],
+        $description: t[language]['Simulated game move #1 description'],
+        $prevCallback: () => {},
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#player1Name',
+        $direction: 'left',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #2 title'],
+        $description: t[language]['Simulated game move #2 description'],
+        $prevCallback: () => {},
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#player2Name',
+        $direction: 'right',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #3 title'],
+        $description: t[language]['Simulated game move #3 description'],
+        $prevCallback: () => {},
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: '#currentTurn',
+        $direction: 'down',
+        $length: 40,
+        $distance: -60,
+        $scale: 1,
+      }
+    },
+
+    // Player 1 turn Start 
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #4 title'],
+        $description: t[language]['Simulated game move #4 description'],
+        $definedPosition: 'C2',
+        $prevCallback: () => {},
+        $nextCallback: () => {
+          dispatch(setCanConnectWith([2,4]))
+          dispatch(setOrigin(1))
+        },
       },
   
       arrow: {
         $visible: true,
         $selector: '#playGrid',
         $direction: 'down',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // Player 1 turn 1 First click
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #5 title'],
+        $description: t[language]['Simulated game move #5 description'],
+        $definedPosition: 'C2',
+        $prevCallback: () => {},
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: dot_s(1),
+        $direction: 'diag',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // Player 1 turn 1 Second click
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #6 title'],
+        $description: t[language]['Simulated game move #6 description'],
+        $definedPosition: 'C2',
+        $prevCallback: () => {},
+        $nextCallback: () => {
+          dispatch(toggleCurrentPlayer(2))
+          dispatch(setUsedFences('H-1'))
+          dispatch(setUsedFencesP1('H-1'))
+          dispatch(setOrigin(-1))
+          setIsHLine(true)
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: dot_s(2),
+        $direction: 'diag',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // Player 1 turn 1 DONE (showing line)
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #7 title'],
+        $description: t[language]['Simulated game move #7 description'],
+        $definedPosition: 'C2',
+        $prevCallback: () => {
+          setIsHLine(false)
+        },
+        $nextCallback: () => {
+          setIsHLine(false)
+          setIsVLine(true)
+          dispatch(setUsedFences('V-2'))
+          dispatch(setUsedFencesP2('V-2'))
+          dispatch(toggleCurrentPlayer(1))
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: hl_s(1),
+        $direction: 'diag',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // Player 2 turn 2 DONE (showing line)
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #8 title'],
+        $description: t[language]['Simulated game move #8 description'],
+        $definedPosition: 'C2',
+        $prevCallback: () => {
+          setIsVLine(false)
+        },
+        $nextCallback: () => {
+          dispatch(toggleCurrentPlayer(1))
+          dispatch(setCanConnectWith([1,5,7]))
+          dispatch(setOrigin(4))
+          setIsVLine(false)
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: vl_s(2),
+        $direction: 'diag',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // Player 1 turn 3 First click
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #9 title'],
+        $description: t[language]['Simulated game move #9 description'],
+        $definedPosition: 'C2',
+        $prevCallback: () => {},
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: dot_s(4),
+        $direction: 'diag',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+    
+    // Player 1 turn 3 Second click
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #10 title'],
+        $description: t[language]['Simulated game move #10 description'],
+        $definedPosition: 'C2',
+        $prevCallback: () => {},
+        $nextCallback: () => {
+          dispatch(setUsedFences('V-1'))
+          dispatch(setUsedFencesP1('V-1'))
+          
+          setIsVLine(true)
+          dispatch(setOrigin(-1))
+          dispatch(toggleCurrentPlayer(2))
+        },
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: dot_s(1),
+        $direction: 'diag',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+    // Player 1 turn 3 done (showing line)
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #11 title'],
+        $description: t[language]['Simulated game move #11 description'],
+        $definedPosition: 'C2',
+        $prevCallback: () => {
+          setIsVLine(false)
+        },
+        $nextCallback: () => {},
+      },
+  
+      arrow: {
+        $visible: true,
+        $selector: vl_s(1),
+        $direction: 'diag',
+        $length: 40,
+        $distance: 0,
+        $scale: 1,
+      }
+    },
+
+
+    // ========================== DEFAULT STEP
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['Simulated game move #100 title'],
+        $description: t[language]['Simulated game move #100 description'],
+        $definedPosition: 'C2',
+        $prevCallback: () => {},
+        $nextCallback: () => {
+
+        },
+      },
+  
+      arrow: {
+        $visible: false,
+        $selector: '',
+        $direction: 'diag',
         $length: 40,
         $distance: 0,
         $scale: 1,

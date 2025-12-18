@@ -17,18 +17,20 @@ export const StepArrow = (props: StepArrowProps) => {
   return <>
     <ArrowPositionner
       {...props}
+      id='ARROW-POSITIONNER'
       $arrowTop={props.$foundElements?.[props.$currentStep].$arrowTop}
       $arrowLeft={props.$foundElements?.[props.$currentStep].$arrowLeft}
     >
     <ArrowContainer
       {...props}
+      id='ARROW-CONTAINER'
       $arrowTop={props.$foundElements?.[props.$currentStep].$arrowTop}
       $arrowLeft={props.$foundElements?.[props.$currentStep].$arrowLeft}
     >
-      <ArrowRotator {...props}>
+      <ArrowRotator {...props} id={undefined}>
         <>
-          <ArrowHeadStyled{...props}/>
-          <ArrowTailStyled{...props}/>
+          <ArrowHeadStyled{...props} id={undefined}/>
+          <ArrowTailStyled{...props} id={undefined}/>
         </>
       </ArrowRotator>
     </ArrowContainer>
