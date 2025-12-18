@@ -315,7 +315,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       Realiza el tour guiado para descubrir la interfaz de usuario de esta versión web y las reglas del juego.
     </p>,
-    'Start interface tour': 'Iniciar el tour',
 
     'Intro 1 title': <div>Presta atención a la flecha <b><RedText>roja</RedText></b>.</div>,
     'Intro 1 description': <>
@@ -457,7 +456,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       Machen Sie die geführte Tour, um die Benutzeroberfläche dieser Webversion sowie die Regeln des Spiels zu entdecken.
     </p>,
-    'Start interface tour': 'Beginnen Sie die Tour',
 
     'Intro 1 title': <div>Achten Sie auf den <b><RedText>roten</RedText></b> Pfeil.</div>,
     'Intro 1 description': <>
@@ -600,7 +598,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       Fai il tour guidato per scoprire l<Apos/>interfaccia utente di questa versione web, così come le regole del gioco.
     </p>,
-    'Start interface tour': 'Inizia il tour',
 
     'Intro 1 title': <div>Fai attenzione alla freccia <b><RedText>rossa</RedText></b>.</div>,
     'Intro 1 description': <>
@@ -743,7 +740,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       Maak de rondleiding om de gebruikersinterface van deze webversie en de spelregels te ontdekken.
     </p>,
-    'Start interface tour': 'Begin de tour',
 
     'Intro 1 title': <div>Let op de <b><RedText>rode</RedText></b> pijl.</div>,
     'Intro 1 description': <>
@@ -886,7 +882,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       Пройдите экскурсию, чтобы узнать о пользовательском интерфейсе этой веб-версии, а также о правилах игры.
     </p>,
-    'Start interface tour': 'Начать экскурсию',
 
     'Intro 1 title': <div>Обратите внимание на <b><RedText>красную</RedText></b> стрелку.</div>,
     'Intro 1 description': <>
@@ -1029,7 +1024,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       参加导览以发现此网页版本的用户界面及游戏规则。
     </p>,
-    'Start interface tour': '开始导览',
 
     'Intro 1 title': <div>请注意 <b><RedText>红色</RedText></b> 箭头。</div>,
     'Intro 1 description': <>
@@ -1172,7 +1166,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       ツアーに参加して、このウェブ版のユーザーインターフェースとゲームのルールを発見してください。
     </p>,
-    'Start interface tour': 'ツアーを開始',
 
     'Intro 1 title': <div><b><RedText>赤</RedText></b>の矢印に注意してください。</div>,
     'Intro 1 description': <>
@@ -1316,7 +1309,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       안내 투어에 참여하여 이 웹 버전의 사용자 인터페이스와 게임 규칙을 알아보세요.
     </p>,
-    'Start interface tour': '투어 시작',
 
     'Intro 1 title': <div>빨간색 <b><RedText>화살표</RedText></b>에 주의하세요.</div>,
     'Intro 1 description': <>
@@ -1459,7 +1451,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       Faça o tour guiado para descobrir a interface do usuário desta versão web e as regras do jogo.
     </p>,
-    'Start interface tour': 'Começar o tour',
 
     'Intro 1 title': <div>Preste atenção na seta <b><RedText>vermelha</RedText></b>.</div>,
     'Intro 1 description': <>
@@ -1602,7 +1593,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       Fè tour gid la pou dekouvri entèfas itilizatè vèsyon entènèt sa a ak règ yo nan jwèt la.
     </p>,
-    'Start interface tour': 'Kòmanse tour la',
 
     'Intro 1 title': <div>Fè atansyon ak flèch la <b><RedText>wouj</RedText></b>.</div>,
     'Intro 1 description': <>
