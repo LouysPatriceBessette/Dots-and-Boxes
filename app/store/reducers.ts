@@ -6,6 +6,7 @@ import { INITIAL_STATE_TYPE } from "../basics/types";
 export const INITIAL_STATE: INITIAL_STATE_TYPE = {
   app: {
     isLoading: false,
+    loadedTour: -1,
   },
   chat: {
     messages: [],
@@ -50,6 +51,12 @@ export const appReducer = (state = INITIAL_STATE.app, action: {type: string, pay
         ...state,
         isLoading: payload,
       };
+      case ACTION_TYPES.SET_LOADED_TOUR:
+      return {
+        ...state,
+        loadedTour: payload,
+      };
+      
     default:
       return state;
   }

@@ -4,6 +4,9 @@ import { createAction } from '../basics/utils';
 export const setIsLoading = (isLoading) =>
   createAction(ACTION_TYPES.SET_LOADING, isLoading);
 
+export const setLoadedTour = (loadedTour) =>
+  createAction(ACTION_TYPES.SET_LOADED_TOUR, loadedTour);
+
 export const resetReduxInitialState = () =>
   createAction(ACTION_TYPES.RESET_REDUX_STORE, null);
 

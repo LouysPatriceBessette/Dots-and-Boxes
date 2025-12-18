@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useIsLoading, useLanguage } from '../store/selectors';
-import { setIsLoading } from '../store/actions'
+import { useIsLoading, useLoadedTour, useLanguage } from '../store/selectors';
+import { setIsLoading, setLoadedTour } from '../store/actions'
 import { useDispatch } from 'react-redux';
 import { AppLoaderStyled as AppLoader } from './AppLoader.styled';
 import { TourStepsProps } from '../tour/index.types';
@@ -14,6 +14,8 @@ export const Loader = (props: TourStepsProps) => {
   const language = useLanguage()
 
   const {
+    tourNumber,
+
     setControlsDrawerOpen,
     setMore,
 
@@ -24,9 +26,11 @@ export const Loader = (props: TourStepsProps) => {
     setChatDrawerOpen,
   } = props
 
+  const loadedTour = useLoadedTour()
+
   useEffect(() => {
     if(window){
-      if(isLoading){
+      if(isLoading && loadedTour === -1){
 
         const addedStyle = window.document.createElement('style');
         addedStyle.innerHTML = `
@@ -48,12 +52,12 @@ export const Loader = (props: TourStepsProps) => {
         window.document.head.appendChild(removedStyle);
       }
     }
-  },[isLoading])
+  },[isLoading, loadedTour])
 
   useEffect(() => {
     const loadTime_start = performance.now();
 
-    if(isLoading){
+    if(isLoading && loadedTour !== tourNumber){
       // Loading a tour.
       // We are using existing game states to gather the tour elements rendered positions (used by the arrow).
       // This loop runs behing the scene, while showing the nice animated loader.
@@ -85,6 +89,7 @@ export const Loader = (props: TourStepsProps) => {
 
           // DISPATCH
           dispatch(setIsLoading(false))
+          dispatch(setLoadedTour(tourNumber))
         }, s: loadTime_start}
       ]
 

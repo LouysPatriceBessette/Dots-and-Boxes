@@ -1,7 +1,8 @@
  
 import { useEffect, useState, useRef } from 'react'
-import { useIsLoading, } from '../store/selectors';
-
+import { useIsLoading, useLoadedTour } from '../store/selectors';
+import { setIsLoading } from '../store/actions'
+import { useDispatch } from 'react-redux'
 import Chakra from '../components/Chakra'
 import {
   TourMainStyled,
@@ -43,7 +44,10 @@ export const Tour = ({
 
   const EDITING_STEPS = true
 
+  const dispatch = useDispatch()
   const isLoading = useIsLoading()
+  const loadedTour = useLoadedTour()
+
   const [currentStep, setCurrentStep] = useState(0)
   const [inputtingStep, setInputtingStep] = useState('')
 
@@ -105,7 +109,11 @@ export const Tour = ({
     // Find all the element positions
     // And keep them in foundElements
     // Only on page load (while the animated loading icon shows)
-    if(isLoading){
+    if(isLoading && (tourNumber !== loadedTour)){
+      // Reset the tour elements
+      foundElements.current = []
+
+      // Then refill with the new ones
       foundElements.current = selectors.map((selector, index) => {
 
         if(foundElements && foundElements.current && foundElements.current[index]?.isFoundInDOM){
@@ -237,6 +245,11 @@ export const Tour = ({
         console.log('found:', foundCount.length, foundCount.map((f) => f.$selector))
         console.log('not found:', notFoundCount.length, notFoundCount.map((f) => f.$selector))
       }
+    }
+
+    // If there is nothing new to load
+    else {
+      dispatch(setIsLoading(false))
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

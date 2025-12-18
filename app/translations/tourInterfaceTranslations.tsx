@@ -20,6 +20,8 @@ export const tourInterfaceTranslations = {
   EN: {
     'Loading the tour...': 'Loading the tour...',
 
+    'Start interface tour': <div>Game interface</div>,
+
     'Tour Dialog title': `Welcome to Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
@@ -30,7 +32,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       Take the guided tour to discover the user interface of this web version, as well as the rules of the game.
     </p>,
-    'Start interface tour': <div>Game interface</div>,
 
     'Intro 1 title': <div>Pay attention to the <b><RedText>red</RedText></b> arrow.</div>,
     'Intro 1 description': <>
@@ -161,6 +162,8 @@ export const tourInterfaceTranslations = {
   FR: {
     'Loading the tour...': 'Chargement de la visite...',
 
+    'Start interface tour': <div>L<Apos/>interface de jeu</div>,
+
     'Tour Dialog title': `Bienvenue dans Dots and Boxes !`,
     'Tour Dialog P1': <>
       <p>
@@ -171,7 +174,6 @@ export const tourInterfaceTranslations = {
     'Tour Dialog P2': <p>
       Faites la visite guidée pour découvrir l<Apos/>interface utilisateur de cette version web ainsi que les règles du jeu.
     </p>,
-    'Start interface tour': <div>L<Apos/>interface de jeu</div>,
 
     'Intro 1 title': <div>Portez attention à la flèche <b><RedText>rouge</RedText></b>.</div>,
     'Intro 1 description': <>
@@ -300,6 +302,8 @@ export const tourInterfaceTranslations = {
   },
   ES: {
     'Loading the tour...': 'Cargando el tour...',
+
+    'Start interface tour': <div>Interfaz del juego</div>,
 
     'Tour Dialog title': '¡Bienvenido a Dots and Boxes!',
     'Tour Dialog P1': <>
@@ -439,6 +443,10 @@ export const tourInterfaceTranslations = {
     </>
   },
   DE: {
+    'Loading the tour...': 'Lade die Tour...',
+
+   'Start interface tour': <div>Spieloberfläche</div>,
+
     'Tour Dialog title': `Willkommen bei Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
@@ -578,6 +586,10 @@ export const tourInterfaceTranslations = {
     </>,
   },
   IT: {
+    'Loading the tour...': 'Caricando il tour...',
+
+    'Start interface tour': <div>Interfaccia di gioco</div>,
+
     'Tour Dialog title': `Benvenuto in Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
@@ -717,6 +729,10 @@ export const tourInterfaceTranslations = {
     </>,
   },
   NL: {
+    'Loading the tour...': 'De tour wordt geladen...',
+
+    'Start interface tour': <div>Spelinterface</div>,
+
     'Tour Dialog title': `Welkom bij Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
@@ -856,6 +872,10 @@ export const tourInterfaceTranslations = {
     </>,
   },
   RU: {
+    'Loading the tour...': 'Загрузка тура...',
+
+    'Start interface tour': <div>Игровой интерфейс</div>,
+
     'Tour Dialog title': `Добро пожаловать в Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
@@ -995,6 +1015,10 @@ export const tourInterfaceTranslations = {
     </>,
   },
   ZH: {
+    'Loading the tour...': '正在加载游览...',
+
+    'Start interface tour': <div>游戏界面</div>,
+
     'Tour Dialog title': `欢迎来到 Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
@@ -1134,6 +1158,10 @@ export const tourInterfaceTranslations = {
     </>,
   },
   JA: {
+    'Loading the tour...': 'ツアーを読み込んでいます...',
+
+    'Start interface tour': <div>ゲームインターフェース</div>,
+
     'Tour Dialog title': `Dots and Boxesへようこそ！`,
     'Tour Dialog P1': <>
       <p>
@@ -1274,6 +1302,10 @@ export const tourInterfaceTranslations = {
 
   },
   KO: {
+    'Loading the tour...': '투어를 로드하는 중...',
+
+    'Start interface tour': <div>게임 인터페이스</div>,
+
     'Tour Dialog title': `Dots and Boxes에 오신 것을 환영합니다!`,
     'Tour Dialog P1': <>
       <p>
@@ -1413,6 +1445,10 @@ export const tourInterfaceTranslations = {
     </>,
   },
   PT: {
+    'Loading the tour...': 'Carregando o tour...',
+
+    'Start interface tour': <div>Interface do jogo</div>,
+
     'Tour Dialog title': `Bem-vindo ao Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
@@ -1552,6 +1588,10 @@ export const tourInterfaceTranslations = {
     </>,
   },
   HT: {
+    'Loading the tour...': 'Ap chaje vizit la...',
+
+    'Start interface tour': <div>Entèfas jwèt la</div>,
+    
     'Tour Dialog title': `Byenveni nan Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>

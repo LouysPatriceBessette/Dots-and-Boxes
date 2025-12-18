@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 
 export const useIsLoading = () => useSelector((state) => state.app.isLoading);
+export const useLoadedTour = () => useSelector((state) => state.app.loadedTour);
 
 export const useChat = () => useSelector((state) => state.chat);
 export const useGame = () => useSelector((state) => state.game);
