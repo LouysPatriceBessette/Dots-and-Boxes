@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import {
+  setVersion,
   setIsLoading,
   setLanguage,
   setNameOfPlayer1,
@@ -11,6 +12,7 @@ import {
   setGameIdChanged,
 } from "../store/actions";
 import {
+  useVersion,
   useIsLoading,
   useClientsCount,
   useLanguage,
@@ -69,6 +71,7 @@ export const Game = () => {
   const DEBUG_DISPLAY_MY_SOCKET_ID = Boolean(Number(process.env.DEBUG_DISPLAY_MY_SOCKET_ID));
 
   const dispatch = useDispatch()
+  const version = useVersion()
   const isLoading = useIsLoading()
 
   const clientsCount = useClientsCount()
@@ -98,19 +101,28 @@ export const Game = () => {
   const [languageSelectionMade, setLanguageSelectionMade] = useState('')
 
   useEffect(() => {
+    const processVersion = process.env.NEXT_PUBLIC_VERSION ?? ''
+    const storedVersion = localStorage.getItem('version')
     const storedGameId = localStorage.getItem('gameId')
     const player1Name = localStorage.getItem('player1Name')
     const storedLanguage = localStorage.getItem('language')
 
-    if(!storedLanguage){
-      setLanguageDialogOpen(true)
-    }
+    dispatch(setVersion(processVersion))
 
+    if(!!!storedVersion || storedVersion !== processVersion){
+      localStorage.clear()
+      localStorage.setItem('version', processVersion)
+    }
+    
     if(player1Name) {
       dispatch(setNameOfPlayer1(player1Name))
     }
     if(storedGameId) {
       dispatch(setGameId(storedGameId))
+    }
+
+    if(!storedLanguage){
+      setLanguageDialogOpen(true)
     }
     if(storedLanguage && language !== storedLanguage) {
       dispatch(setLanguage(storedLanguage))
@@ -428,8 +440,14 @@ export const Game = () => {
       </PageContainer>
 
       <Footer id='FOOTER'>
-        <div><LuCopyright/> <span>2025 - Louys Patrice Bessette</span></div>
-        <div><Chakra.Dialog
+        <div>
+          <LuCopyright/> <span>2025 - Louys Patrice Bessette</span>
+        </div>
+        <div>
+          Version: {version}
+        </div>
+        <div>
+          <Chakra.Dialog
             title={<LuInfo/>}
             body={<>
               <p>{t[language]['InfoDialogP1']}</p>
@@ -448,7 +466,8 @@ export const Game = () => {
             
             saveButtonText={t[language]['Ok']}
             cancelButtonHidden={true}
-          /></div>
+          />
+        </div>
       </Footer>
       
       <TourOverlay id='TOUR' $tourActive={tourActive}>

@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 
+export const useVersion = () => useSelector((state) => state.app.version);
 export const useIsLoading = () => useSelector((state) => state.app.isLoading);
 export const useLoadedTour = () => useSelector((state) => state.app.loadedTour);
 

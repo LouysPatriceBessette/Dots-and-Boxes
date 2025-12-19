@@ -1,13 +1,13 @@
 {
   "name": "dots-and-boxes",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "main": "server.js",
   "scripts": {
     "dev": "./create-env.sh development && node dots-server.js",
-    "build": "next build",
-    "start": "./create-env.sh production && node dots-server.js",
+    "build": "./create-env.sh production && next build",
+    "start": "node dots-server.js",
     "lint": "eslint"
   },
   "dependencies": {

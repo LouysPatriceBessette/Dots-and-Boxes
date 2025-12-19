@@ -1,6 +1,9 @@
 import { ACTION_TYPES } from '../basics/constants';
 import { createAction } from '../basics/utils';
 
+export const setVersion = (version) =>
+  createAction(ACTION_TYPES.SET_VERSION, version);
+
 export const setIsLoading = (isLoading) =>
   createAction(ACTION_TYPES.SET_LOADING, isLoading);
 

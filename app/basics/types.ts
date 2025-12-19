@@ -3,6 +3,7 @@ import { SupportedLanguagesType } from "../translations/supportedLanguages";
 
 export type INITIAL_STATE_TYPE = {
   app: {
+    version: string,
     isLoading: boolean,
     loadedTour: number,
   },

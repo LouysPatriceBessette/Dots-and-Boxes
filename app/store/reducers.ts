@@ -5,6 +5,7 @@ import { INITIAL_STATE_TYPE } from "../basics/types";
 
 export const INITIAL_STATE: INITIAL_STATE_TYPE = {
   app: {
+    version: '',
     isLoading: false,
     loadedTour: -1,
   },
@@ -46,6 +47,11 @@ export const appReducer = (state = INITIAL_STATE.app, action: {type: string, pay
   const { type, payload } = action
 
   switch (type) {
+    case ACTION_TYPES.SET_VERSION:
+      return {
+        ...state,
+        version: payload,
+      }
     case ACTION_TYPES.SET_LOADING:
       return {
         ...state,

@@ -169,15 +169,25 @@ export const Footer = styled.div`
   color: white;
   background-color: #656565ff;
 
-  & > div:nth-child(1){
+  & > div{
     display: flex;
     align-items: center;
-
-    & span{
-      margin-left: 0.5em;
-    }
+    min-width: 33.3%;
   }
-  & > div:nth-child(2) > div{
-    margin: 0;
+
+  & > div:nth-child(1) > span{
+    margin-left: 0.5em;
+  }
+
+  & > div:nth-child(2){
+    justify-content: center;
+  }
+
+  & > div:nth-child(3){
+    justify-content: end;
+    
+    & div{
+      margin: 0;
+    }
   }
 `
