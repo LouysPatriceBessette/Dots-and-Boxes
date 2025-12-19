@@ -7,6 +7,9 @@ export const setIsLoading = (isLoading) =>
 export const setLoadedTour = (loadedTour) =>
   createAction(ACTION_TYPES.SET_LOADED_TOUR, loadedTour);
 
+export const setTourUndispatch = (payload) =>
+  createAction(ACTION_TYPES.TOUR_UNDISPATCH, payload);
+
 export const resetReduxInitialState = () =>
   createAction(ACTION_TYPES.RESET_REDUX_STORE, null);
 

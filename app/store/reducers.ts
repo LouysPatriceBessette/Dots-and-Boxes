@@ -144,6 +144,11 @@ export const gameReducer = (state = INITIAL_STATE.game, action: {type: string, p
         ...state,
         fencedByP2: Array.from(new Set([...state.fencedByP2, payload])),
       };
+    case ACTION_TYPES.TOUR_UNDISPATCH:
+      return {
+        ...state,
+        ...payload,
+      };
     case ACTION_TYPES.SET_ANOTHER_GAME_CREATED:
       return {
         ...state,
