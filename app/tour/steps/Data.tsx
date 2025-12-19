@@ -560,9 +560,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Start play tour title'],
         $description: t[language]['Start play tour description'],
         $prevCallback: () => {},
-        $nextCallback: () => {
-          dispatch(toggleCurrentPlayer(1))
-        },
+        $nextCallback: () => { dispatch(toggleCurrentPlayer(1)) },
       },
   
       arrow: {
@@ -655,10 +653,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $description: t[language]['Simulated game move #4 description'],
         $definedPosition: 'C2',
         $prevCallback: () => {},
-        $nextCallback: () => {
-          dispatch(setCanConnectWith([2,4]))
-          dispatch(setOrigin(1))
-        },
+        $nextCallback: () => { dispatch(setCanConnectWith([2,4])); dispatch(setOrigin(1)) },
       },
   
       arrow: {
@@ -700,13 +695,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $description: t[language]['Simulated game move #6 description'],
         $definedPosition: 'C2',
         $prevCallback: () => {},
-        $nextCallback: () => {
-          dispatch(toggleCurrentPlayer(2))
-          dispatch(setUsedFences('H-1'))
-          dispatch(setUsedFencesP1('H-1'))
-          dispatch(setOrigin(-1))
-          setIsHLine(true)
-        },
+        $nextCallback: () => { dispatch(toggleCurrentPlayer(2)); dispatch(setUsedFences('H-1')); dispatch(setUsedFencesP1('H-1')); dispatch(setOrigin(-1)); setIsHLine(true) },
       },
   
       arrow: {
@@ -726,16 +715,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Simulated game move #7 title'],
         $description: t[language]['Simulated game move #7 description'],
         $definedPosition: 'C2',
-        $prevCallback: () => {
-          setIsHLine(false)
-        },
-        $nextCallback: () => {
-          setIsHLine(false)
-          setIsVLine(true)
-          dispatch(setUsedFences('V-2'))
-          dispatch(setUsedFencesP2('V-2'))
-          dispatch(toggleCurrentPlayer(1))
-        },
+        $prevCallback: () => {setIsHLine(false)},
+        $nextCallback: () => { setIsHLine(false); setIsVLine(true); dispatch(setUsedFences('V-2')); dispatch(setUsedFencesP2('V-2')); dispatch(toggleCurrentPlayer(1)) },
       },
   
       arrow: {
@@ -755,15 +736,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Simulated game move #8 title'],
         $description: t[language]['Simulated game move #8 description'],
         $definedPosition: 'C2',
-        $prevCallback: () => {
-          setIsVLine(false)
-        },
-        $nextCallback: () => {
-          dispatch(toggleCurrentPlayer(1))
-          dispatch(setCanConnectWith([1,5,7]))
-          dispatch(setOrigin(4))
-          setIsVLine(false)
-        },
+        $prevCallback: () => {setIsVLine(false)},
+        $nextCallback: () => { dispatch(toggleCurrentPlayer(1)); dispatch(setCanConnectWith([1,5,7])); dispatch(setOrigin(4)); setIsVLine(false) },
       },
   
       arrow: {
@@ -805,14 +779,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $description: t[language]['Simulated game move #10 description'],
         $definedPosition: 'C2',
         $prevCallback: () => {},
-        $nextCallback: () => {
-          dispatch(setUsedFences('V-1'))
-          dispatch(setUsedFencesP1('V-1'))
-          
-          setIsVLine(true)
-          dispatch(setOrigin(-1))
-          dispatch(toggleCurrentPlayer(2))
-        },
+        $nextCallback: () => { dispatch(setUsedFences('V-1')); dispatch(setUsedFencesP1('V-1')); setIsVLine(true); dispatch(setOrigin(-1)); dispatch(toggleCurrentPlayer(2)) },
       },
   
       arrow: {
@@ -832,16 +799,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Simulated game move #11 title'],
         $description: t[language]['Simulated game move #11 description'],
         $definedPosition: 'C2',
-        $prevCallback: () => {
-          setIsVLine(false)
-        },
-        $nextCallback: () => {
-          setIsVLine(false)
-          setIsHLine(true)
-          dispatch(setUsedFences('H-4'))
-          dispatch(setUsedFencesP2('H-4'))
-          dispatch(setFencedByP2(1))
-        },
+        $prevCallback: () => {setIsVLine(false)},
+        $nextCallback: () => { setIsVLine(false); setIsHLine(true); dispatch(setUsedFences('H-4')); dispatch(setUsedFencesP2('H-4')); dispatch(setFencedByP2(1)) },
       },
   
       arrow: {
@@ -861,10 +820,8 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Simulated game move #12 title'],
         $description: t[language]['Simulated game move #12 description'],
         $definedPosition: 'C2',
-        $prevCallback: () => {
-          setIsHLine(false)
-        },
-        $nextCallback: () => {},
+        $prevCallback: () => { setIsHLine(false) },
+        $nextCallback: () => { setIsHLine(false) },
       },
   
       arrow: {
@@ -923,9 +880,7 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $description: t[language]['Simulated game move #15 description'],
         $definedPosition: 'C2',
         $prevCallback: () => {},
-        $nextCallback: () => {
-
-        },
+        $nextCallback: () => {},
       },
   
       arrow: {
