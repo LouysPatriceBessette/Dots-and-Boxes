@@ -9,103 +9,97 @@ export const tourPlayTranslation = {
   FR: {
     'Start play tour': 'Règles du jeu',
 
-    'Start play tour title': <div>Comment jouer</div>,
+    'Start play tour title': <div>Comment jouer.</div>,
     'Start play tour description': <>
-      <div>Nous allons simuler une petite partie.</div>
-      <div><TourBlankLine/></div>
-      <div></div>
+      <div>Nous allons simuler une partie.</div>
     </>,
 
-    'Simulated game start title': <div>Numéro de partie</div>,
+    'Simulated game start title': <div>Numéro de partie.</div>,
     'Simulated game start description': <>
       <div>Suppopsons que vous êtes déjà connecté à cettte partie.</div>
       <div><TourBlankLine/></div>
-      <div></div>
+      <div>(Voir l<Apos/>autre visite guidée pour savoir comment faire.)</div>
     </>,
 
-    'Simulated game move #1 title': <div>Votre nom</div>,
+    'Simulated game move #1 title': <div>Votre nom.</div>,
     'Simulated game move #1 description': <>
-      <div>Vous êtes Bertha</div>
+      <div>Vous êtes Bertha.</div>
       <div><TourBlankLine/></div>
       <div>Désolé pour le choix de nom!</div>
     </>,
 
-    'Simulated game move #2 title': <div>Votre opposant</div>,
+    'Simulated game move #2 title': <div>Votre opposant.</div>,
     'Simulated game move #2 description': <>
       <div>Son nom est Horacio.</div>
-      {/* <div><TourBlankLine/></div>
-      <div></div> */}
     </>,
 
-    'Simulated game move #3 title': <div>Flèche de tour</div>,
+    'Simulated game move #3 title': <div>Flèche de tour.</div>,
     'Simulated game move #3 description': <>
       <div>C<Apos/>est votre tour.</div>
-      <div><TourBlankLine/></div>
-      <div></div>
     </>,
 
-    'Simulated game move #4 title': <div>Grille de jeu</div>,
+    'Simulated game move #4 title': <div>Grille de jeu.</div>,
     'Simulated game move #4 description': <>
       <div>Maintenant, focussons ici.</div>
-      <div><TourBlankLine/></div>
-      <div></div>
     </>,
 
-    'Simulated game move #5 title': <div>Votre premier click</div>,
+    'Simulated game move #5 title': <div>Votre premier clic.</div>,
     'Simulated game move #5 description': <>
-      <div>Vous faites un click (ou un touch) sur ce point.</div>
+      <div>Vous faites un clic sur (ou vous touchez) ce point.</div>
       <div><TourBlankLine/></div>
-      <div>Il devient orange et certains point sont maintenant vert.</div>
+      <div>Il devient orange et certains points sont maintenant verts.</div>
       <div>Ce sont vos possibilités pour choisir une ligne à tracer.</div>
     </>,
 
-    'Simulated game move #6 title': <div>Votre deuxème click</div>,
+    'Simulated game move #6 title': <div>Votre deuxième clic.</div>,
     'Simulated game move #6 description': <>
       <div>Vous choisissez ce point pour tracer une ligne horizontale.</div>
     </>,
 
-    'Simulated game move #7 title': <div>Votre ligne</div>,
+    'Simulated game move #7 title': <div>Votre ligne.</div>,
     'Simulated game move #7 description': <>
-      <div>Une line est tracée.</div>
+      <div>Une ligne est tracée.</div>
       <div><TourBlankLine/></div>
-      <div>Et c<Apos/>est le tour de Joueur 2</div>
+      <div>Et c<Apos/>est le tour de Joueur 2.</div>
     </>,
 
-    'Simulated game move #8 title': <div>Coup du Joueur 2</div>,
+    'Simulated game move #8 title': <div>Coup de Joueur 2.</div>,
     'Simulated game move #8 description': <>
-      <div>Il a tracé cettte ligne.</div>
+      <div>Il a tracé cette ligne.</div>
     </>,
 
-    'Simulated game move #9 title': <div>Votre deuxième tour</div>,
+    'Simulated game move #9 title': <div>Votre deuxième tour.</div>,
     'Simulated game move #9 description': <>
       <div>Vous cliquez ici.</div>
     </>,
 
-    'Simulated game move #10 title': <div>Votre 2e click de ce tour</div>,
+    'Simulated game move #10 title': <div>Votre deuxième clic de ce tour.</div>,
     'Simulated game move #10 description': <>
       <div>Vous cliquez là.</div>
     </>,
 
-    'Simulated game move #11 title': <div>Votre ligne</div>,
+    'Simulated game move #11 title': <div>Votre deuxième ligne.</div>,
     'Simulated game move #11 description': <>
-      <div>Une line est tracée.</div>
+      <div>La ligne est tracée.</div>
       <div><TourBlankLine/></div>
-      <div>Et c<Apos/>est le tour de Joueur 2</div>
+      <div>Et c<Apos/>est le tour de Joueur 2.</div>
     </>,
 
-    'Simulated game move #12 title': <div>Deuxième coup du Joueur 2</div>,
+    'Simulated game move #12 title': <div>Deuxième coup de Joueur 2.</div>,
     'Simulated game move #12 description': <>
-      <div>Il a joué.</div>
+      <div>Il a joué cette ligne car elle complète une boîte.</div>
     </>,
 
     'Simulated game move #13 title': <div>Et il a gagné un point!</div>,
     'Simulated game move #13 description': <>
-      <div>Parce qu<Apos/>une boîte a été fermée.</div>
+      <div>Parce que cette boîte a été fermée.</div>
       </>,
 
-    'Simulated game move #14 title': <div>Remarquez la flèche</div>,
+    'Simulated game move #14 title': <div>Remarquez la flèche.</div>,
     'Simulated game move #14 description': <>
-      <div>C<Apos/>est encore à lui de jouer...</div>
+      <div>C<Apos/>est encore à lui de jouer.</div>
+      <div><TourBlankLine/></div>
+      <div>Fermer une boîte (ou plus) donne un coup supplémentaire dans le même tour.</div>
     </>,
 
     'Simulated game move #15 title': <div>Continuez comme ça jusqu<Apos/>à la fin de la partie.</div>,

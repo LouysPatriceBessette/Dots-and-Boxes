@@ -930,10 +930,10 @@ export const TourStepsData = (props: TourStepsDataType) => {
   
       arrow: {
         $visible: false,
-        $selector: '',
-        $direction: 'diag',
+        $selector: '#currentTurn',
+        $direction: 'down',
         $length: 40,
-        $distance: 0,
+        $distance: -60,
         $scale: 1,
       }
     },
