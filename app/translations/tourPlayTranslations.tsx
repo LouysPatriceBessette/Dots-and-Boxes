@@ -110,7 +110,7 @@ export const tourPlayTranslation = {
 
     'Simulated game start title': <div>Numéro de partie.</div>,
     'Simulated game start description': <>
-      <div>Suppopsons que vous êtes déjà connecté à cettte partie.</div>
+      <div>Suppopsons que vous êtes déjà connecté à cette partie.</div>
       <div><TourBlankLine/></div>
       <div>(Voir l<Apos/>autre visite guidée pour savoir comment faire.)</div>
     </>,

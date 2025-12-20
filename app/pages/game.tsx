@@ -211,7 +211,7 @@ export const Game = () => {
   }
 
   return <>
-    <LoadingWrapper id='LOADINGWRAPPER' $isLoading={isLoading}>
+    <LoadingWrapper id='LOADINGWRAPPER' $isLoading={isLoading} $tourActive={tourActive}>
       <PageContainer id='GAME'>
         <ConnectedPlayersContainer id='connectedPlayers'>
           <span>{clientsCount}</span> {`${clientsCount >  1 ? t[language]['players'] : t[language]['player']} ${t[language]['online']}`}
@@ -325,6 +325,7 @@ export const Game = () => {
             title={<LuLanguages/>}
             body={
               <Chakra.Combobox
+                defaultOpen={true}
                 setSelectedComponent={(x: string) => {
                   if(x){
                     const languageCode = Object.entries(languages).filter(([_, value]) => value === x)?.[0]?.[0]

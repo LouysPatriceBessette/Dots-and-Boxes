@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
-export const LoadingWrapper = styled.div<{$isLoading?: boolean}>`
+export const LoadingWrapper = styled.div<{$isLoading?: boolean, $tourActive: boolean}>`
   opacity: ${(props) => !props.$isLoading ? '1' : '0'};
   transition: opacity 0.8s ease-in-out;
+
+  ${(props) => props.$tourActive ?
+  `& button:not(.tourDialogButton){
+    pointer-events: none !important;
+  }` : ''}
 `
 
 export const GameNumberStyled = styled.div`

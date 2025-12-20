@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { Box, Combobox, Portal, useListCollection, useFilter, useDisclosure } from '@chakra-ui/react'
 import { CustomLabel } from './customComponents'
 
@@ -9,6 +9,7 @@ export const ChakraCombobox = (props) => {
     options,
     setSelectedComponent,
     filterCallback,
+    defaultOpen,
   } = props
 
   const { open, setOpen } = useDisclosure()
@@ -22,6 +23,12 @@ export const ChakraCombobox = (props) => {
   const collectionFiltered = filterCallback ?
     collection.items.filter(filterCallback) :
     collection.items
+
+    useEffect(() => {
+      if(defaultOpen){
+        setOpen(true)
+      }
+    }, [setOpen, defaultOpen])
 
   return (
     <Box className='chakraContainer'>

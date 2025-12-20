@@ -328,6 +328,7 @@ export const Tour = ({
           <StepButtonContainer>
             <Chakra.Button
               text={<StepButton>←</StepButton>}
+              className='tourDialogButton'
               customVariant='grey'
               disabled={currentStep === 0}
               onClick={() => {
@@ -338,12 +339,14 @@ export const Tour = ({
 
             <Chakra.Button
               text={<LuDoorOpen/>}
+              className='tourDialogButton'
               customVariant='orange'
               onClick={quitTour}
             />
 
             <Chakra.Button
               text={<StepButton>→</StepButton>}
+              className='tourDialogButton'
               customVariant='green'
               disabled={currentStep === tourSteps[tourNumber].length - 1}
               onClick={() => {
