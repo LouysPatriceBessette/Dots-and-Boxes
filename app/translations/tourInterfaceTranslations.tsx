@@ -121,6 +121,9 @@ export const tourInterfaceTranslations = {
     'Language title': <div>Languages</div>,
     'Language description': <div>To choose another translation.</div>,
 
+    'DarkMode title': <div>Dark Mode</div>,
+    'DarkMode description': <div>For light and dark modes.</div>,
+
     'Chat title': <div>Chat Button</div>,
     'Chat description': <>
       <div>This button opens the chat panel.</div>
@@ -262,6 +265,9 @@ export const tourInterfaceTranslations = {
     'Language title': <div>Langues</div>,
     'Language description': <div>Pour choisir une autre traduction.</div>,
 
+    'DarkMode title': <div>Mode obscur</div>,
+    'DarkMode description': <div>Pour les modes clair et obscur.</div>,
+
     'Chat title': <div>Bouton de discussion</div>,
     'Chat description': <>
       <div>Ce bouton ouvre le panneau de discussion.</div>
@@ -402,6 +408,9 @@ export const tourInterfaceTranslations = {
 
     'Language title': <div>Idiomas</div>,
     'Language description': <div>Para elegir otra traducción.</div>,
+
+    'DarkMode title': <div>Modo oscuro</div>,
+    'DarkMode description': <div>Para modos claro y oscuro.</div>,
 
     'Chat title': <div>Botón de chat</div>,
     'Chat description': <>
@@ -545,6 +554,9 @@ export const tourInterfaceTranslations = {
     'Language title': <div>Sprachen</div>,
     'Language description': <div>Um eine andere Übersetzung auszuwählen.</div>,
 
+    'DarkMode title': <div>Dunkelmodus</div>,
+    'DarkMode description': <div>Für helle und dunkle Modi.</div>,
+
     'Chat title': <div>Chat-Knopf</div>,
     'Chat description': <>
       <div>Dieser Knopf öffnet das Chat-Fenster.</div>
@@ -687,6 +699,9 @@ export const tourInterfaceTranslations = {
     'Language title': <div>Lingue</div>,
     'Language description': <div>Per scegliere un<Apos/>altra traduzione.</div>,
 
+    'DarkMode title': <div>Modalità scura</div>,
+    'DarkMode description': <div>Per modalità chiare e scure.</div>,
+    
     'Chat title': <div>Pulsante di chat</div>,
     'Chat description': <>
       <div>Questo pulsante apre il pannello di chat.</div>
@@ -828,6 +843,9 @@ export const tourInterfaceTranslations = {
 
     'Language title': <div>Talen</div>,
     'Language description': <div>Om een andere vertaling te kiezen.</div>,
+
+    'DarkMode title': <div>Donkere modus</div>,
+    'DarkMode description': <div>Voor lichte en donkere modi.</div>,
 
     'Chat title': <div>Chatknop</div>,
     'Chat description': <>
@@ -971,6 +989,9 @@ export const tourInterfaceTranslations = {
     'Language title': <div>Языки</div>,
     'Language description': <div>Чтобы выбрать другой перевод.</div>,
 
+    'DarkMode title': <div>Тёмный режим</div>,
+    'DarkMode description': <div>Для светлых и тёмных режимов.</div>,
+
     'Chat title': <div>Кнопка чата</div>,
     'Chat description': <>
       <div>Эта кнопка открывает панель чата.</div>
@@ -1113,6 +1134,9 @@ export const tourInterfaceTranslations = {
     'Language title': <div>语言</div>,
     'Language description': <div>选择另一种翻译。</div>,
 
+    'DarkMode title': <div>黑暗模式</div>,
+    'DarkMode description': <div>用于亮模式和暗模式。</div>,
+
     'Chat title': <div>聊天按钮</div>,
     'Chat description': <>
       <div>此按钮打开聊天面板。</div>
@@ -1254,6 +1278,9 @@ export const tourInterfaceTranslations = {
 
     'Language title': <div>言語</div>,
     'Language description': <div>別の翻訳を選択します。</div>,
+
+    'DarkMode title': <div>ダークモード</div>,
+    'DarkMode description': <div>明るいモードと暗いモード用。</div>,
 
     'Chat title': <div>チャットボタン</div>,
     'Chat description': <>
@@ -1398,6 +1425,9 @@ export const tourInterfaceTranslations = {
     'Language title': <div>언어</div>,
     'Language description': <div>다른 번역을 선택합니다.</div>,
 
+    'DarkMode title': <div>어두운 모드</div>,
+    'DarkMode description': <div>밝은 모드와 어두운 모드에 사용할 수 있습니다.</div>,
+
     'Chat title': <div>채팅 버튼</div>,
     'Chat description': <>
       <div>이 버튼은 채팅 패널을 엽니다.</div>
@@ -1540,6 +1570,9 @@ export const tourInterfaceTranslations = {
     'Language title': <div>Idiomas</div>,
     'Language description': <div>Para escolher outra tradução.</div>,
 
+    'DarkMode title': <div>Modo escuro</div>,
+    'DarkMode description': <div>Para modos claro e escuro.</div>,
+
     'Chat title': <div>Botão de chat</div>,
     'Chat description': <>
       <div>Este botão abre o painel de chat.</div>
@@ -1681,6 +1714,9 @@ export const tourInterfaceTranslations = {
 
     'Language title': <div>Lang</div>,
     'Language description': <div>Pou chwazi yon lòt tradiksyon.</div>,
+
+    'DarkMode title': <div>Mod nwa</div>,
+    'DarkMode description': <div>Pou mòd klè ak nwa.</div>,
 
     'Chat title': <div>Button chat</div>,
     'Chat description': <>

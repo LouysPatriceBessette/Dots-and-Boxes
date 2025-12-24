@@ -59,6 +59,7 @@ import {
   WelcomeDialogBodyStyled,
   GameOver,
   Footer,
+  DarkModeContainer,
 } from "./game.styled";
 import Chakra from "../components/Chakra";
 import { Chat } from "../components/chat";
@@ -101,6 +102,12 @@ export const Game = () => {
   // Dialogs open states
   const [languageDialogOpen, setLanguageDialogOpen] = useState(false)
   const [languageSelectionMade, setLanguageSelectionMade] = useState('')
+  const [darkMode, setDarkMode] = useState(false)
+
+
+  useEffect(() => {
+    setDarkMode(document.querySelector('html')?.classList.contains('dark') ?? false)
+  }, [darkMode])
 
   useEffect(() => {
     const processVersion = process.env.NEXT_PUBLIC_VERSION ?? ''
@@ -213,7 +220,7 @@ export const Game = () => {
 
   return <>
     <LoadingWrapper id='LOADINGWRAPPER' $isLoading={isLoading} $tourActive={tourActive}>
-      <PageContainer id='GAME'>
+      <PageContainer id='GAME' $darkMode={darkMode}>
         <ConnectedPlayersContainer id='connectedPlayers'>
           <span>{clientsCount}</span> {`${clientsCount >  1 ? t[language]['players'] : t[language]['player']} ${t[language]['online']}`}
         </ConnectedPlayersContainer>
@@ -245,6 +252,9 @@ export const Game = () => {
               setMore={setMore}
 
               tourActive={tourActive}
+
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
             />
           </Chakra.Drawer>
 
@@ -318,7 +328,7 @@ export const Game = () => {
         </PlayersScoreHeader>
 
         <GameGridContainer>
-          <GameGrid id='playGrid' />
+          <GameGrid id='playGrid' darkMode={darkMode} />
         </GameGridContainer>
 
         <LanguageDialogContainer>
@@ -365,39 +375,43 @@ export const Game = () => {
           />
 
           <Chakra.Dialog
-            title={<WelcomeDialogTitleStyled>
-              <LuDoorOpen/> <span>{t[language]['Tour Dialog title']}</span>
-            </WelcomeDialogTitleStyled>}
-            body={<WelcomeDialogBodyStyled>
-              {t[language]['Tour Dialog P1']}
-              {t[language]['Tour Dialog P2']}
+            title={<DarkModeContainer $darkMode={darkMode}>
+              <WelcomeDialogTitleStyled>
+                <LuDoorOpen/> <span>{t[language]['Tour Dialog title']}</span>
+              </WelcomeDialogTitleStyled>
+            </DarkModeContainer>}
+            body={<DarkModeContainer $darkMode={darkMode}>
+              <WelcomeDialogBodyStyled>
+                {t[language]['Tour Dialog P1']}
+                {t[language]['Tour Dialog P2']}
 
-              <Chakra.Button
-                text={t[language]['Start play tour']}
-                onClick={() => {
-                  dispatch(setIsLoading(true))
-                  setTourNumber(1)
-                  setTourActive(true)
-                  setWelcomeDialogOpen(false)
-                }}
-                customVariant='orange'
-                disabled={gameId !== -1}
-              />
+                <Chakra.Button
+                  text={t[language]['Start play tour']}
+                  onClick={() => {
+                    dispatch(setIsLoading(true))
+                    setTourNumber(1)
+                    setTourActive(true)
+                    setWelcomeDialogOpen(false)
+                  }}
+                  customVariant='orange'
+                  disabled={gameId !== -1}
+                />
 
-              <Chakra.Button
-                text={t[language]['Start interface tour']}
-                onClick={() => {
-                  dispatch(setIsLoading(true))
-                  setTourNumber(0)
-                  setTourActive(true)
-                  setWelcomeDialogOpen(false)
-                  setControlsDrawerOpen(false)
-                }}
-                customVariant='orange'
-                disabled={gameId !== -1}
-              />
+                <Chakra.Button
+                  text={t[language]['Start interface tour']}
+                  onClick={() => {
+                    dispatch(setIsLoading(true))
+                    setTourNumber(0)
+                    setTourActive(true)
+                    setWelcomeDialogOpen(false)
+                    setControlsDrawerOpen(false)
+                  }}
+                  customVariant='orange'
+                  disabled={gameId !== -1}
+                />
 
-            </WelcomeDialogBodyStyled>}
+              </WelcomeDialogBodyStyled>
+            </DarkModeContainer>}
 
             open={welcomeDialogOpen}
             setOpen={setWelcomeDialogOpen}

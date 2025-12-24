@@ -13,9 +13,10 @@ import {
 import t from "../translations";
 import { SupportedLanguagesType } from "../translations/supportedLanguages";
 
-  const dot = (key: number, id: number) => <Dot
+  const dot = (key: number, id: number, darkMode: boolean) => <Dot
     key={key}
     identifier={id}
+    darkMode={darkMode}
   />
 
   const hline = (key: number, id: number) => <Hline
@@ -28,12 +29,13 @@ import { SupportedLanguagesType } from "../translations/supportedLanguages";
     identifier={id}
   />
 
-  const square = (key: number, id: number) => <Square
+  const square = (key: number, id: number, darkMode: boolean) => <Square
     key={key}
     identifier={id}
+    darkMode={darkMode}
   />
 
-  export const fillGrid = (size: { x: number; y: number; }) => {
+  export const fillGrid = (size: { x: number; y: number; }, darkMode: boolean) => {
 
     const rowSize = size.x * 2
     const colSize = size.y * 2
@@ -53,7 +55,7 @@ import { SupportedLanguagesType } from "../translations/supportedLanguages";
     let sCount = 0.5
 
     // Fill the grid
-    cells[0] = dot(0, 1)
+    cells[0] = dot(0, 1, darkMode)
     for (let i = 1; i<cells.length; i++){
 
       // Toggle Pattern
@@ -74,7 +76,7 @@ import { SupportedLanguagesType } from "../translations/supportedLanguages";
       // Use the right component
       switch (component) {
         case 'D':
-          cells[i] = dot(i, dCount)
+          cells[i] = dot(i, dCount, darkMode)
           dCount++
           break;
         case 'H':
@@ -86,7 +88,7 @@ import { SupportedLanguagesType } from "../translations/supportedLanguages";
           vCount++
           break;
         case 'S':
-          cells[i] = square(i, sCount)
+          cells[i] = square(i, sCount, darkMode)
           sCount++
           break;
       }
@@ -94,7 +96,7 @@ import { SupportedLanguagesType } from "../translations/supportedLanguages";
 
     return cells
   }
-export const GameGrid = ({id}: {id: string}) => {
+export const GameGrid = ({id, darkMode}: {id: string, darkMode: boolean}) => {
   const language: SupportedLanguagesType = useLanguage()
   const size = useSize()
   const gameId = useGameId()
@@ -111,7 +113,7 @@ export const GameGrid = ({id}: {id: string}) => {
     <GridContainer $waitingForOpponent={waitingForOpponent} id={id}>
       <GridOverlay $waitingForOpponent={waitingForOpponent}>{waitingForOpponentMsg}</GridOverlay>
       <Grid $size={(size.x * 2) - 1} $waitingForOpponent={waitingForOpponent}>
-        {fillGrid(size)}
+        {fillGrid(size, darkMode)}
       </Grid>
     </GridContainer>
   );

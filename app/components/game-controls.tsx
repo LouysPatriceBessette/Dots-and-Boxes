@@ -13,7 +13,8 @@ import {
   useGameId,
   useSocketRemoteHasLeft
 } from "../store/selectors";
-import { LuChevronLeft, LuChevronRight, LuLanguages } from 'react-icons/lu'
+import { LuChevronLeft, LuChevronRight, LuLanguages, LuSun, LuMoon } from 'react-icons/lu'
+import { useColorMode } from "./Chakra/ChakraProvider/color-mode";
 
 import { useDispatch } from "react-redux";
 import { SOCKET_ACTIONS } from "../basics/constants";
@@ -21,6 +22,7 @@ import Chakra from "./Chakra";
 import { GridContainer, Grid } from './grid-elements'
 import { fillGrid } from "./game-grid";
 import { DialogGridStyled as DialogGrid, DialogLabelStyled, ControlButtonsContainer } from "./game-controls.styled";
+import { DarkModeContainer } from "../pages/game.styled";
 
 // Translations
 import t from "../translations";
@@ -40,6 +42,9 @@ export const GameControls = ({
 
   more,
   setMore,
+
+  darkMode,
+  setDarkMode,
 }: {
   setWelcomeDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
 
@@ -54,6 +59,9 @@ export const GameControls = ({
 
   more: boolean
   setMore: React.Dispatch<React.SetStateAction<boolean>>,
+
+  darkMode: boolean,
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>,
 }) => {
   const DEBUG_LOCAL_STORAGE = Boolean(Number(process.env.NEXT_PUBLIC_DEBUG_LOCAL_STORAGE))
 
@@ -73,6 +81,8 @@ export const GameControls = ({
 
   const pinLength = 6
   const [pinString, setPinString] = useState('')
+
+  const { toggleColorMode } = useColorMode()
 
   const languageItems = Object.entries(languages).map((item) =>
     ({label: item[1], value: item[0], disabled: language === item[0]}))
@@ -136,7 +146,7 @@ export const GameControls = ({
     {value: 12, label: '12'},
   ]
 
-  const CreateForm = <>
+  const CreateForm = <DarkModeContainer $darkMode={darkMode}>
 
     <Chakra.Input
       id='create-input'
@@ -181,12 +191,12 @@ export const GameControls = ({
       <div>
         <GridContainer id='createGrid' $waitingForOpponent={true}>
           <Grid $size={((x + 1) * 2) - 1} $waitingForOpponent={true}>
-            {fillGrid({x: (x + 1), y: (y + 1)})}
+            {fillGrid({x: (x + 1), y: (y + 1)}, darkMode)}
           </Grid>
         </GridContainer>
       </div>
     </DialogGrid>
-  </>
+  </DarkModeContainer>
 
   // This callback call is made in the create Dialog on save button click
   const createGameCallback = () => {
@@ -214,7 +224,7 @@ export const GameControls = ({
     socket.emit('message', JSON.stringify(request))
   }
 
-  const JoinForm = <>
+  const JoinForm = <DarkModeContainer $darkMode={darkMode}>
     <Chakra.Input
       id='join-input'
       ref={nameInput}
@@ -234,7 +244,7 @@ export const GameControls = ({
       getPin={setPinString}
       lastPin={localStorage.getItem('LastGameNumberUsed') ?? ''}
     />
-  </>
+  </DarkModeContainer>
 
   // This callback call is made in the join Dialog on save button click
   const joinGameCallback = () => {
@@ -395,6 +405,15 @@ export const GameControls = ({
               setControlsDrawerOpen(false)
             }}
           buttonCustomVariant='green'
+        />
+
+        <Chakra.Button
+          id='darkMode'
+          text={darkMode ? <LuMoon/> : <LuSun/>}
+          onClick={() => {
+            setDarkMode((prev) => !prev)
+            toggleColorMode()
+          }}
         />
       </>}
     </ControlButtonsContainer>

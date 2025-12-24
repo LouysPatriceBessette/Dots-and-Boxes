@@ -445,12 +445,32 @@ export const TourStepsData = (props: TourStepsDataType) => {
         $title: t[language]['Language title'],
         $description: t[language]['Language description'],
         $prevCallback: () => {},
-        $nextCallback: () => { setMore(false); setControlsDrawerOpen(false) },
+        $nextCallback: () => {},
       },
 
       arrow: {
         $visible: true,
         $selector: '#language',
+        $direction: 'up',
+        $length: 40,
+        $distance: 12,
+        $scale: 1,
+      }
+    },
+
+    // ================================================== Dark Mode
+    {
+      dialog: {
+        $visible: true,
+        $title: t[language]['DarkMode title'],
+        $description: t[language]['DarkMode description'],
+        $prevCallback: () => {},
+        $nextCallback: () => { setMore(false); setControlsDrawerOpen(false) },
+      },
+
+      arrow: {
+        $visible: true,
+        $selector: '#darkMode',
         $direction: 'up',
         $length: 40,
         $distance: 12,

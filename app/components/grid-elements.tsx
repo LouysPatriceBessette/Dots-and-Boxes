@@ -32,7 +32,7 @@ export const Grid = GridStyled
 export const GridContainer = GridContainerStyled
 export const GridOverlay = GridOverlayStyled
 
-export const Square = ({identifier}: {identifier: number}) => {
+export const Square = ({identifier, darkMode}: {identifier: number, darkMode: boolean}) => {
   const fencedByP1 = useFencedByP1()
   const fencedByP2 = useFencedByP2()
   
@@ -42,11 +42,11 @@ export const Square = ({identifier}: {identifier: number}) => {
   const wasFencedBy = wasFencedByP1 ? 1 : wasFencedByP2 ? 2 : 0
 
   return (
-    <SquareStyled data-box={identifier} $wasFencedBy={wasFencedBy}/>
+    <SquareStyled data-box={identifier} $wasFencedBy={wasFencedBy} $darkMode={darkMode}/>
   );
 }
 
-export const Dot = ({identifier}:{identifier: number}) => {
+export const Dot = ({identifier, darkMode}:{identifier: number, darkMode: boolean}) => {
   const dispatch = useDispatch()
   const socket = useSocketInstance()
   const iamPlayer = useIamPlayer()
@@ -228,6 +228,7 @@ export const Dot = ({identifier}:{identifier: number}) => {
       $isOrigin={origin === identifier}
       $isFriend={canConnectWith.includes(identifier)}
       $origin={origin}
+      $darkMode={darkMode}
     />
   </DotContainer>);
 }

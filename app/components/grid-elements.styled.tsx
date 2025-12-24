@@ -30,11 +30,11 @@ export const GridStyled = styled.div<{$size: number, $waitingForOpponent: boolea
   ${(props) => props.$waitingForOpponent ? "pointer-events: none;" : ""}
 `;
 
-export const SquareStyled = styled.div<{$wasFencedBy: number}>`
+export const SquareStyled = styled.div<{$wasFencedBy: number, $darkMode: boolean}>`
   display: inline-block;
   width: 40px;
   height: 40px;
-  background-color: ${props => props.$wasFencedBy === 1 ? "green" : props.$wasFencedBy === 2 ? "blue" : "white"};
+  background-color: ${props => props.$wasFencedBy === 1 ? "green" : props.$wasFencedBy === 2 ? "blue" : props.$darkMode  ? "black" :"white"};
   border-radius: 5px;
 
 `;
@@ -58,10 +58,10 @@ export const DotClickZone = styled.div<{$isFriend: boolean, $isOrigin: boolean, 
   cursor: ${(props) => props.$origin === -1 || (props.$isOrigin || props.$isFriend) ? "pointer" : "default"};
 `
 
-export const DotStyled = styled.div<{$isFriend: boolean, $isOrigin: boolean, $origin: number}>`
+export const DotStyled = styled.div<{$isFriend: boolean, $isOrigin: boolean, $origin: number, $darkMode: boolean}>`
   width: 10px;
   height: 10px;
-  background-color: ${(props) => props.$origin === -1 ? 'black' :props.$isOrigin ? "orange" : props.$isFriend ? "green" : "lightgrey"};
+  background-color: ${(props) => props.$isOrigin ? "orange" : props.$isFriend ? "green" : props.$origin === -1 && props.$darkMode ? "white" : 'black'};
   border-radius: 50%;
 `;
 

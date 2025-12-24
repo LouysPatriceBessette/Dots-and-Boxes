@@ -29,10 +29,12 @@ export const GameNumberStyled = styled.div`
   }
 `
 
-export const PageContainer = styled.div`
+export const PageContainer = styled.div<{$darkMode: boolean}>`
   width: 100%;
   min-height: calc(100vh - 50px);
   padding: 10px 20px 40px;
+  ${(props) => props.$darkMode ? 'background-color: black;' : ''}
+  ${(props) => props.$darkMode ? 'color: white;' : ''}
 `
 
 export const ConnectedPlayersContainer = styled.div`
@@ -120,6 +122,11 @@ export const LanguageDialogContainer = styled.div`
   & button{
     display: none;
   }
+`
+
+export const DarkModeContainer = styled.div<{$darkMode: boolean}>`
+  ${(props) => props.$darkMode ? 'background-color:  rgb(17, 17, 17);' : ''}
+  ${(props) => props.$darkMode ? 'color: white;' : ''}
 `
 
 export const WelcomeDialogTitleStyled = styled.div`

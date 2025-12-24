@@ -15,4 +15,4 @@ export const languages = {
 
 export type SupportedLanguagesType = "EN" | "FR" | "ES" | "DE" | "IT" |"NL" | "RU" | "ZH" | "JA" | "KO" | "PT" | "HT"
 
-export const supportedLanguages: SupportedLanguagesType[] = ['EN','FR','ES','DE','NL','RU','ZH','JA','KO','PT','HT']
+export const supportedLanguages: SupportedLanguagesType[] = ['EN','FR','ES','DE','IT','NL','RU','ZH','JA','KO','PT','HT']
