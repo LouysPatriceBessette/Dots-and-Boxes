@@ -432,8 +432,8 @@ export const Game = () => {
         <GameOver>
           {gameover && <div>{t[language]['Game Over']}</div>}
           <Chakra.Dialog
-            title={t[language]['Game Over']}
-            body={<p id='gameover-body'>{`${t[language]['Invite']} ${otherPlayerName} ${t[language]['to play another game with you?']}`}</p>}
+            title={<DarkModeContainer $darkMode={darkMode}>{t[language]['Game Over']}</DarkModeContainer>}
+            body={<DarkModeContainer $darkMode={darkMode}><p id='gameover-body'>{`${t[language]['Invite']} ${otherPlayerName} ${t[language]['to play another game with you?']}`}</p></DarkModeContainer>}
 
             open={gameoverDialogOpen}
             setOpen={setGameoverDialogOpen}
@@ -470,8 +470,8 @@ export const Game = () => {
         </div>
         <div>
           <Chakra.Dialog
-            title={<LuInfo/>}
-            body={<>
+            title={<DarkModeContainer $darkMode={darkMode}><LuInfo/></DarkModeContainer>}
+            body={<DarkModeContainer $darkMode={darkMode}>
               <p>{t[language]['InfoDialogP1']}</p>
               <p>&nbsp;</p>
               <p>{t[language]['InfoDialogP2']}</p>
@@ -481,7 +481,7 @@ export const Game = () => {
               <p>{t[language]['InfoDialogP4']}</p>
               <p>&nbsp;</p>
               <p>{t[language]['InfoDialogP5']}</p>
-            </>}
+            </DarkModeContainer>}
 
             openButtonText={<LuInfo/>}
             openButtonColor='nav'
