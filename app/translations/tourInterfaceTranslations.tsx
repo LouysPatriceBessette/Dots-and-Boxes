@@ -25,7 +25,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `Welcome to Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
-        This game was described by <Anchor href={wikilinks['EN']}><Bold>Édouard Lucas</Bold></Anchor>, a renowned French mathematician, in his book <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Scientific Games to Serve History). He passed away two years later, on October 3, 1991, at the age of 49.
+        This game was described by <Anchor href={wikilinks['EN']}><Bold>Édouard Lucas</Bold></Anchor>, a renowned French mathematician, in his book <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Scientific Games to Serve History). He passed away two years later, on October 3, 1891, at the age of 49.
       </p>
       <Hr/>
     </>,
@@ -170,7 +170,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `Bienvenue dans Dots and Boxes !`,
     'Tour Dialog P1': <>
       <p>
-        Ce jeu a été décrit par <Anchor href={wikilinks['FR']}><Bold>Édouard Lucas</Bold></Anchor>, un mathématicien français renommé, dans son livre <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/>. Il est décédé deux ans plus tard, le 3 octobre 1991, à l<Apos/>âge de 49 ans.
+        Ce jeu a été décrit par <Anchor href={wikilinks['FR']}><Bold>Édouard Lucas</Bold></Anchor>, un mathématicien français renommé, dans son livre <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/>. Il est décédé deux ans plus tard, le 3 octobre 1891, à l<Apos/>âge de 49 ans.
       </p>
       <Hr/>
     </>,
@@ -314,7 +314,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': '¡Bienvenido a Dots and Boxes!',
     'Tour Dialog P1': <>
       <p>
-        Este juego fue descrito por <Anchor href={wikilinks['ES']}><Bold>Édouard Lucas</Bold></Anchor>, un renombrado matemático francés, en su libro <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Juegos Científicos para Servir a la Historia). Falleció dos años después, el 3 de octubre de 1991, a la edad de 49 años.
+        Este juego fue descrito por <Anchor href={wikilinks['ES']}><Bold>Édouard Lucas</Bold></Anchor>, un renombrado matemático francés, en su libro <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Juegos Científicos para Servir a la Historia). Falleció dos años después, el 3 de octubre de 1891, a la edad de 49 años.
       </p>
       <Hr/>
     </>,
@@ -458,7 +458,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `Willkommen bei Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
-        Dieses Spiel wurde von <Anchor href={wikilinks['DE']}><Bold>Édouard Lucas</Bold></Anchor>, einem renommierten französischen Mathematiker, in seinem Buch <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Wissenschaftliche Spiele zur Geschichtsvermittlung) beschrieben. Er starb zwei Jahre später, am 3. Oktober 1991, im Alter von 49 Jahren.
+        Dieses Spiel wurde von <Anchor href={wikilinks['DE']}><Bold>Édouard Lucas</Bold></Anchor>, einem renommierten französischen Mathematiker, in seinem Buch <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Wissenschaftliche Spiele zur Geschichtsvermittlung) beschrieben. Er starb zwei Jahre später, am 3. Oktober 1891, im Alter von 49 Jahren.
       </p>
       <Hr/>
     </>,
@@ -603,7 +603,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `Benvenuto in Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
-        Questo gioco è stato descritto da <Anchor href={wikilinks['IT']}><Bold>Édouard Lucas</Bold></Anchor>, un rinomato matematico francese, nel suo libro <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Giochi Scientifici per Servire la Storia). È deceduto due anni dopo, il 3 ottobre 1991, all<Apos/>età di 49 anni.
+        Questo gioco è stato descritto da <Anchor href={wikilinks['IT']}><Bold>Édouard Lucas</Bold></Anchor>, un rinomato matematico francese, nel suo libro <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Giochi Scientifici per Servire la Storia). È deceduto due anni dopo, il 3 ottobre 1891, all<Apos/>età di 49 anni.
       </p>
       <Hr/>
     </>,
@@ -748,7 +748,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `Welkom bij Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
-        Dit spel werd beschreven door <Anchor href={wikilinks['NL']}><Bold>Édouard Lucas</Bold></Anchor>, een gerenommeerde Franse wiskundige, in zijn boek <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Wetenschappelijke Spellen ter Dienst van de Geschiedenis). Hij overleed twee jaar later, op 3 oktober 1991, op 49-jarige leeftijd.
+        Dit spel werd beschreven door <Anchor href={wikilinks['NL']}><Bold>Édouard Lucas</Bold></Anchor>, een gerenommeerde Franse wiskundige, in zijn boek <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Wetenschappelijke Spellen ter Dienst van de Geschiedenis). Hij overleed twee jaar later, op 3 oktober 1891, op 49-jarige leeftijd.
       </p>
       <Hr/>
     </>,
@@ -893,7 +893,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `Добро пожаловать в Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
-        Эта игра была описана <Anchor href={wikilinks['RU']}><Bold>Эдуаром Люкасом</Bold></Anchor>, известным французским математиком, в его книге <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Научные игры для истории). Он скончался два года спустя, 3 октября 1991 года, в возрасте 49 лет.
+        Эта игра была описана <Anchor href={wikilinks['RU']}><Bold>Эдуаром Люкасом</Bold></Anchor>, известным французским математиком, в его книге <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Научные игры для истории). Он скончался два года спустя, 3 октября 1891 года, в возрасте 49 лет.
       </p>
       <Hr/>
     </>,
@@ -1038,7 +1038,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `欢迎来到 Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
-        该游戏由 <Anchor href={wikilinks['ZH']}><Bold>埃杜阿尔·卢卡斯</Bold></Anchor>，一位著名的法国数学家，在他的书中进行了描述 <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (科学游戏服务于历史)。他于1991年10月3日去世，享年49岁。
+        该游戏由 <Anchor href={wikilinks['ZH']}><Bold>埃杜阿尔·卢卡斯</Bold></Anchor>，一位著名的法国数学家，在他的书中进行了描述 <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (科学游戏服务于历史)。他于1891年10月3日去世，享年49岁。
       </p>
       <Hr/>
     </>,
@@ -1183,7 +1183,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `Dots and Boxesへようこそ！`,
     'Tour Dialog P1': <>
       <p>
-        このゲームは、著名なフランスの数学者<Anchor href={wikilinks['JA']}><Bold>エドゥアール・リュカス</Bold></Anchor>によって、彼の著書<Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (歴史に役立つ科学ゲーム)に記述されました。彼は1991年10月3日に49歳で亡くなりました。
+        このゲームは、著名なフランスの数学者<Anchor href={wikilinks['JA']}><Bold>エドゥアール・リュカス</Bold></Anchor>によって、彼の著書<Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (歴史に役立つ科学ゲーム)に記述されました。彼は1891年10月3日に49歳で亡くなりました。
       </p>
       <Hr/>
     </>,
@@ -1329,7 +1329,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `Dots and Boxes에 오신 것을 환영합니다!`,
     'Tour Dialog P1': <>
       <p>
-        이 게임은 프랑스의 유명한 수학자 <Anchor href={wikilinks['KO']}><Bold>에두아르 루카스</Bold></Anchor>가 그의 저서 <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (역사에 도움이 되는 과학 게임)에서 설명했습니다. 그는 1991년 10월 3일 49세의 나이로 세상을 떠났습니다.
+        이 게임은 프랑스의 유명한 수학자 <Anchor href={wikilinks['KO']}><Bold>에두아르 루카스</Bold></Anchor>가 그의 저서 <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (역사에 도움이 되는 과학 게임)에서 설명했습니다. 그는 1891년 10월 3일 49세의 나이로 세상을 떠났습니다.
       </p>
       <Hr/>
     </>,
@@ -1474,7 +1474,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `Bem-vindo ao Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
-        Este jogo foi descrito por <Anchor href={wikilinks['PT']}><Bold>Édouard Lucas</Bold></Anchor>, um renomado matemático francês, em seu livro <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Jogos científicos para servir à história). Ele faleceu dois anos depois, em 3 de outubro de 1991, aos 49 anos.
+        Este jogo foi descrito por <Anchor href={wikilinks['PT']}><Bold>Édouard Lucas</Bold></Anchor>, um renomado matemático francês, em seu livro <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Jogos científicos para servir à história). Ele faleceu dois anos depois, em 3 de outubro de 1891, aos 49 anos.
       </p>
       <Hr/>
     </>,
@@ -1619,7 +1619,7 @@ export const tourInterfaceTranslations = {
     'Tour Dialog title': `Byenveni nan Dots and Boxes!`,
     'Tour Dialog P1': <>
       <p>
-        Jwèt sa a te dekri pa <Anchor href={wikilinks['HT']}><Bold>Édouard Lucas</Bold></Anchor>, yon matematisyen franse renome, nan liv li <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Jwèt syantifik pou sèvi ak istwa). Li te mouri de zan apre, le 3 oktòb 1991, a laj de 49 ane.
+        Jwèt sa a te dekri pa <Anchor href={wikilinks['HT']}><Bold>Édouard Lucas</Bold></Anchor>, yon matematisyen franse renome, nan liv li <Quot/><Italic>Jeux scientifiques pour servir à l<Apos/>histoire</Italic><Quot/> (Jwèt syantifik pou sèvi ak istwa). Li te mouri de zan apre, le 3 oktòb 1891, a laj de 49 ane.
       </p>
       <Hr/>
     </>,
