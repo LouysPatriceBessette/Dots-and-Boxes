@@ -42,5 +42,5 @@ jobs:
             cd /var/www/restarter
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            . ./restart.sh 3002 > /dev/null 2>&1 &
+            . ./restart.sh 3001 > /dev/null 2>&1 &
             
